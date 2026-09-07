@@ -1,0 +1,10 @@
+*.o
+*.out
+*.bin
+porter
+*.log
+*.sqlite
+*.db
+.DS_Store
+.vscode/
+.idea/
