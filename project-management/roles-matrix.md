@@ -7,3 +7,14 @@
 | **Ángel Vences** | `angel.vences6219@alumnos.udg.mx` | Persistencia y Operación | `persistencia.py`, `bitacora.py`, `operacion.py` | RF-11, 12, 13, 14, 15, 16, 23, 24 | RNF-06, 10, 11, 15, 16, 22, 25, 28, 31, 34 | Marcos Garcia |
 | **Marcos Garcia** | `albertodejesus.garcia@alumnos.udg.mx` | Lanzador de Procesos | `launcher.py` | RF-04, 10, 26, 29, 30 | RNF-03, 09, 30, 33 | Dylan |
 | **Edson Ruiz** | `edson.ruiz5392@alumnos.udg.mx` | Verificación y Trazabilidad | Mantener matriz y `TC-XXX` | Ninguno propio (verifica los de todos) | RNF-01, 02, 17, 18, 19, 20 (transversales) | Código general |
+
+
+## Roles de proceso
+
+
+| Rol de proceso | Quién | Qué hace |
+|---|---|---|
+| **Autor** | Cada integrante, sobre su propio módulo | Implementa el código y escribe/ejecuta las pruebas de lo que programó |
+| **Revisor** | Cada integrante, sobre el módulo de otro (ver "Revisa a" en la tabla de arriba) | Confirma resultados críticos antes de fusionar un Pull Request |
+| **Líder de verificación** | Edson | Mantiene el plan de verificación y la matriz de trazabilidad; coordina que cada RF/RNF tenga su TC-XXX |
+| **Responsable de producto** | Ángel | Decide si un defecto se acepta como excepción o bloquea la entrega; aprueba cambios de alcance (Change Requests) |
