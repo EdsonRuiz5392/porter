@@ -11,9 +11,12 @@ trabajo (Job) viven en persistencia — la cola no necesita saber nada más que
 a quién le toca después.
 """
 
+from collections import deque
+
 
 class QueueFullError(Exception):
     """Se intenta meter un trabajo cuando ya no hay espacio (RF-25)."""
+    pass
 
 
 class Cola:
@@ -23,11 +26,12 @@ class Cola:
         donde ir guardando los IDs en el orden en que llegan (una fila
         "FIFO": el primero que entra es el primero que sale).
         """
-        raise NotImplementedError
+        self.max_size = max_size
+        self._queue: deque[str] = deque()
 
     def is_full(self) -> bool:
         """True si ya se llegó al máximo permitido."""
-        raise NotImplementedError
+        return len(self._queue) >= self.max_size
 
     def enqueue(self, job_id: str) -> None:
         """
@@ -37,14 +41,18 @@ class Cola:
         QueueFullError si de todos modos se le pide meter algo sin espacio,
         por si algún día alguien se le olvida checar primero.
         """
-        raise NotImplementedError
+        if self.is_full():
+            raise QueueFullError("La cola de trabajos está llena.")
+        self._queue.append(job_id)
 
     def dequeue(self) -> str | None:
         """
         Saca y regresa el job_id que lleva más tiempo esperando (el primero
         que entró). Si la fila está vacía, regresa None en vez de fallar.
         """
-        raise NotImplementedError
+        if len(self._queue) > 0:
+            return self._queue.popleft()
+        return None
 
     def remove(self, job_id: str) -> bool:
         """
@@ -55,8 +63,12 @@ class Cola:
         Regresa True si lo encontró y lo quitó, False si ese job_id no estaba
         en la fila.
         """
-        raise NotImplementedError
+        try:
+            self._queue.remove(job_id)
+            return True
+        except ValueError:
+            return False
 
     def size(self) -> int:
         """Cuántos trabajos hay esperando en este momento."""
-        raise NotImplementedError
+        return len(self._queue)

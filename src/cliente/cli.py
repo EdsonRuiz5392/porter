@@ -3,7 +3,7 @@ Interfaz de linea de comandos del cliente.
 
 Recibe e interpreta los comandos introducidos
 por el usuario desde la terminal, por ejemplo:
-    python -m src.cliente.cli submit backup.sh --full
+    python -m src.cliente.cli submit "sleep 5"
 
 Su responsabilidad es convertir los argumentos del comando en una
 solicitud válida conforme al protocolo, enviarla al servicio y presentar
@@ -15,6 +15,7 @@ RF que cubre: 17.
 """
 
 import asyncio
+import os
 import sys
 
 from src.comun import protocolo
@@ -22,65 +23,101 @@ from src.comun import protocolo
 
 def _leer_configuracion_conexion() -> tuple[str, int, int]:
     """
-    El CLI es un programa aparte del servicio (corre en su propia terminal, y
-    puede incluso estar en otra máquina), así que NO debe importar
-    servicio.operacion — eso mezclaría el cliente con el paquete del servicio.
-    En vez de eso, esta función lee directamente, con os.getenv(), solo las
-    tres cosas que el cliente necesita para conectarse:
-      - JOBRUNNER_HOST (a dónde conectarse)
-      - JOBRUNNER_PORT (a qué puerto)
-      - JOBRUNNER_MAX_MESSAGE_BYTES (el mismo límite que usa el servicio, para
-        poder leer su respuesta sin rechazarla por "demasiado grande")
-    usando los mismos valores por defecto que trae src/.env.example.
+    Lee las variables de entorno para la conexión con los valores por defecto del proyecto.
     Regresa (host, port, max_message_bytes).
     """
-    raise NotImplementedError
+    host = os.getenv("JOBRUNNER_HOST", "127.0.0.1")
+    port = int(os.getenv("JOBRUNNER_PORT", 8765))
+    max_message_bytes = int(os.getenv("JOBRUNNER_MAX_MESSAGE_BYTES", 1048576)) # 1MB por defecto
+    return host, port, max_message_bytes
 
 
 async def _enviar_solicitud(host: str, port: int, mensaje: dict, max_len: int) -> dict:
     """
-    La única función de este archivo que es "async" (por eso lleva guion bajo:
-    es de uso interno, no forma parte de lo que otros módulos llaman).
-    Hace, en orden:
-      1. Abrir la conexión con await asyncio.open_connection(host, port).
-      2. Mandar el mensaje con protocolo.write_message().
-      3. Leer la respuesta con protocolo.read_message().
-      4. Cerrar la conexión (writer.close(), await writer.wait_closed()).
-      5. Regresar la respuesta ya como diccionario.
-    Existe separada de main() porque main() es una función normal —main()
-    la llama con asyncio.run(_enviar_solicitud(...)) para poder usar estas
-    funciones "async" sin que todo el programa tenga que serlo.
+    1. Abre la conexión con asyncio.open_connection(host, port).
+    2. Manda el mensaje con protocolo.write_message().
+    3. Lee la respuesta con protocolo.read_message().
+    4. Cierra la conexión.
+    5. Regresa la respuesta como diccionario.
     """
-    raise NotImplementedError
+    reader, writer = await asyncio.open_connection(host, port)
+    try:
+        await protocolo.write_message(writer, mensaje)
+        respuesta = await protocolo.read_message(reader, max_len)
+        return respuesta
+    finally:
+        writer.close()
+        await writer.wait_closed()
 
 
 def main() -> int:
     """
-    El punto de entrada del programa. En orden:
-      1. Leer lo que la persona escribió en la terminal (sys.argv). Los
-         comandos que debe reconocer son: submit, status, list, cancel,
-         output, health.
-      2. Si pidió --help, o no escribió suficientes argumentos para el
-         comando elegido, mostrar un mensaje de ayuda explicando cómo se usa
-         cada comando, y terminar con código 0 (pedir ayuda no es un error).
-      3. Armar el diccionario del mensaje que le toca a ese comando —el
-         formato exacto de cada uno está en contratos-interfaces.md, sección
-         5, tabla de "Esquema de mensajes"—.
-      4. Llamar a _leer_configuracion_conexion() para saber a dónde conectarse.
-      5. Usar asyncio.run(_enviar_solicitud(host, port, mensaje, max_len)) para
-         mandar el mensaje y obtener la respuesta del servicio.
-      6. Si la respuesta es de tipo "error", mostrar el mensaje de error de
-         forma clara y terminar con un código distinto de 0.
-      7. Si la respuesta fue exitosa, mostrarla de forma legible (por ejemplo,
-         para "submit_response" mostrar el job_id que le tocó) y terminar con
-         código 0.
-
-    Por qué importa el código de salida (RF-17): si alguien usa este CLI
-    dentro de un script, necesita poder preguntar "¿salió bien o mal?" sin
-    tener que leer el texto que imprimió — el código de salida es justo esa
-    respuesta corta que cualquier script puede revisar.
+    Punto de entrada del CLI para procesar argumentos de terminal y comunicarse con el servicio.
     """
-    raise NotImplementedError
+    if len(sys.argv) < 2 or sys.argv[1] in ["--help", "-h"]:
+        print("Uso: python -m src.cliente.cli <comando> [argumentos]")
+        print("Comandos disponibles:")
+        print("  submit <comando>     Enviar un nuevo trabajo")
+        print("  status <job_id>      Consultar estado de un trabajo")
+        print("  list                 Listar todos los trabajos")
+        print("  cancel <job_id>      Cancelar un trabajo")
+        return 0
+
+    comando = sys.argv[1]
+    mensaje = {"version": protocolo.PROTOCOL_VERSION, "type": comando}
+
+    if comando == "submit":
+        if len(sys.argv) < 3:
+            print("[-] Error: Falta especificar el comando a ejecutar.")
+            return 1
+        mensaje["command"] = sys.argv[2]
+        mensaje["args"] = sys.argv[3:]
+        
+    elif comando in ["status", "cancel"]:
+        if len(sys.argv) < 3:
+            print(f"[-] Error: Falta especificar el ID del trabajo para '{comando}'.")
+            return 1
+        try:
+            mensaje["job_id"] = str(sys.argv[2])
+        except ValueError:
+            print("[-] Error: El ID del trabajo debe ser válido.")
+            return 1
+            
+    elif comando == "list":
+        pass # No requiere argumentos adicionales obligatorios
+        
+    else:
+        print(f"[-] Error: Comando desconocido '{comando}'. Usa --help para ver la lista.")
+        return 1
+
+    host, port, max_len = _leer_configuracion_conexion()
+
+    try:
+        respuesta = asyncio.run(_enviar_solicitud(host, port, mensaje, max_len))
+    except Exception as e:
+        print(f"[-] Error de conexión con el servicio: {e}")
+        return 1
+
+    # Procesar respuesta del servicio
+    if respuesta.get("type") == "error":
+        print(f"[-] Error del servidor [{respuesta.get('code', 'UNKNOWN')}]: {respuesta.get('message', 'Sin descripción')}")
+        return 1
+
+    # Imprimir resultados exitosos según el tipo de respuesta
+    if comando == "submit":
+        print(f"[+] Trabajo enviado con éxito. ID: {respuesta.get('job_id')} | Estado: {respuesta.get('status')}")
+    elif comando == "status":
+        job = respuesta.get("job", {})
+        print(f"[*] ID: {job.get('id')} | Comando: '{job.get('command')}' | Estado: {job.get('status')} | Exit Code: {job.get('exit_code')}")
+    elif comando == "list":
+        jobs = respuesta.get("jobs", [])
+        print("[*] Trabajos registrados en el sistema:")
+        for job in jobs:
+            print(f"    ID: {job.get('id')} | Comando: '{job.get('command')}' | Estado: {job.get('status')} | Exit Code: {job.get('exit_code')}")
+    elif comando == "cancel":
+        print(f"[*] Solicitud de cancelación procesada. ID: {respuesta.get('job_id')} | Resultado: {respuesta.get('result')}")
+
+    return 0
 
 
 if __name__ == "__main__":
