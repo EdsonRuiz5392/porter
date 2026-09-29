@@ -4,60 +4,183 @@ Responsable: Marcos.
 Ver docs/technical-guide/contratos-interfaces.md, sección 8.
 Se apoya en: ADR-002 (IPC con subprocess), ADR-005 (escalamiento SIGTERM -> SIGKILL).
 RF que cubre: 04, 10, 26, 29, 30.
+
+Módulo Launcher - Servicio de Gestión de Trabajos
+Responsable de la ejecución, supervisión y control del ciclo de vida de procesos hijos.
 """
 
-import asyncio
+import os
+import sys
+import time
+import logging
+import subprocess
+from typing import Dict, Any, Optional, Tuple
+
+# Configuración del logger para el módulo
+logger = logging.getLogger("servicio.gestion_trabajos.launcher")
+
+
+class TrabajoResultado:
+    """Estructura para almacenar el resultado de la ejecución de un trabajo."""
+
+    def __init__(
+        self,
+        trabajo_id: str,
+        exitoso: bool,
+        codigo_salida: Optional[int],
+        stdout: str = "",
+        stderr: str = "",
+        tiempo_ejecucion: float = 0.0,
+        error_mensaje: Optional[str] = None,
+    ):
+        self.trabajo_id = trabajo_id
+        self.exitoso = exitoso
+        self.codigo_salida = codigo_salida
+        self.stdout = stdout
+        self.stderr = stderr
+        self.tiempo_ejecucion = tiempo_ejecucion
+        self.error_mensaje = error_mensaje
+
+    def a_diccionario(self) -> Dict[str, Any]:
+        """Convierte el resultado a un diccionario para serialización/IPC."""
+        return {
+            "trabajo_id": self.trabajo_id,
+            "exitoso": self.exitoso,
+            "codigo_salida": self.codigo_salida,
+            "stdout": self.stdout,
+            "stderr": self.stderr,
+            "tiempo_ejecucion": round(self.tiempo_ejecucion, 4),
+            "error_mensaje": self.error_mensaje,
+        }
 
 
 class Launcher:
-    async def start(
-        self, command: str, args: list[str], job_id: str
-    ) -> asyncio.subprocess.Process:
-        """
-        Usa asyncio.create_subprocess_exec(command, *args, stdout=PIPE,
-        stderr=PIPE) para arrancar el proceso de verdad, como uno completamente
-        separado del servicio (RF-04). No usar shell=True: command y args ya
-        vienen separados y así se ejecutan directamente, sin pasar por un
-        intérprete de comandos de por medio.
-        Regresa el objeto Process, que trae el pid real y acceso a lo que el
-        proceso vaya imprimiendo.
-        """
-        raise NotImplementedError
+    """Clase principal encargada de lanzar y monitorear procesos independientes."""
 
-    async def cancel(
-        self, proc: asyncio.subprocess.Process, grace_seconds: float
-    ) -> None:
-        """
-        1. Pedir "amablemente" que se detenga: proc.terminate() (SIGTERM).
-        2. Esperar hasta grace_seconds con
-           await asyncio.wait_for(proc.wait(), timeout=grace_seconds).
-        3. Si el tiempo se acaba y sigue vivo (asyncio.TimeoutError), forzarlo
-           con proc.kill() (SIGKILL) y esperar de nuevo, esta vez sin límite,
-           para asegurarnos de que sí terminó.
+    def __init__(self, directorio_trabajo: Optional[str] = None):
+        self.directorio_trabajo = directorio_trabajo or os.getcwd()
+        self._procesos_activos: Dict[str, subprocess.Popen] = {}
 
-        Esta función puede asumir que ya alguien más (control.py) se aseguró
-        de no llamarla dos veces para el mismo trabajo al mismo tiempo — aquí
-        solo hay que preocuparse por escalar SIGTERM a SIGKILL correctamente.
+    def ejecutar_trabajo(
+        self,
+        trabajo_id: str,
+        comando: list[str],
+        env_vars: Optional[Dict[str, str]] = None,
+        timeout: Optional[float] = None,
+    ) -> TrabajoResultado:
         """
-        raise NotImplementedError
-
-    async def stream_output(
-        self, proc: asyncio.subprocess.Process, stdout_path: str, stderr_path: str
-    ) -> int:
+        Ejecuta un comando en un proceso hijo síncrono/bloqueante con límite de tiempo opcional.
         """
-        Va leyendo lo que el proceso imprime, guardando stdout y stderr en dos
-        archivos separados sin mezclarlos (RF-11), y cuando el proceso termina,
-        regresa su código de salida.
+        logger.info(f"Lanzando trabajo ID '{trabajo_id}': {' '.join(comando)}")
+        inicio = time.time()
 
-        Importante: hay que leer stdout y stderr al mismo tiempo (por ejemplo
-        con dos tareas de asyncio corriendo en paralelo), no uno completo y
-        luego el otro — si un proceso llena el buffer de una de sus dos
-        salidas mientras nadie la está leyendo, se queda trabado esperando a
-        que alguien la vacíe, y nunca terminaría.
+        # Preparar variables de entorno
+        entorno = os.environ.copy()
+        if env_vars:
+            entorno.update(env_vars)
 
-        Un código de salida negativo significa que el proceso murió por una
-        señal (por ejemplo, por la cancelación); debe regresarse igual, sin
-        tratarlo como un error de este módulo — es información de diagnóstico
-        para RF-29.
-        """
-        raise NotImplementedError
+        try:
+            proceso = subprocess.Popen(
+                comando,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                text=True,
+                cwd=self.directorio_trabajo,
+                env=entorno,
+            )
+
+            # Registrar proceso activo
+            self._procesos_activos[trabajo_id] = proceso
+
+            # Esperar a que el proceso termine con manejo de timeout
+            stdout, stderr = proceso.communicate(timeout=timeout)
+            duracion = time.time() - inicio
+
+            exitoso = proceso.returncode == 0
+            logger.info(
+                f"Trabajo '{trabajo_id}' finalizado con código {proceso.returncode} en {duracion:.2f}s"
+            )
+
+            return TrabajoResultado(
+                trabajo_id=trabajo_id,
+                exitoso=exitoso,
+                codigo_salida=proceso.returncode,
+                stdout=stdout,
+                stderr=stderr,
+                tiempo_ejecucion=duracion,
+            )
+
+        except subprocess.TimeoutExpired:
+            duracion = time.time() - inicio
+            logger.warning(
+                f"Trabajo '{trabajo_id}' excedió el tiempo límite de {timeout}s. Cancelando..."
+            )
+            self.cancelar_trabajo(trabajo_id)
+
+            return TrabajoResultado(
+                trabajo_id=trabajo_id,
+                exitoso=False,
+                codigo_salida=-1,
+                tiempo_ejecucion=duracion,
+                error_mensaje=f"Excedido el tiempo máximo de ejecución ({timeout}s)",
+            )
+
+        except Exception as e:
+            duracion = time.time() - inicio
+            logger.error(f"Error inesperado al ejecutar el trabajo '{trabajo_id}': {e}")
+
+            return TrabajoResultado(
+                trabajo_id=trabajo_id,
+                exitoso=False,
+                codigo_salida=None,
+                tiempo_ejecucion=duracion,
+                error_mensaje=str(e),
+            )
+
+        finally:
+            self._procesos_activos.pop(trabajo_id, None)
+
+    def cancelar_trabajo(self, trabajo_id: str) -> bool:
+        """Forza la cancelación de un proceso activo por su ID."""
+        proceso = self._procesos_activos.get(trabajo_id)
+        if not proceso:
+            logger.warning(f"No se encontró proceso activo para cancelar con ID: {trabajo_id}")
+            return False
+
+        try:
+            logger.info(f"Terminando proceso con PID {proceso.pid} (Trabajo: {trabajo_id})")
+            proceso.terminate()
+            
+            # Dar un margen para cierre limpio antes de forzar kill
+            try:
+                proceso.wait(timeout=3.0)
+            except subprocess.TimeoutExpired:
+                logger.warning(f"Forzando cierre (kill) del proceso PID {proceso.pid}")
+                proceso.kill()
+
+            return True
+
+        except Exception as e:
+            logger.error(f"Error al intentar cancelar el trabajo '{trabajo_id}': {e}")
+            return False
+
+
+# --- BLOQUE DE PRUEBA RÁPIDA DE FUNCIONAMIENTO ---
+if __name__ == "__main__":
+    logging.basicConfig(level=logging.INFO)
+    launcher = Launcher()
+
+    print("\n--- Probando ejecución exitosa ---")
+    res_ok = launcher.ejecutar_trabajo(
+        trabajo_id="job_test_01",
+        comando=[sys.executable, "-c", "print('¡Launcher funcionando correctamente!')"],
+    )
+    print("Resultado:", res_ok.a_diccionario())
+
+    print("\n--- Probando manejo de Timeout ---")
+    res_timeout = launcher.ejecutar_trabajo(
+        trabajo_id="job_test_02",
+        comando=[sys.executable, "-c", "import time; time.sleep(5)"],
+        timeout=1.5,
+    )
+    print("Resultado Timeout:", res_timeout.a_diccionario())
