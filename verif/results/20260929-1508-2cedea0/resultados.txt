@@ -1,0 +1,120 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.3.2, pluggy-1.6.0 -- /home/ubuntu/Escritorio/porter/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /home/ubuntu/Escritorio/porter
+collecting ... collected 56 items
+
+verif/scripts/test_contratos.py::test_funcion_cumple_contrato[protocolo.read_message] PASSED [  1%]
+verif/scripts/test_contratos.py::test_funcion_cumple_contrato[protocolo.write_message] PASSED [  3%]
+verif/scripts/test_contratos.py::test_funcion_cumple_contrato[entrada.handle_client] PASSED [  5%]
+verif/scripts/test_contratos.py::test_funcion_cumple_contrato[entrada.main] PASSED [  7%]
+verif/scripts/test_contratos.py::test_funcion_cumple_contrato[cola.Cola.__init__] PASSED [  8%]
+verif/scripts/test_contratos.py::test_funcion_cumple_contrato[cola.Cola.is_full] PASSED [ 10%]
+verif/scripts/test_contratos.py::test_funcion_cumple_contrato[cola.Cola.enqueue] PASSED [ 12%]
+verif/scripts/test_contratos.py::test_funcion_cumple_contrato[cola.Cola.dequeue] PASSED [ 14%]
+verif/scripts/test_contratos.py::test_funcion_cumple_contrato[cola.Cola.remove] PASSED [ 16%]
+verif/scripts/test_contratos.py::test_funcion_cumple_contrato[cola.Cola.size] PASSED [ 17%]
+verif/scripts/test_contratos.py::test_funcion_cumple_contrato[control.Control.__init__] PASSED [ 19%]
+verif/scripts/test_contratos.py::test_funcion_cumple_contrato[control.Control.submit] PASSED [ 21%]
+verif/scripts/test_contratos.py::test_funcion_cumple_contrato[control.Control.get] PASSED [ 23%]
+verif/scripts/test_contratos.py::test_funcion_cumple_contrato[control.Control.list] PASSED [ 25%]
+verif/scripts/test_contratos.py::test_funcion_cumple_contrato[control.Control.request_cancel] PASSED [ 26%]
+verif/scripts/test_contratos.py::test_funcion_cumple_contrato[control.Control.get_output] PASSED [ 28%]
+verif/scripts/test_contratos.py::test_funcion_cumple_contrato[control.Control.mark_running] PASSED [ 30%]
+verif/scripts/test_contratos.py::test_funcion_cumple_contrato[control.Control.mark_finished] PASSED [ 32%]
+verif/scripts/test_contratos.py::test_funcion_cumple_contrato[control.Control.recover_on_startup] PASSED [ 33%]
+verif/scripts/test_contratos.py::test_funcion_cumple_contrato[control.Control.is_accepting] PASSED [ 35%]
+verif/scripts/test_contratos.py::test_funcion_cumple_contrato[control.Control.stop_accepting] PASSED [ 37%]
+verif/scripts/test_contratos.py::test_funcion_cumple_contrato[control.Control.running_count] PASSED [ 39%]
+verif/scripts/test_contratos.py::test_funcion_cumple_contrato[control.Control.queued_count] PASSED [ 41%]
+verif/scripts/test_contratos.py::test_funcion_cumple_contrato[control.Control.recent_errors_count] PASSED [ 42%]
+verif/scripts/test_contratos.py::test_funcion_cumple_contrato[launcher.Launcher.start] FAILED [ 44%]
+verif/scripts/test_contratos.py::test_funcion_cumple_contrato[launcher.Launcher.cancel] FAILED [ 46%]
+verif/scripts/test_contratos.py::test_funcion_cumple_contrato[launcher.Launcher.stream_output] FAILED [ 48%]
+verif/scripts/test_contratos.py::test_funcion_cumple_contrato[persistencia.Persistencia.__init__] PASSED [ 50%]
+verif/scripts/test_contratos.py::test_funcion_cumple_contrato[persistencia.Persistencia.save_job] PASSED [ 51%]
+verif/scripts/test_contratos.py::test_funcion_cumple_contrato[persistencia.Persistencia.load_job] PASSED [ 53%]
+verif/scripts/test_contratos.py::test_funcion_cumple_contrato[persistencia.Persistencia.load_all] PASSED [ 55%]
+verif/scripts/test_contratos.py::test_funcion_cumple_contrato[persistencia.Persistencia.find_by_client_request_id] PASSED [ 57%]
+verif/scripts/test_contratos.py::test_funcion_cumple_contrato[bitacora.Bitacora.__init__] PASSED [ 58%]
+verif/scripts/test_contratos.py::test_funcion_cumple_contrato[bitacora.Bitacora.log_event] PASSED [ 60%]
+verif/scripts/test_contratos.py::test_funcion_cumple_contrato[operacion.load_config] PASSED [ 62%]
+verif/scripts/test_contratos.py::test_funcion_cumple_contrato[operacion.shutdown] PASSED [ 64%]
+verif/scripts/test_contratos.py::test_funcion_cumple_contrato[operacion.health_summary] PASSED [ 66%]
+verif/scripts/test_contratos.py::test_funcion_cumple_contrato[operacion.check_rate_limit] PASSED [ 67%]
+verif/scripts/test_contratos.py::test_funcion_cumple_contrato[cli._leer_configuracion_conexion] PASSED [ 69%]
+verif/scripts/test_contratos.py::test_funcion_cumple_contrato[cli._enviar_solicitud] PASSED [ 71%]
+verif/scripts/test_contratos.py::test_funcion_cumple_contrato[cli.main] PASSED [ 73%]
+verif/scripts/test_contratos.py::test_constante_de_protocolo_existe[PROTOCOL_VERSION] PASSED [ 75%]
+verif/scripts/test_contratos.py::test_constante_de_protocolo_existe[ERROR_INVALID_REQUEST] PASSED [ 76%]
+verif/scripts/test_contratos.py::test_constante_de_protocolo_existe[ERROR_QUEUE_FULL] PASSED [ 78%]
+verif/scripts/test_contratos.py::test_constante_de_protocolo_existe[ERROR_NOT_FOUND] PASSED [ 80%]
+verif/scripts/test_contratos.py::test_constante_de_protocolo_existe[ERROR_VERSION_UNSUPPORTED] PASSED [ 82%]
+verif/scripts/test_contratos.py::test_constante_de_protocolo_existe[ERROR_SERVICE_CLOSING] PASSED [ 83%]
+verif/scripts/test_contratos.py::test_constante_de_protocolo_existe[ERROR_INTERNAL] PASSED [ 85%]
+verif/scripts/test_contratos.py::test_excepcion_definida[protocolo.ProtocolError] PASSED [ 87%]
+verif/scripts/test_contratos.py::test_excepcion_definida[protocolo.MessageTooLargeError] PASSED [ 89%]
+verif/scripts/test_contratos.py::test_excepcion_definida[protocolo.InvalidMessageError] PASSED [ 91%]
+verif/scripts/test_contratos.py::test_excepcion_definida[control.ControlError] PASSED [ 92%]
+verif/scripts/test_contratos.py::test_excepcion_definida[control.InvalidRequestError] PASSED [ 94%]
+verif/scripts/test_contratos.py::test_excepcion_definida[control.QueueFullError] PASSED [ 96%]
+verif/scripts/test_contratos.py::test_excepcion_definida[control.ServiceClosingError] PASSED [ 98%]
+verif/scripts/test_contratos.py::test_excepcion_definida[persistencia.DuplicateClientRequestError] PASSED [100%]
+
+=================================== FAILURES ===================================
+____________ test_funcion_cumple_contrato[launcher.Launcher.start] _____________
+
+contrato = ('src.servicio.gestion_trabajos.launcher', 'Launcher', 'start', True, ['command', 'args', 'job_id'])
+
+    @pytest.mark.parametrize("contrato", CONTRATOS, ids=_nombre_corto)
+    def test_funcion_cumple_contrato(contrato):
+        modulo, clase, nombre, es_async, esperados = contrato
+        mod = importlib.import_module(modulo)
+        objeto = getattr(mod, clase) if clase else mod
+        donde = f"{modulo}{'.' + clase if clase else ''}"
+    
+>       assert hasattr(objeto, nombre), f"falta {nombre} en {donde}"
+E       AssertionError: falta start en src.servicio.gestion_trabajos.launcher.Launcher
+E       assert False
+E        +  where False = hasattr(<class 'src.servicio.gestion_trabajos.launcher.Launcher'>, 'start')
+
+verif/scripts/test_contratos.py:107: AssertionError
+____________ test_funcion_cumple_contrato[launcher.Launcher.cancel] ____________
+
+contrato = ('src.servicio.gestion_trabajos.launcher', 'Launcher', 'cancel', True, ['proc', 'grace_seconds'])
+
+    @pytest.mark.parametrize("contrato", CONTRATOS, ids=_nombre_corto)
+    def test_funcion_cumple_contrato(contrato):
+        modulo, clase, nombre, es_async, esperados = contrato
+        mod = importlib.import_module(modulo)
+        objeto = getattr(mod, clase) if clase else mod
+        donde = f"{modulo}{'.' + clase if clase else ''}"
+    
+>       assert hasattr(objeto, nombre), f"falta {nombre} en {donde}"
+E       AssertionError: falta cancel en src.servicio.gestion_trabajos.launcher.Launcher
+E       assert False
+E        +  where False = hasattr(<class 'src.servicio.gestion_trabajos.launcher.Launcher'>, 'cancel')
+
+verif/scripts/test_contratos.py:107: AssertionError
+________ test_funcion_cumple_contrato[launcher.Launcher.stream_output] _________
+
+contrato = ('src.servicio.gestion_trabajos.launcher', 'Launcher', 'stream_output', True, ['proc', 'stdout_path', 'stderr_path'])
+
+    @pytest.mark.parametrize("contrato", CONTRATOS, ids=_nombre_corto)
+    def test_funcion_cumple_contrato(contrato):
+        modulo, clase, nombre, es_async, esperados = contrato
+        mod = importlib.import_module(modulo)
+        objeto = getattr(mod, clase) if clase else mod
+        donde = f"{modulo}{'.' + clase if clase else ''}"
+    
+>       assert hasattr(objeto, nombre), f"falta {nombre} en {donde}"
+E       AssertionError: falta stream_output en src.servicio.gestion_trabajos.launcher.Launcher
+E       assert False
+E        +  where False = hasattr(<class 'src.servicio.gestion_trabajos.launcher.Launcher'>, 'stream_output')
+
+verif/scripts/test_contratos.py:107: AssertionError
+=========================== short test summary info ============================
+FAILED verif/scripts/test_contratos.py::test_funcion_cumple_contrato[launcher.Launcher.start]
+FAILED verif/scripts/test_contratos.py::test_funcion_cumple_contrato[launcher.Launcher.cancel]
+FAILED verif/scripts/test_contratos.py::test_funcion_cumple_contrato[launcher.Launcher.stream_output]
+========================= 3 failed, 53 passed in 0.06s =========================
