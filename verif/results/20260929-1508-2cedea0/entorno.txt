@@ -1,0 +1,6 @@
+caso: prueba de contratos (RNF-17, RNF-18, RNF-20)
+commit probado: 2cedea03909a36689369f1592023021f7a930dbc
+fecha: 2026-09-29T15:08:31-06:00
+entorno: Ubuntu 24.04.4 LTS, Python 3.12.3, pytest 8.3.2
+comando: python -m pytest verif/scripts/test_contratos.py -v
+resumen: 3 failed, 53 passed - launcher.Launcher sin start/cancel/stream_output
