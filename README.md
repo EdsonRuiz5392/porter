@@ -21,3 +21,4 @@ cd porter
 ## Estado del Proyecto
 * **Fase:** Hito 0 — Inicio y Línea Base.
 * **Avance:** Estructura de repositorio completada, organización de 5 integrantes formalizada e Issues en seguimiento.
+# Actualización de autoría para Avance 01
