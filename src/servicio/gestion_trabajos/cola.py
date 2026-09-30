@@ -34,9 +34,9 @@ class Cola:
         """True si ya se llegó al máximo permitido."""
         return len(self._queue) >= self.max_size
 
-    async def enqueue(self, job_id: str) -> None:
+    def enqueue(self, job_id: str) -> None:
         """
-        Agrega un job_id al final de la fila de forma asíncrona.
+        Agrega un job_id al final de la fila de forma síncrona según contrato.
         Quien llame a esta función debería haber revisado is_full() antes —
         pero conviene que enqueue() también se proteja a sí misma y lance
         QueueFullError si de todos modos se le pide meter algo sin espacio.
@@ -45,10 +45,10 @@ class Cola:
             raise QueueFullError("La cola de trabajos está llena.")
         self._queue.append(job_id)
 
-    async def dequeue(self) -> Optional[str]:
+    def dequeue(self) -> Optional[str]:
         """
         Saca y regresa el job_id que lleva más tiempo esperando (el primero
-        que entró) de forma asíncrona. Si la fila está vacía, regresa None en vez de fallar.
+        que entró) de forma síncrona según contrato. Si la fila está vacía, regresa None en vez de fallar.
         """
         if len(self._queue) > 0:
             return self._queue.popleft()
