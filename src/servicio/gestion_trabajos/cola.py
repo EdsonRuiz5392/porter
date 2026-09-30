@@ -12,6 +12,7 @@ a quién le toca después.
 """
 
 from collections import deque
+from typing import Optional
 
 
 class QueueFullError(Exception):
@@ -33,22 +34,21 @@ class Cola:
         """True si ya se llegó al máximo permitido."""
         return len(self._queue) >= self.max_size
 
-    def enqueue(self, job_id: str) -> None:
+    async def enqueue(self, job_id: str) -> None:
         """
-        Agrega un job_id al final de la fila.
+        Agrega un job_id al final de la fila de forma asíncrona.
         Quien llame a esta función debería haber revisado is_full() antes —
         pero conviene que enqueue() también se proteja a sí misma y lance
-        QueueFullError si de todos modos se le pide meter algo sin espacio,
-        por si algún día alguien se le olvida checar primero.
+        QueueFullError si de todos modos se le pide meter algo sin espacio.
         """
         if self.is_full():
             raise QueueFullError("La cola de trabajos está llena.")
         self._queue.append(job_id)
 
-    def dequeue(self) -> str | None:
+    async def dequeue(self) -> Optional[str]:
         """
         Saca y regresa el job_id que lleva más tiempo esperando (el primero
-        que entró). Si la fila está vacía, regresa None en vez de fallar.
+        que entró) de forma asíncrona. Si la fila está vacía, regresa None en vez de fallar.
         """
         if len(self._queue) > 0:
             return self._queue.popleft()
