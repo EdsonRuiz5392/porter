@@ -1,0 +1,6 @@
+# JobRunner - dependencias
+# sqlite3 y asyncio ya vienen en la librería estándar de Python, no se declaran aquí.
+# Agregar aquí cualquier dependencia externa que el equipo decida usar,
+# fijando versión (ej. pytest==8.3.2), y justificar su uso en un ADR o comentario.
+
+pytest==8.3.2

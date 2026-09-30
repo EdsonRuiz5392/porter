@@ -26,3 +26,4 @@ async def write_message(writer, message: dict) -> None:
     
     writer.write(header + payload_bytes)
     await writer.drain()
+
