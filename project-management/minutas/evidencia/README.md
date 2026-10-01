@@ -1,6 +1,6 @@
 # Evidencia de las juntas
 
-Capturas de pantalla de cada junta. Las minutas de la carpeta superior las muestran con estos nombres de archivo; al guardar aquí una imagen con el nombre indicado, aparece automáticamente en su minuta.
+Capturas de pantalla de cada junta, mostradas en las minutas de la carpeta superior.
 
 | Archivo | Junta | Contenido |
 |---|---|---|
@@ -13,4 +13,4 @@ Capturas de pantalla de cada junta. Las minutas de la carpeta superior las muest
 | `junta4-01.png` | 4 · 1 oct | Bitácora y base de datos funcionando |
 | `junta4-02.png` | 4 · 1 oct | Chat de la llamada sobre el diagrama |
 
-Para agregar una imagen desde la web de GitHub: entrar a esta carpeta → **Add file** → **Upload files** → arrastrar el archivo ya renombrado → confirmar.
+Las imágenes actuales son versiones reducidas. Para sustituir una por la captura original en tamaño completo, basta subir el archivo con el mismo nombre.
