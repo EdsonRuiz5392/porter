@@ -6,19 +6,23 @@ Ver docs/technical-guide/contratos-interfaces.md, sección 9.
 RF que cubre: 14.
 """
 
+from datetime import datetime, timezone
+
 
 class Bitacora:
     def __init__(self, log_path: str):
         """Guarda en qué archivo se va a escribir cada línea."""
-        raise NotImplementedError
+        self.log_path = log_path
 
     def log_event(self, job_id: str | None, event: str, detail: str = "") -> None:
         """
-        Arma una línea con: la fecha y hora exactas (UTC), el ID del trabajo
-        (o un guion "-" si el evento no es de ningún trabajo en particular),
-        el nombre del evento (por ejemplo "CREATED", "STARTED", "FINISHED",
-        "CANCELED", "REJECTED"), y cualquier detalle extra que ayude a
-        entender qué pasó, y la agrega al final del archivo de bitácora.
-        Debe permitir correlacionar una solicitud con su trabajo (RNF-22).
+        Arma una línea con la fecha/hora en UTC, formato ISO 8601 (no un
+        formato de texto hecho a mano), el ID del trabajo (o "-" si no
+        aplica), el evento y el detalle, y la agrega al archivo. Permite
+        correlacionar una solicitud con su trabajo (RNF-22).
         """
-        raise NotImplementedError
+        timestamp = datetime.now(timezone.utc).isoformat()
+        job_part = job_id if job_id else "-"
+        linea = f"{timestamp} | job={job_part} | {event} | {detail}\n"
+        with open(self.log_path, "a", encoding="utf-8") as f:
+            f.write(linea)
