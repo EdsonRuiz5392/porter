@@ -12,7 +12,11 @@ loop.run_in_executor(None, funcion_sincrona, ...) (o asyncio.to_thread()), para
 no congelar el resto del servicio mientras escribe o lee.
 """
 
-from src.comun.models import Job
+import asyncio
+import json
+import sqlite3
+
+from src.comun.models import Job, JobStatus
 
 
 class DuplicateClientRequestError(Exception):
@@ -35,7 +39,28 @@ class Persistencia:
         existe, incluyendo la restricción UNIQUE sobre client_request_id
         que se explica en DuplicateClientRequestError.
         """
-        raise NotImplementedError
+        self._conn = sqlite3.connect(db_path, check_same_thread=False)
+        self._conn.row_factory = sqlite3.Row
+        self._conn.execute("PRAGMA journal_mode=WAL;")
+        self._conn.execute(
+            """
+            CREATE TABLE IF NOT EXISTS jobs (
+                id TEXT PRIMARY KEY,
+                command TEXT NOT NULL,
+                args TEXT NOT NULL,
+                status TEXT NOT NULL,
+                client_request_id TEXT UNIQUE,
+                pid INTEGER,
+                submitted_at TEXT,
+                started_at TEXT,
+                finished_at TEXT,
+                exit_code INTEGER,
+                stdout_path TEXT,
+                stderr_path TEXT
+            )
+            """
+        )
+        self._conn.commit()
 
     async def save_job(self, job: Job) -> None:
         """
@@ -44,11 +69,83 @@ class Persistencia:
         pertenece a otro Job distinto, debe traducir el error de SQLite en
         DuplicateClientRequestError, para que control.py sepa qué pasó.
         """
-        raise NotImplementedError
+        loop = asyncio.get_running_loop()
+        await loop.run_in_executor(None, self._save_job_sync, job)
+
+    def _save_job_sync(self, job: Job) -> None:
+        """Parte bloqueante de save_job(); corre en un hilo aparte."""
+        try:
+            self._conn.execute(
+                """
+                INSERT INTO jobs (
+                    id, command, args, status, client_request_id, pid,
+                    submitted_at, started_at, finished_at, exit_code,
+                    stdout_path, stderr_path
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                ON CONFLICT(id) DO UPDATE SET
+                    command=excluded.command,
+                    args=excluded.args,
+                    status=excluded.status,
+                    client_request_id=excluded.client_request_id,
+                    pid=excluded.pid,
+                    submitted_at=excluded.submitted_at,
+                    started_at=excluded.started_at,
+                    finished_at=excluded.finished_at,
+                    exit_code=excluded.exit_code,
+                    stdout_path=excluded.stdout_path,
+                    stderr_path=excluded.stderr_path
+                """,
+                (
+                    job.id,
+                    job.command,
+                    json.dumps(job.args),
+                    job.status.value,
+                    job.client_request_id,
+                    job.pid,
+                    job.submitted_at,
+                    job.started_at,
+                    job.finished_at,
+                    job.exit_code,
+                    job.stdout_path,
+                    job.stderr_path,
+                ),
+            )
+            self._conn.commit()
+        except sqlite3.IntegrityError as exc:
+            raise DuplicateClientRequestError(
+                f"client_request_id {job.client_request_id!r} ya existe"
+            ) from exc
 
     async def load_job(self, job_id: str) -> Job | None:
         """Busca por id y regresa el Job reconstruido, o None si no existe."""
-        raise NotImplementedError
+        loop = asyncio.get_running_loop()
+        return await loop.run_in_executor(None, self._load_job_sync, job_id)
+
+    def _load_job_sync(self, job_id: str) -> Job | None:
+        """Parte bloqueante de load_job(); corre en un hilo aparte."""
+        row = self._conn.execute(
+            "SELECT * FROM jobs WHERE id = ?", (job_id,)
+        ).fetchone()
+        if row is None:
+            return None
+        return self._row_to_job(row)
+
+    def _row_to_job(self, row: sqlite3.Row) -> Job:
+        """Convierte una fila de la tabla de vuelta a un objeto Job."""
+        return Job(
+            id=row["id"],
+            command=row["command"],
+            args=json.loads(row["args"]),
+            status=JobStatus(row["status"]),
+            client_request_id=row["client_request_id"],
+            pid=row["pid"],
+            submitted_at=row["submitted_at"],
+            started_at=row["started_at"],
+            finished_at=row["finished_at"],
+            exit_code=row["exit_code"],
+            stdout_path=row["stdout_path"],
+            stderr_path=row["stderr_path"],
+        )
 
     async def load_all(self) -> list[Job]:
         """
