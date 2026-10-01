@@ -100,7 +100,7 @@ class Control:
             raise
 
         self.bitacora.log_event(job_id, "CREATED", f"Comando: {command}")
-        await self.cola.enqueue(job_id)
+        self.cola.enqueue(job_id)
         
         # Intentar despacho inmediato
         asyncio.create_task(self._try_dispatch())
@@ -124,7 +124,7 @@ class Control:
             return "ALREADY_FINISHED"
 
         if job.status == JobStatus.QUEUED:
-            removed = await self.cola.remove(job_id)
+            removed = self.cola.remove(job_id)
             if removed:
                 finished_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 job.status = JobStatus.CANCELED
@@ -205,7 +205,8 @@ class Control:
             if available_slots <= 0:
                 break
             
-            job_id = await self.cola.dequeue()
+            # Llamada síncrona a dequeue sin await
+            job_id = self.cola.dequeue()
             if not job_id:
                 break
 
@@ -248,7 +249,7 @@ class Control:
                 await self.persistencia.save_job(job)
                 self.bitacora.log_event(job.id, "INTERRUPTED", "Interrumpido por reinicio del servicio")
             elif job.status == JobStatus.QUEUED:
-                await self.cola.enqueue(job.id)
+                self.cola.enqueue(job.id)
         
         asyncio.create_task(self._try_dispatch())
 
