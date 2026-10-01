@@ -130,15 +130,3 @@ Registro de lo que ha ocurrido en el proyecto: juntas, commits, pull requests e 
 | #20 | Script de verificación con un solo comando | Edson | 29 sep | 29 sep |
 | #22 | Implementación y validación de `cli.py` | — | 29 sep | 29 sep |
 | #23 | Estructura de `cola.py` y lógica de `control.py` | — | 29 sep | 1 oct |
-
-## Lo que sigue hasta la Technical Review 1
-
-Plan propuesto; lo confirma el equipo en la siguiente junta.
-
-| Fecha | Actividad |
-|---|---|
-| 2–3 de octubre | Subir a `main` persistencia, bitácora y operación; alinear `protocolo` y `entrada` con el contrato; primera prueba de punta a punta |
-| 3–4 de octubre | Ejecutar los casos TC-001 a TC-006, TC-008, TC-014 y TC-015 y registrar la evidencia en `verif/results/` |
-| 4 de octubre | Etiquetar la versión del avance; ensayo de la presentación desde un clon limpio |
-| 5 de octubre | Confirmar que el repositorio está público; segundo ensayo |
-| 6 de octubre | Technical Review 1 |
