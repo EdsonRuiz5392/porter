@@ -5,65 +5,141 @@ Responsable: Ángel.
 Ver docs/technical-guide/contratos-interfaces.md, sección 9.
 Se apoya en: ADR-003 (SQLite/WAL), ADR-001 (despachar llamadas bloqueantes fuera del loop).
 RF que cubre: 12, 13.
-
-Nota propia: sqlite3 es una librería que bloquea mientras trabaja. Cada
-función de aquí abajo debe ejecutar la parte que toca disco con
-loop.run_in_executor(None, funcion_sincrona, ...) (o asyncio.to_thread()), para
-no congelar el resto del servicio mientras escribe o lee.
 """
 
-from src.comun.models import Job
+import sqlite3
+import json
+import asyncio
+from src.comun.models import Job, JobStatus
 
 
 class DuplicateClientRequestError(Exception):
     """
     Se lanza cuando se intenta guardar un Job cuyo client_request_id ya le
-    pertenece a otro. Existe como red de seguridad: aunque control.py ya
-    revisa duplicados antes de crear un Job, dos solicitudes casi
-    simultáneas con el mismo client_request_id podrían pasar esa revisión
-    al mismo tiempo. Por eso la tabla debe tener una restricción UNIQUE
-    sobre esa columna (ignorando los que vienen en None), para que sea la
-    base de datos —no el código— quien finalmente lo impida.
+    pertenece a otro (restricción UNIQUE).
     """
+    pass
 
 
 class Persistencia:
     def __init__(self, db_path: str):
         """
-        Abre (o crea, si no existe) la base de datos SQLite en db_path, activa
-        el modo WAL (PRAGMA journal_mode=WAL), y crea la tabla "jobs" si no
-        existe, incluyendo la restricción UNIQUE sobre client_request_id
-        que se explica en DuplicateClientRequestError.
+        Abre (o crea) la base de datos SQLite en db_path, activa
+        el modo WAL, y crea la tabla "jobs" si no existe.
         """
-        raise NotImplementedError
+        self.db_path = db_path
+        self._init_db_sync()
+
+    def _init_db_sync(self):
+        conn = sqlite3.connect(self.db_path)
+        conn.execute("PRAGMA journal_mode=WAL;")
+        conn.execute("""
+            CREATE TABLE IF NOT EXISTS jobs (
+                id TEXT PRIMARY KEY,
+                command TEXT NOT NULL,
+                args TEXT,
+                status TEXT NOT NULL,
+                exit_code INTEGER,
+                pid INTEGER,
+                client_request_id TEXT UNIQUE,
+                submitted_at TEXT,
+                started_at TEXT,
+                finished_at TEXT,
+                stdout_path TEXT,
+                stderr_path TEXT
+            )
+        """)
+        conn.commit()
+        conn.close()
+
+    def _execute_sync(self, func, *args):
+        conn = sqlite3.connect(self.db_path)
+        conn.row_factory = sqlite3.Row
+        try:
+            res = func(conn, *args)
+            conn.commit()
+            return res
+        except Exception:
+            conn.rollback()
+            raise
+        finally:
+            conn.close()
 
     async def save_job(self, job: Job) -> None:
-        """
-        Guarda un Job completo: si ya existía uno con ese id, actualiza sus
-        campos; si no, lo crea. Si el client_request_id que trae ya le
-        pertenece a otro Job distinto, debe traducir el error de SQLite en
-        DuplicateClientRequestError, para que control.py sepa qué pasó.
-        """
-        raise NotImplementedError
+        def _save(conn):
+            try:
+                conn.execute("""
+                    INSERT OR REPLACE INTO jobs 
+                    (id, command, args, status, exit_code, pid, client_request_id, submitted_at, started_at, finished_at, stdout_path, stderr_path)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                """, (
+                    job.id,
+                    job.command,
+                    json.dumps(job.args),
+                    job.status.value if hasattr(job.status, 'value') else str(job.status),
+                    job.exit_code,
+                    job.pid,
+                    job.client_request_id,
+                    job.submitted_at,
+                    job.started_at,
+                    job.finished_at,
+                    job.stdout_path,
+                    job.stderr_path
+                ))
+            except sqlite3.IntegrityError as e:
+                if "UNIQUE constraint failed" in str(e):
+                    raise DuplicateClientRequestError("El client_request_id ya está registrado en otro trabajo.")
+                raise
+
+        loop = asyncio.get_running_loop()
+        await loop.run_in_executor(None, self._execute_sync, _save)
 
     async def load_job(self, job_id: str) -> Job | None:
-        """Busca por id y regresa el Job reconstruido, o None si no existe."""
-        raise NotImplementedError
+        def _load(conn):
+            row = conn.execute("SELECT * FROM jobs WHERE id = ?", (job_id,)).fetchone()
+            if not row:
+                return None
+            return self._row_to_job(row)
+
+        loop = asyncio.get_running_loop()
+        return await loop.run_in_executor(None, self._execute_sync, _load)
 
     async def load_all(self) -> list[Job]:
-        """
-        Regresa todos los trabajos guardados, en el orden en que se crearon
-        (por ejemplo, ordenados por submitted_at). Se usa una sola vez, al
-        arrancar el servicio, para recuperar el historial (RF-13) — el orden
-        importa porque los que sigan QUEUED se vuelven a formar en ese mismo
-        orden.
-        """
-        raise NotImplementedError
+        def _load_all(conn):
+            rows = conn.execute("SELECT * FROM jobs ORDER BY submitted_at ASC").fetchall()
+            return [self._row_to_job(row) for row in rows]
+
+        loop = asyncio.get_running_loop()
+        return await loop.run_in_executor(None, self._execute_sync, _load_all)
 
     async def find_by_client_request_id(self, client_request_id: str) -> Job | None:
-        """
-        Busca si ya existe un trabajo creado con ese mismo client_request_id.
-        Es lo que usa control.py para detectar solicitudes duplicadas o
-        reenviadas (RF-27).
-        """
-        raise NotImplementedError
+        def _find(conn):
+            row = conn.execute("SELECT * FROM jobs WHERE client_request_id = ?", (client_request_id,)).fetchone()
+            if not row:
+                return None
+            return self._row_to_job(row)
+
+        loop = asyncio.get_running_loop()
+        return await loop.run_in_executor(None, self._execute_sync, _find)
+
+    def _row_to_job(self, row) -> Job:
+        status_val = row["status"]
+        try:
+            status = JobStatus(status_val)
+        except ValueError:
+            status = JobStatus.QUEUED
+
+        return Job(
+            id=row["id"],
+            command=row["command"],
+            args=json.loads(row["args"]) if row["args"] else [],
+            status=status,
+            exit_code=row["exit_code"],
+            pid=row["pid"],
+            client_request_id=row["client_request_id"],
+            submitted_at=row["submitted_at"],
+            started_at=row["started_at"],
+            finished_at=row["finished_at"],
+            stdout_path=row["stdout_path"],
+            stderr_path=row["stderr_path"]
+        )
