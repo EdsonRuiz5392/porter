@@ -9,7 +9,7 @@ RF que cubre: 01, 02, 03, 05, 06, 07, 08, 09, 17, 25, 27.
 
 import asyncio
 import uuid
-from datetime import datetime
+from datetime import datetime, timezone
 from src.comun.models import Job, JobStatus
 
 
@@ -33,6 +33,11 @@ class ServiceClosingError(ControlError):
     code = "SERVICE_CLOSING"
 
 
+def _timestamp_utc() -> str:
+    """Fecha/hora actual en UTC, formato ISO 8601 (ej. 2026-09-30T18:04:12.123456+00:00)."""
+    return datetime.now(timezone.utc).isoformat()
+
+
 class Control:
     def __init__(
         self,
@@ -42,6 +47,7 @@ class Control:
         bitacora,
         max_concurrency: int,
         grace_seconds: float,
+        data_dir: str,
     ):
         self.cola = cola
         self.launcher = launcher
@@ -49,6 +55,7 @@ class Control:
         self.bitacora = bitacora
         self.max_concurrency = max_concurrency
         self.grace_seconds = grace_seconds
+        self.data_dir = data_dir
 
         self._running_count = 0
         self._reserved_count = 0
@@ -56,6 +63,17 @@ class Control:
         self._accepting = True
         self._recent_errors_count = 0
         self._cancel_requested: set[str] = set()
+
+    def _rutas_salida(self, job_id: str) -> tuple[str, str]:
+        """
+        Arma las rutas de stdout/stderr dentro de data_dir/output/. Esa
+        carpeta ya existe para cuando esto se usa (la crea main.py una sola
+        vez al arrancar) — aquí solo se arma el texto de la ruta.
+        """
+        return (
+            f"{self.data_dir}/output/{job_id}.stdout.log",
+            f"{self.data_dir}/output/{job_id}.stderr.log",
+        )
 
     async def submit(
         self, command: str, args: list[str], client_request_id: str | None
@@ -69,14 +87,14 @@ class Control:
         # Verificar duplicados por client_request_id (RF-27)
         if client_request_id:
             existing = await self.persistencia.find_by_client_request_id(client_request_id)
-            if existing and existing.status in [JobStatus.QUEUED, JobStatus.RUNNING]:
+            if existing and existing.status in (JobStatus.QUEUED, JobStatus.RUNNING):
                 return existing
 
         if self.cola.is_full():
             raise QueueFullError("La cola de trabajos está llena.")
 
-        job_id = str(uuid.uuid4())[:8]
-        submitted_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        job_id = str(uuid.uuid4())
+        stdout_path, stderr_path = self._rutas_salida(job_id)
 
         job = Job(
             id=job_id,
@@ -84,15 +102,17 @@ class Control:
             args=args,
             status=JobStatus.QUEUED,
             client_request_id=client_request_id,
-            submitted_at=submitted_at,
-            stdout_path=f"data/stdout_{job_id}.log",
-            stderr_path=f"data/stderr_{job_id}.log"
+            submitted_at=_timestamp_utc(),
+            stdout_path=stdout_path,
+            stderr_path=stderr_path,
         )
 
         try:
             await self.persistencia.save_job(job)
         except Exception:
-            # Manejo de concurrencia en duplicados de base de datos
+            # Red de seguridad ante una carrera: dos solicitudes casi
+            # simultáneas con el mismo client_request_id pueden pasar la
+            # revisión de arriba antes de que cualquiera termine de guardar.
             if client_request_id:
                 existing = await self.persistencia.find_by_client_request_id(client_request_id)
                 if existing:
@@ -101,8 +121,7 @@ class Control:
 
         self.bitacora.log_event(job_id, "CREATED", f"Comando: {command}")
         self.cola.enqueue(job_id)
-        
-        # Intentar despacho inmediato
+
         asyncio.create_task(self._try_dispatch())
         return job
 
@@ -120,15 +139,14 @@ class Control:
         if not job:
             return "NOT_FOUND"
 
-        if job.status in [JobStatus.SUCCEEDED, JobStatus.FAILED, JobStatus.CANCELED]:
+        if job.status in (JobStatus.SUCCEEDED, JobStatus.FAILED, JobStatus.CANCELED):
             return "ALREADY_FINISHED"
 
         if job.status == JobStatus.QUEUED:
             removed = self.cola.remove(job_id)
             if removed:
-                finished_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 job.status = JobStatus.CANCELED
-                job.finished_at = finished_at
+                job.finished_at = _timestamp_utc()
                 await self.persistencia.save_job(job)
                 self.bitacora.log_event(job_id, "CANCELED", "Cancelado desde la cola")
                 return "CANCELING"
@@ -167,7 +185,7 @@ class Control:
         if job:
             job.status = JobStatus.RUNNING
             job.pid = pid
-            job.started_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            job.started_at = _timestamp_utc()
             await self.persistencia.save_job(job)
             self._reserved_count = max(0, self._reserved_count - 1)
             self._running_count += 1
@@ -178,25 +196,23 @@ class Control:
     ) -> None:
         job = await self.persistencia.load_job(job_id)
         if job:
+            ya_habia_arrancado = job.started_at is not None
+
             job.status = status
             job.exit_code = exit_code
-            job.finished_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            job.finished_at = _timestamp_utc()
             await self.persistencia.save_job(job)
 
-            if job_id in self._active_processes:
-                del self._active_processes[job_id]
-            if job_id in self._cancel_requested:
-                self._cancel_requested.remove(job_id)
+            self._active_processes.pop(job_id, None)
+            self._cancel_requested.discard(job_id)
 
-            if job.status == JobStatus.RUNNING or status in [JobStatus.SUCCEEDED, JobStatus.FAILED, JobStatus.CANCELED]:
-                # Si llegó a correr, restamos del contador de ejecución activa
-                if job.started_at:
-                    self._running_count = max(0, self._running_count - 1)
+            if ya_habia_arrancado:
+                self._running_count = max(0, self._running_count - 1)
 
             if status == JobStatus.FAILED:
                 self._recent_errors_count += 1
 
-            self.bitacora.log_event(job_id, str(status), f"Exit code: {exit_code}")
+            self.bitacora.log_event(job_id, status.value, f"Exit code: {exit_code}")
             asyncio.create_task(self._try_dispatch())
 
     async def _try_dispatch(self) -> None:
@@ -204,8 +220,7 @@ class Control:
             available_slots = self.max_concurrency - (self._running_count + self._reserved_count)
             if available_slots <= 0:
                 break
-            
-            # Llamada síncrona a dequeue sin await
+
             job_id = self.cola.dequeue()
             if not job_id:
                 break
@@ -226,7 +241,7 @@ class Control:
 
             exit_code = await self.launcher.stream_output(proc, job.stdout_path, job.stderr_path)
 
-            if job_id in self._cancel_requested or exit_code == -15 or exit_code == -9:
+            if job_id in self._cancel_requested or exit_code in (-15, -9):
                 final_status = JobStatus.CANCELED
             elif exit_code == 0:
                 final_status = JobStatus.SUCCEEDED
@@ -244,13 +259,13 @@ class Control:
         for job in all_jobs:
             if job.status == JobStatus.RUNNING:
                 job.status = JobStatus.FAILED
-                job.finished_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                job.finished_at = _timestamp_utc()
                 job.exit_code = -1
                 await self.persistencia.save_job(job)
                 self.bitacora.log_event(job.id, "INTERRUPTED", "Interrumpido por reinicio del servicio")
             elif job.status == JobStatus.QUEUED:
                 self.cola.enqueue(job.id)
-        
+
         asyncio.create_task(self._try_dispatch())
 
     def is_accepting(self) -> bool:
@@ -263,7 +278,7 @@ class Control:
         return self._running_count
 
     def queued_count(self) -> int:
-        return self.cola.size() if hasattr(self.cola, "size") else 0
+        return self.cola.size()
 
     def recent_errors_count(self) -> int:
         return self._recent_errors_count
