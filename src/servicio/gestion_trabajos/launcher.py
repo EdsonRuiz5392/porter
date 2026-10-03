@@ -5,7 +5,7 @@ Ver docs/technical-guide/contratos-interfaces.md, sección 8.
 Se apoya en: ADR-002 (IPC con subprocess), ADR-005 (escalamiento SIGTERM -> SIGKILL).
 RF que cubre: 04, 10, 26, 29, 30.
 
-Módulo Launcher - Servicio de Gestión de Trabajos 30-09-2026
+Módulo Launcher - Servicio de Gestión de Trabajos 02-10-2026
 Responsable de lanzar, cancelar y transmitir la salida de procesos independientes
 utilizando concurrencia asíncrona con asyncio.
 """
