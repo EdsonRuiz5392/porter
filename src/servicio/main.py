@@ -3,10 +3,9 @@ Punto de arranque real del servicio: arma todos los módulos con la
 configuración cargada, recupera el historial (RF-13), pone a entrada.py a
 escuchar conexiones, y maneja el cierre controlado (RF-15).
 
-Conexion de piezas a contruir.
-
-Responsable: Angel
-
+No implementa lógica de negocio propia — es solo el "ensamblador" que conecta
+las piezas que los demás construyen. Responsable: Angel (usa directamente
+operacion.py). 
 """
 
 import asyncio
@@ -21,6 +20,7 @@ from src.servicio.gestion_trabajos import cola, control, launcher
 async def arrancar() -> None:
     config = operacion.load_config()
     os.makedirs(config["data_dir"], exist_ok=True)
+    os.makedirs(f"{config['data_dir']}/output", exist_ok=True)
 
     p = persistencia.Persistencia(f"{config['data_dir']}/jobs.db")
     b = bitacora.Bitacora(f"{config['data_dir']}/jobrunner.log")
@@ -34,6 +34,7 @@ async def arrancar() -> None:
         bitacora=b,
         max_concurrency=config["max_concurrency"],
         grace_seconds=config["grace_seconds"],
+        data_dir=config["data_dir"],
     )
 
     # RF-13: recuperar el historial antes de aceptar conexiones nuevas.
