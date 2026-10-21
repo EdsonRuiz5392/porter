@@ -68,10 +68,21 @@ class Persistencia:
     async def save_job(self, job: Job) -> None:
         def _save(conn):
             try:
+                # F8: "ON CONFLICT(id) DO UPDATE" actualiza la fila si el ID ya
+                # existe. A diferencia de "INSERT OR REPLACE", si el choque es
+                # por client_request_id NO borra la fila vieja: lanza
+                # IntegrityError, que abajo se convierte en
+                # DuplicateClientRequestError (la red de seguridad del contrato).
                 conn.execute("""
-                    INSERT OR REPLACE INTO jobs 
+                    INSERT INTO jobs
                     (id, command, args, status, exit_code, pid, client_request_id, submitted_at, started_at, finished_at, stdout_path, stderr_path)
                     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    ON CONFLICT(id) DO UPDATE SET
+                        status = excluded.status,
+                        exit_code = excluded.exit_code,
+                        pid = excluded.pid,
+                        started_at = excluded.started_at,
+                        finished_at = excluded.finished_at
                 """, (
                     job.id,
                     job.command,
