@@ -1,6 +1,6 @@
 # ADR-005: Semántica de saturación de cola, duplicados y escalamiento de cancelación (Python)
 
-- Estado: Propuesto
+- Estado: Aceptado
 - Fecha: 2026-09-25
 - Requisitos relacionados: RF-25, RF-27, RF-30, RNF-29
 

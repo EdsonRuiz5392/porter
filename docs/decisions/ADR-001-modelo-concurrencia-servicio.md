@@ -16,7 +16,7 @@ El servicio debe atender simultáneamente múltiples clientes (locales y remotos
 
 ### Alternativa B: `asyncio` — un solo event loop con `asyncio.start_server` y `asyncio.create_subprocess_exec`
 - Descripción: todo el servicio corre como corutinas sobre un único event loop. Los sockets de clientes se manejan con `asyncio.StreamReader`/`StreamWriter`; los procesos hijos se lanzan con `asyncio.create_subprocess_exec`, y `await proc.wait()` notifica la terminación sin polling manual (asyncio internamente usa el manejo de `SIGCHLD` vía su *child watcher*).
-- Ventajas: al no haber hilos, no hace falta `Lock` para el estado compartido (todo el código que toca el diccionario de trabajos corre en el mismo hilo lógico); es la forma "nativa" en Python de multiplexar E/S; se integra directamente con la detección de fin de proceso (ADR-002) y el framing de protocolo (ADR-004) sin polling.
+- Ventajas: al no haber hilos, no hace falta `Lock` para el estado compartido (todo el código que toca el diccionario de trabajos corre en el mismo hilo lógico); es la forma "nativa" en Python de multiplexar E/S.
 - Desventajas/riesgos: cualquier llamada bloqueante hecha por accidente dentro de una corutina (p. ej. una consulta SQLite sin `run_in_executor`) congela todo el servicio; el equipo debe aprender a evitar código síncrono bloqueante dentro del loop.
 
 ## Decisión

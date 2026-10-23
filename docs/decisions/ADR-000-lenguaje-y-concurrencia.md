@@ -1,4 +1,4 @@
-# ADR-01: Selección de Lenguaje de Programación y Modelo de Concurrencia
+# ADR-000: Selección de Lenguaje de Programación y Modelo de Concurrencia
 
 * **Estatus:** Aprobado / Decidido
 * **Fecha:** 2026-09-15
