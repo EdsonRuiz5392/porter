@@ -1,0 +1,2 @@
+python3 verif/scripts/run_verificacion.py --run-id 2026-10-21_avance01-linea-base_bc113057
+(ejecutado en /home/edson/porter)

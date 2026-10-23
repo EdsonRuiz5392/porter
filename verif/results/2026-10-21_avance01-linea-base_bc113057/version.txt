@@ -1,0 +1,3 @@
+Commit: bc1130578e4ab561d6aa627025b39bd05f2c4177
+Rama: main
+Cambios sin commit en src/: no
