@@ -18,6 +18,8 @@ ERROR_NOT_FOUND = "NOT_FOUND"
 ERROR_VERSION_UNSUPPORTED = "VERSION_UNSUPPORTED"
 ERROR_SERVICE_CLOSING = "SERVICE_CLOSING"
 ERROR_INTERNAL = "INTERNAL_ERROR"
+# D3: el client_request_id ya se usó con un comando o argumentos distintos.
+ERROR_REQUEST_ID_CONFLICT = "REQUEST_ID_CONFLICT"
 
 
 class ProtocolError(Exception):
