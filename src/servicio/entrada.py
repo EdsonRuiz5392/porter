@@ -9,6 +9,7 @@ RF que cubre: 18, 19, 20, 21, 22, 28.
 """
 
 import asyncio
+from contextlib import suppress
 
 from src.comun import protocolo
 from src.comun.protocolo import (
@@ -47,14 +48,29 @@ async def handle_client(
         while True:
             try:
                 message = await protocolo.read_message(reader, max_message_bytes)
-            except (protocolo.ProtocolError, asyncio.IncompleteReadError, ConnectionError):
+            except protocolo.ProtocolError as exc:
+                # F15 (RF-21, RNF-21): responder con un error antes de cerrar,
+                # en vez de cortar la conexión sin explicación. Se cierra porque
+                # tras un mensaje inválido el flujo de bytes ya no es confiable.
+                peer = writer.get_extra_info("peername")
+                job_manager.bitacora.log_event(None, "PROTOCOL_ERROR", f"{peer}: {exc}")
+                with suppress(ConnectionError):
+                    await protocolo.write_message(
+                        writer, _error(ERROR_INVALID_REQUEST, f"{exc} Se cerrará la conexión.")
+                    )
                 break
+            except (asyncio.IncompleteReadError, ConnectionError):
+                break  # el cliente se fue (RF-22 / RF-28)
 
             if message.get("version") != protocolo.PROTOCOL_VERSION:
-                await protocolo.write_message(
-                    writer,
-                    _error(ERROR_VERSION_UNSUPPORTED, "Versión de protocolo no soportada."),
-                )
+                try:
+                    await protocolo.write_message(
+                        writer,
+                        _error(ERROR_VERSION_UNSUPPORTED,
+                               f"Versión de protocolo no soportada; este servicio usa la {protocolo.PROTOCOL_VERSION}."),
+                    )
+                except ConnectionError:
+                    break
                 continue
 
             msg_type = message.get("type")
@@ -154,11 +170,17 @@ async def handle_client(
             except Exception as exc:
                 response = _error(ERROR_INTERNAL, f"Error interno: {exc}")
 
-            await protocolo.write_message(writer, response)
+            try:
+                await protocolo.write_message(writer, response)
+            except ConnectionError:
+                # El cliente se fue antes de leer la respuesta (RF-28): la
+                # operación YA se aplicó; ver decisión D10.
+                break
 
     finally:
         writer.close()
-        await writer.wait_closed()
+        with suppress(ConnectionError):
+            await writer.wait_closed()
 
 
 async def main(
