@@ -1,0 +1,412 @@
+{
+  "run_id": "2026-10-21_avance01-linea-base_bc113057",
+  "duracion_s": 123.8,
+  "totales": {
+    "PASS": 23,
+    "FAIL": 32,
+    "ERROR": 2,
+    "SKIP": 0
+  },
+  "resultado_global": "FAIL",
+  "pruebas": [
+    {
+      "id": "test_tc001_envio_y_validacion.TC001EnvioYValidacion.test_args_null_equivale_a_lista_vacia",
+      "resultado": "FAIL",
+      "detalle": "AssertionError: 'FAILED' != 'SUCCEEDED' : {'id': '42a00d9c-0300-49ee-a817-cc50b4c5ba31', 'command': 'echo', 'args': None, 'status': 'FAILED', 'client_request_id': None, 'pid': None, 'submitted_at': '2026-10-22T03:16:53.391782+00:00', 'started_at': None, 'finished_at': '2026-10-22T03:16:53.408962+00:",
+      "segundos": 0.34,
+      "caso": "TC-001"
+    },
+    {
+      "id": "test_tc001_envio_y_validacion.TC001EnvioYValidacion.test_comando_inexistente_termina_failed",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.38,
+      "caso": "TC-001"
+    },
+    {
+      "id": "test_tc001_envio_y_validacion.TC001EnvioYValidacion.test_entradas_invalidas_se_rechazan_con_invalid_request",
+      "resultado": "FAIL",
+      "detalle": "(caso='command=5'): AssertionError: 'INTERNAL_ERROR' != 'INVALID_REQUEST' : {'type': 'error', 'version': 1, 'code': 'INTERNAL_ERROR', 'message': \"Error interno: 'int' object has no attribute 'strip'\"} | (caso='args texto'): AssertionError: 'submit_response' != 'error' : {'type': 'submit_response', 'version': 1, 'ok': True, 'job_id': '6de6b703-8dce-4fb9-8463-619574e91aa4', 'status': 'QUEUED'} | (caso='args con números'): AssertionError: 'submit_response' != 'error' : {'type': 'submit_response', 'version': 1, 'ok': True, 'job_id': 'ba1dadc0-5443-4ecc-b10b-2a4f0806d281', 'status': 'QUEUED'} | (caso='comando de 100 KB'): AssertionError: 'submit_response' != 'error' : {'type': 'submit_response', 'version': 1, 'ok': True, 'job_id': '0398fbf6-22ef-4c78-a03f-68117f331e73', 'status': 'QUEUED'} | (caso='folio no texto'): AssertionError: 'submit_response' != 'error' : {'type': 'submit_response', 'version': 1, 'ok': True, 'job_id': 'eaf8e9c1-3217-482a-a363-e69697d6e3ae', 'status': 'QUEUED'} | (caso='status job_id lista'): AssertionError: 'INTERNAL_ERROR' != 'INVALID_REQUEST' : {'type': 'error', 'version': 1, 'code': 'INTERNAL_ERROR', 'message': \"Error interno: Error binding parameter 1: type 'list' is not supported\"} | (caso='cancel sin job_id'): AssertionError: 'NOT_FOUND' != 'INVALID_REQUEST' : {'type': 'error', 'version': 1, 'code': 'NOT_FOUND', 'message': 'Trabajo no encontrado.'} | (caso='list estado inexistente'): AssertionError: 'list_response' != 'error' : {'type': 'list_response', 'version': 1, 'jobs': []} | (caso='output stream inválido'): AssertionError: 'NOT_FOUND' != 'INVALID_REQUEST' : {'type': 'error', 'version': 1, 'code': 'NOT_FOUND', 'message': 'Trabajo no encontrado.'} | AssertionError: 4 != 0 : No debe crearse ningún trabajo",
+      "segundos": 0.29,
+      "caso": "TC-001"
+    },
+    {
+      "id": "test_tc001_envio_y_validacion.TC001EnvioYValidacion.test_envio_valido_devuelve_id_unico",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.17,
+      "caso": "TC-001"
+    },
+    {
+      "id": "test_tc001_envio_y_validacion.TC015AyudaYCodigosCLI.test_ayuda_y_codigos_de_salida",
+      "resultado": "FAIL",
+      "detalle": "AssertionError: 'output' not found in 'Uso: python -m src.cliente.cli <comando> [argumentos]\\nComandos disponibles:\\n  submit <comando> [args...]   Enviar un nuevo trabajo\\n  status <job_id>               Consultar estado de un trabajo\\n  list                          Listar todos los trabajos\\n  ca",
+      "segundos": 0.3,
+      "caso": "TC-015"
+    },
+    {
+      "id": "test_tc001_envio_y_validacion.TC015AyudaYCodigosCLI.test_servicio_apagado_da_codigo_1_y_sugerencia",
+      "resultado": "FAIL",
+      "detalle": "AssertionError: 'conexión' not found in \"[-] error: comando desconocido 'health'. usa --help para ver la lista.\"",
+      "segundos": 0.1,
+      "caso": "TC-015"
+    },
+    {
+      "id": "test_tc002_cola_y_concurrencia.TC002ColaYConcurrencia.test_fifo",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 1.53,
+      "caso": "TC-002"
+    },
+    {
+      "id": "test_tc002_cola_y_concurrencia.TC002ColaYConcurrencia.test_ocho_trabajos_con_limite_tres",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 6.4,
+      "caso": "TC-002"
+    },
+    {
+      "id": "test_tc003_tc006_estados_tiempos_salidas.TC003EstadosYTiempos.test_ciclo_de_vida_y_tiempos",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.76,
+      "caso": "TC-003"
+    },
+    {
+      "id": "test_tc003_tc006_estados_tiempos_salidas.TC003EstadosYTiempos.test_codigo_distinto_de_cero_es_failed",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.36,
+      "caso": "TC-003"
+    },
+    {
+      "id": "test_tc003_tc006_estados_tiempos_salidas.TC006SalidasSeparadas.test_bytes_que_no_son_texto",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.34,
+      "caso": "TC-006"
+    },
+    {
+      "id": "test_tc003_tc006_estados_tiempos_salidas.TC006SalidasSeparadas.test_cli_output",
+      "resultado": "FAIL",
+      "detalle": "AssertionError: Tuples differ: (1, \"[-] Error: comando desconocido 'output'. Usa --help para ver la lista.\") != (0, 'SALIDA')",
+      "segundos": 0.43,
+      "caso": "TC-006"
+    },
+    {
+      "id": "test_tc003_tc006_estados_tiempos_salidas.TC006SalidasSeparadas.test_linea_de_200000_caracteres",
+      "resultado": "FAIL",
+      "detalle": "AssertionError: Tuples differ: ('FAILED', -1) != ('SUCCEEDED', 0)",
+      "segundos": 0.34,
+      "caso": "TC-006"
+    },
+    {
+      "id": "test_tc003_tc006_estados_tiempos_salidas.TC006SalidasSeparadas.test_salida_visible_mientras_corre",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 3.31,
+      "caso": "TC-006"
+    },
+    {
+      "id": "test_tc003_tc006_estados_tiempos_salidas.TC006SalidasSeparadas.test_stdout_y_stderr_no_se_mezclan",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.35,
+      "caso": "TC-006"
+    },
+    {
+      "id": "test_tc003_tc006_estados_tiempos_salidas.TC006SalidasSeparadas.test_trabajo_que_lee_stdin_no_se_cuelga",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.34,
+      "caso": "TC-006"
+    },
+    {
+      "id": "test_tc004_tc013_consultas_y_salud.TC004Consultas.test_rnf05_consulta_en_menos_de_un_segundo_con_100_trabajos",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 2.37,
+      "caso": "TC-004"
+    },
+    {
+      "id": "test_tc004_tc013_consultas_y_salud.TC004Consultas.test_rnf06_500_registros_sin_perdida_tras_reinicio",
+      "resultado": "FAIL",
+      "detalle": "AssertionError: False is not true : Todos con estado y tiempos completos",
+      "segundos": 11.54,
+      "caso": "TC-004"
+    },
+    {
+      "id": "test_tc004_tc013_consultas_y_salud.TC004Consultas.test_status_list_y_filtro",
+      "resultado": "FAIL",
+      "detalle": "AssertionError: '3f00fd90-b92f-4c5b-8e21-9ef75edaebc9' unexpectedly found in \"[*] Trabajos registrados:\\n    ID: 3f00fd90-b92f-4c5b-8e21-9ef75edaebc9 | Comando: 'true' | Estado: SUCCEEDED | Exit code: 0\\n    ID: 68377a18-7901-48a1-902b-65f1ab02a5f4 | Comando: 'false' | Estado: FAILED | Exit code: 1\"",
+      "segundos": 0.49,
+      "caso": "TC-004"
+    },
+    {
+      "id": "test_tc004_tc013_consultas_y_salud.TC013ConfiguracionYSalud.test_configuracion_invalida_no_arranca",
+      "resultado": "FAIL",
+      "detalle": "(variable='MAX_CONCURRENCY', valor='0'): AssertionError: True is not false : MAX_CONCURRENCY=0 no debería permitir arrancar | (variable='MAX_CONCURRENCY', valor='-2'): AssertionError: True is not false : MAX_CONCURRENCY=-2 no debería permitir arrancar | (variable='MAX_CONCURRENCY', valor='abc'): AssertionError: 'Configuración inválida' not found in 'Traceback (most recent call last):\\n  File \"<frozen runpy>\", line 198, in _run_module_as_main\\n  File \"<frozen runpy>\", line 88, in _run_code\\n  File \"/home/edson/porter/src/servicio/main.py\", line 70, in <module>\\n    asyncio.run(arrancar())\\n  | (variable='MAX_QUEUE', valor='0'): AssertionError: True is not false : MAX_QUEUE=0 no debería permitir arrancar | (variable='PORT', valor='99999'): AssertionError: 'Configuración inválida' not found in '' | (variable='GRACE_SECONDS', valor='-1'): AssertionError: True is not false : GRACE_SECONDS=-1 no debería permitir arrancar | (variable='SHUTDOWN_TIMEOUT', valor='x'): AssertionError: True is not false : SHUTDOWN_TIMEOUT=x no debería permitir arrancar",
+      "segundos": 11.34,
+      "caso": "TC-013"
+    },
+    {
+      "id": "test_tc004_tc013_consultas_y_salud.TC013ConfiguracionYSalud.test_configuracion_se_registra_al_arrancar",
+      "resultado": "FAIL",
+      "detalle": "AssertionError: [] is not true",
+      "segundos": 0.21,
+      "caso": "TC-013"
+    },
+    {
+      "id": "test_tc004_tc013_consultas_y_salud.TC013ConfiguracionYSalud.test_health",
+      "resultado": "FAIL",
+      "detalle": "AssertionError: 1 != 0",
+      "segundos": 0.96,
+      "caso": "TC-013"
+    },
+    {
+      "id": "test_tc005_tc017_tc021_cancelacion.TC005Cancelacion.test_cancelar_alcanza_a_los_nietos",
+      "resultado": "FAIL",
+      "detalle": "AssertionError: unexpectedly None : El trabajo debe terminar aunque tenga nietos",
+      "segundos": 6.88,
+      "caso": "TC-005"
+    },
+    {
+      "id": "test_tc005_tc017_tc021_cancelacion.TC005Cancelacion.test_cancelar_en_cola",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.47,
+      "caso": "TC-005"
+    },
+    {
+      "id": "test_tc005_tc017_tc021_cancelacion.TC005Cancelacion.test_cancelar_en_ejecucion",
+      "resultado": "FAIL",
+      "detalle": "AssertionError: [] is not true",
+      "segundos": 0.46,
+      "caso": "TC-005"
+    },
+    {
+      "id": "test_tc005_tc017_tc021_cancelacion.TC017CancelacionesConcurrentes.test_cancelar_inmediatamente_despues_de_enviar",
+      "resultado": "FAIL",
+      "detalle": "AssertionError: Items in the first set but not the second:",
+      "segundos": 0.71,
+      "caso": "TC-017"
+    },
+    {
+      "id": "test_tc005_tc017_tc021_cancelacion.TC017CancelacionesConcurrentes.test_caso_a_cancelacion_llega_primero",
+      "resultado": "ERROR",
+      "detalle": "TypeError: 'NoneType' object is not subscriptable",
+      "segundos": 6.76,
+      "caso": "TC-017"
+    },
+    {
+      "id": "test_tc005_tc017_tc021_cancelacion.TC017CancelacionesConcurrentes.test_caso_b_termina_primero",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.24,
+      "caso": "TC-017"
+    },
+    {
+      "id": "test_tc005_tc017_tc021_cancelacion.TC017CancelacionesConcurrentes.test_cinco_cancelaciones_simultaneas",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.46,
+      "caso": "TC-017"
+    },
+    {
+      "id": "test_tc005_tc017_tc021_cancelacion.TC021Escalamiento.test_proceso_que_ignora_sigterm",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 2.75,
+      "caso": "TC-021"
+    },
+    {
+      "id": "test_tc007_tc022_recuperacion.TC007Recuperacion.test_kill9_con_trabajos_corriendo_y_en_cola",
+      "resultado": "FAIL",
+      "detalle": "AssertionError: Lists differ: [3082, 3083, 3085] != []",
+      "segundos": 1.8,
+      "caso": "TC-007"
+    },
+    {
+      "id": "test_tc007_tc022_recuperacion.TC007Recuperacion.test_nieto_huerfano_con_lider_muerto",
+      "resultado": "FAIL",
+      "detalle": "AssertionError: False is not true : El nieto debe eliminarse",
+      "segundos": 4.0,
+      "caso": "TC-007"
+    },
+    {
+      "id": "test_tc007_tc022_recuperacion.TC007Recuperacion.test_pid_reutilizado_no_se_mata",
+      "resultado": "FAIL",
+      "detalle": "AssertionError: [] is not true",
+      "segundos": 0.87,
+      "caso": "TC-007"
+    },
+    {
+      "id": "test_tc007_tc022_recuperacion.TC022RecuperacionCapacidad.test_bajar_max_queue_con_pendientes",
+      "resultado": "FAIL",
+      "detalle": "AssertionError: False is not true : Debe arrancar aunque haya 8 pendientes y capacidad 3:",
+      "segundos": 0.76,
+      "caso": "TC-022"
+    },
+    {
+      "id": "test_tc007_tc022_recuperacion.TC022RecuperacionCapacidad.test_base_integra_tras_kill9_durante_escrituras",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 4.36,
+      "caso": "TC-022"
+    },
+    {
+      "id": "test_tc008_tc020_tc024_fallas_y_recursos.TC008Aislamiento.test_un_trabajo_que_falla_no_afecta_a_otros",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 2.33,
+      "caso": "TC-008"
+    },
+    {
+      "id": "test_tc008_tc020_tc024_fallas_y_recursos.TC020MuerteInesperada.test_falla_de_captura_no_deja_procesos_ni_descuadra_el_limite",
+      "resultado": "FAIL",
+      "detalle": "AssertionError: Lists differ: [3328] != []",
+      "segundos": 0.45,
+      "caso": "TC-020"
+    },
+    {
+      "id": "test_tc008_tc020_tc024_fallas_y_recursos.TC020MuerteInesperada.test_senal_externa_queda_failed_con_diagnostico",
+      "resultado": "FAIL",
+      "detalle": "(senal='SIGKILL'): AssertionError: Tuples differ: ('CANCELED', -9) != ('FAILED', -9) | (senal='SIGTERM'): AssertionError: Tuples differ: ('CANCELED', -15) != ('FAILED', -15) | (senal='SIGSEGV'): AssertionError: [] is not true",
+      "segundos": 0.93,
+      "caso": "TC-020"
+    },
+    {
+      "id": "test_tc008_tc020_tc024_fallas_y_recursos.TC024RecursosBajoCarga.test_cuatro_lotes_de_90_sin_fugas",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 10.03,
+      "caso": "TC-024"
+    },
+    {
+      "id": "test_tc009_cierre_controlado.TC009CierreControlado.test_cierre_con_tiempo_limite",
+      "resultado": "FAIL",
+      "detalle": "AssertionError: False is not true : El cierre debe terminar en tiempo acotado",
+      "segundos": 20.77,
+      "caso": "TC-009"
+    },
+    {
+      "id": "test_tc009_cierre_controlado.TC009CierreControlado.test_ctrl_c_hace_el_mismo_cierre_controlado",
+      "resultado": "FAIL",
+      "detalle": "AssertionError: Tuples differ: ('FAILED', -2) != ('CANCELED', -15)",
+      "segundos": 0.93,
+      "caso": "TC-009"
+    },
+    {
+      "id": "test_tc009_cierre_controlado.TC009CierreControlado.test_durante_el_cierre_no_acepta_nuevos",
+      "resultado": "FAIL",
+      "detalle": "AssertionError: [] is not true",
+      "segundos": 3.4,
+      "caso": "TC-009"
+    },
+    {
+      "id": "test_tc009_cierre_controlado.TC009CierreControlado.test_puerto_ocupado",
+      "resultado": "FAIL",
+      "detalle": "AssertionError: False is not true : Con el puerto ocupado el servicio debe terminar",
+      "segundos": 5.46,
+      "caso": "TC-009"
+    },
+    {
+      "id": "test_tc009_cierre_controlado.TC009CierreControlado.test_sigterm_con_servicio_ocioso",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.26,
+      "caso": "TC-009"
+    },
+    {
+      "id": "test_tc012_tc019_tc023_protocolo.TC012Protocolo.test_mensaje_byte_a_byte_y_varias_solicitudes_por_conexion",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.31,
+      "caso": "TC-012"
+    },
+    {
+      "id": "test_tc012_tc019_tc023_protocolo.TC012Protocolo.test_mensajes_invalidos_reciben_error_y_no_tumban_el_servicio",
+      "resultado": "FAIL",
+      "detalle": "(caso='longitud de 2 GB'): asyncio.exceptions.IncompleteReadError: 0 bytes read on a total of 4 expected bytes | (caso='JSON inválido'): asyncio.exceptions.IncompleteReadError: 0 bytes read on a total of 4 expected bytes | (caso='JSON que no es objeto'): asyncio.exceptions.IncompleteReadError: 0 bytes read on a total of 4 expected bytes | AssertionError: 0 != 3",
+      "segundos": 0.23,
+      "caso": "TC-012"
+    },
+    {
+      "id": "test_tc012_tc019_tc023_protocolo.TC019Desconexion.test_desconexion_a_medio_mensaje_no_tiene_efecto",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.71,
+      "caso": "TC-019"
+    },
+    {
+      "id": "test_tc012_tc019_tc023_protocolo.TC019Desconexion.test_desconexion_tras_mensaje_completo_la_operacion_queda_aceptada",
+      "resultado": "FAIL",
+      "detalle": "AssertionError: 'Traceback' unexpectedly found in 'Unhandled exception in client_connected_cb\\ntransport: <_SelectorSocketTransport closed fd=8>\\nTraceback (most recent call last):\\n  File \"/home/edson/porter/src/servicio/entrada.py\", line 177, in _on_connect\\n    await handle_client(reader, writer,",
+      "segundos": 0.81,
+      "caso": "TC-019"
+    },
+    {
+      "id": "test_tc012_tc019_tc023_protocolo.TC019Desconexion.test_reintento_con_folio_recupera_el_id",
+      "resultado": "FAIL",
+      "detalle": "AssertionError: '5ac24fac-5ea6-4934-9799-8059a26c95a6' != 'd03e5897-24aa-440b-9675-c411f32e02a9'",
+      "segundos": 0.76,
+      "caso": "TC-019"
+    },
+    {
+      "id": "test_tc012_tc019_tc023_protocolo.TC023CompatibilidadProtocolo.test_version_incompatible_se_rechaza_explicitamente",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.21,
+      "caso": "TC-023"
+    },
+    {
+      "id": "test_tc016_tc018_saturacion_y_duplicados.TC016Saturacion.test_carrera_diez_envios_con_un_lugar",
+      "resultado": "FAIL",
+      "detalle": "AssertionError: Counter({'INTERNAL_ERROR': 9, 'QUEUED': 1}) != Counter({'QUEUE_FULL': 9, 'QUEUED': 1})",
+      "segundos": 0.66,
+      "caso": "TC-016"
+    },
+    {
+      "id": "test_tc016_tc018_saturacion_y_duplicados.TC016Saturacion.test_rechazo_explicito_secuencial",
+      "resultado": "FAIL",
+      "detalle": "AssertionError: 0 != 2 : Los rechazos se registran (RF-23)",
+      "segundos": 0.51,
+      "caso": "TC-016"
+    },
+    {
+      "id": "test_tc016_tc018_saturacion_y_duplicados.TC018Duplicados.test_a_reintento_mismo_folio_mismo_comando",
+      "resultado": "FAIL",
+      "detalle": "AssertionError: 'd8d04907-e062-4889-8e2f-8deddd2d430e' != 'e4ac534e-4d5d-4952-9e6c-ae8075e67b24'",
+      "segundos": 0.37,
+      "caso": "TC-018"
+    },
+    {
+      "id": "test_tc016_tc018_saturacion_y_duplicados.TC018Duplicados.test_b_sin_folio_cada_envio_es_nuevo",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.14,
+      "caso": "TC-018"
+    },
+    {
+      "id": "test_tc016_tc018_saturacion_y_duplicados.TC018Duplicados.test_c_mismo_folio_otro_comando_es_conflicto",
+      "resultado": "ERROR",
+      "detalle": "(comando='ls', args=[]): AssertionError: Tuples differ: ('submit_response', None) != ('error', 'REQUEST_ID_CONFLICT') | (comando='echo', args=['dos']): AssertionError: Tuples differ: ('submit_response', None) != ('error', 'REQUEST_ID_CONFLICT') | TypeError: 'NoneType' object is not subscriptable",
+      "segundos": 0.26,
+      "caso": "TC-018"
+    },
+    {
+      "id": "test_tc016_tc018_saturacion_y_duplicados.TC018Duplicados.test_cli_request_id",
+      "resultado": "FAIL",
+      "detalle": "AssertionError: Tuples differ: (0, 0, 0, 0) != (0, 0, 1, 1)",
+      "segundos": 0.65,
+      "caso": "TC-018"
+    },
+    {
+      "id": "test_tc016_tc018_saturacion_y_duplicados.TC018Duplicados.test_d_seis_envios_simultaneos_mismo_folio",
+      "resultado": "FAIL",
+      "detalle": "AssertionError: 6 != 1 : [{'type': 'submit_response', 'version': 1, 'ok': True, 'job_id': '2c5a31da-57c5-4adf-9f33-6a1456397c93', 'status': 'QUEUED'}, {'type': 'submit_response', 'version': 1, 'ok': True, 'job_id': '2bb2f1e0-c69b-4f3b-926d-d181c32396b1', 'status': 'QUEUED'}, {'type': 'submit_respons",
+      "segundos": 0.45,
+      "caso": "TC-018"
+    }
+  ]
+}

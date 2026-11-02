@@ -1,0 +1,412 @@
+{
+  "run_id": "2026-11-02_avance02-final",
+  "duracion_s": 85.0,
+  "totales": {
+    "PASS": 57,
+    "FAIL": 0,
+    "ERROR": 0,
+    "SKIP": 0
+  },
+  "resultado_global": "PASS",
+  "pruebas": [
+    {
+      "id": "test_tc001_envio_y_validacion.TC001EnvioYValidacion.test_args_null_equivale_a_lista_vacia",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.34,
+      "caso": "TC-001"
+    },
+    {
+      "id": "test_tc001_envio_y_validacion.TC001EnvioYValidacion.test_comando_inexistente_termina_failed",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.33,
+      "caso": "TC-001"
+    },
+    {
+      "id": "test_tc001_envio_y_validacion.TC001EnvioYValidacion.test_entradas_invalidas_se_rechazan_con_invalid_request",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.24,
+      "caso": "TC-001"
+    },
+    {
+      "id": "test_tc001_envio_y_validacion.TC001EnvioYValidacion.test_envio_valido_devuelve_id_unico",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.27,
+      "caso": "TC-001"
+    },
+    {
+      "id": "test_tc001_envio_y_validacion.TC015AyudaYCodigosCLI.test_ayuda_y_codigos_de_salida",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.89,
+      "caso": "TC-015"
+    },
+    {
+      "id": "test_tc001_envio_y_validacion.TC015AyudaYCodigosCLI.test_servicio_apagado_da_codigo_1_y_sugerencia",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.11,
+      "caso": "TC-015"
+    },
+    {
+      "id": "test_tc002_cola_y_concurrencia.TC002ColaYConcurrencia.test_fifo",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 1.59,
+      "caso": "TC-002"
+    },
+    {
+      "id": "test_tc002_cola_y_concurrencia.TC002ColaYConcurrencia.test_ocho_trabajos_con_limite_tres",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 6.32,
+      "caso": "TC-002"
+    },
+    {
+      "id": "test_tc003_tc006_estados_tiempos_salidas.TC003EstadosYTiempos.test_ciclo_de_vida_y_tiempos",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.74,
+      "caso": "TC-003"
+    },
+    {
+      "id": "test_tc003_tc006_estados_tiempos_salidas.TC003EstadosYTiempos.test_codigo_distinto_de_cero_es_failed",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.33,
+      "caso": "TC-003"
+    },
+    {
+      "id": "test_tc003_tc006_estados_tiempos_salidas.TC006SalidasSeparadas.test_bytes_que_no_son_texto",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.33,
+      "caso": "TC-006"
+    },
+    {
+      "id": "test_tc003_tc006_estados_tiempos_salidas.TC006SalidasSeparadas.test_cli_output",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.56,
+      "caso": "TC-006"
+    },
+    {
+      "id": "test_tc003_tc006_estados_tiempos_salidas.TC006SalidasSeparadas.test_linea_de_200000_caracteres",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.23,
+      "caso": "TC-006"
+    },
+    {
+      "id": "test_tc003_tc006_estados_tiempos_salidas.TC006SalidasSeparadas.test_salida_visible_mientras_corre",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 3.29,
+      "caso": "TC-006"
+    },
+    {
+      "id": "test_tc003_tc006_estados_tiempos_salidas.TC006SalidasSeparadas.test_stdout_y_stderr_no_se_mezclan",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.35,
+      "caso": "TC-006"
+    },
+    {
+      "id": "test_tc003_tc006_estados_tiempos_salidas.TC006SalidasSeparadas.test_trabajo_que_lee_stdin_no_se_cuelga",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.34,
+      "caso": "TC-006"
+    },
+    {
+      "id": "test_tc004_tc013_consultas_y_salud.TC004Consultas.test_rnf05_consulta_en_menos_de_un_segundo_con_100_trabajos",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 2.49,
+      "caso": "TC-004"
+    },
+    {
+      "id": "test_tc004_tc013_consultas_y_salud.TC004Consultas.test_rnf06_500_registros_sin_perdida_tras_reinicio",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 10.26,
+      "caso": "TC-004"
+    },
+    {
+      "id": "test_tc004_tc013_consultas_y_salud.TC004Consultas.test_status_list_y_filtro",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.55,
+      "caso": "TC-004"
+    },
+    {
+      "id": "test_tc004_tc013_consultas_y_salud.TC013ConfiguracionYSalud.test_configuracion_invalida_no_arranca",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 1.22,
+      "caso": "TC-013"
+    },
+    {
+      "id": "test_tc004_tc013_consultas_y_salud.TC013ConfiguracionYSalud.test_configuracion_se_registra_al_arrancar",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.21,
+      "caso": "TC-013"
+    },
+    {
+      "id": "test_tc004_tc013_consultas_y_salud.TC013ConfiguracionYSalud.test_health",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.98,
+      "caso": "TC-013"
+    },
+    {
+      "id": "test_tc005_tc017_tc021_cancelacion.TC005Cancelacion.test_cancelar_alcanza_a_los_nietos",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.77,
+      "caso": "TC-005"
+    },
+    {
+      "id": "test_tc005_tc017_tc021_cancelacion.TC005Cancelacion.test_cancelar_en_cola",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.45,
+      "caso": "TC-005"
+    },
+    {
+      "id": "test_tc005_tc017_tc021_cancelacion.TC005Cancelacion.test_cancelar_en_ejecucion",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.44,
+      "caso": "TC-005"
+    },
+    {
+      "id": "test_tc005_tc017_tc021_cancelacion.TC017CancelacionesConcurrentes.test_cancelar_inmediatamente_despues_de_enviar",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.76,
+      "caso": "TC-017"
+    },
+    {
+      "id": "test_tc005_tc017_tc021_cancelacion.TC017CancelacionesConcurrentes.test_caso_a_cancelacion_llega_primero",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.76,
+      "caso": "TC-017"
+    },
+    {
+      "id": "test_tc005_tc017_tc021_cancelacion.TC017CancelacionesConcurrentes.test_caso_b_termina_primero",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.34,
+      "caso": "TC-017"
+    },
+    {
+      "id": "test_tc005_tc017_tc021_cancelacion.TC017CancelacionesConcurrentes.test_cinco_cancelaciones_simultaneas",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.45,
+      "caso": "TC-017"
+    },
+    {
+      "id": "test_tc005_tc017_tc021_cancelacion.TC021Escalamiento.test_proceso_que_ignora_sigterm",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 2.76,
+      "caso": "TC-021"
+    },
+    {
+      "id": "test_tc007_tc022_recuperacion.TC007Recuperacion.test_kill9_con_trabajos_corriendo_y_en_cola",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 1.79,
+      "caso": "TC-007"
+    },
+    {
+      "id": "test_tc007_tc022_recuperacion.TC007Recuperacion.test_nieto_huerfano_con_lider_muerto",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.84,
+      "caso": "TC-007"
+    },
+    {
+      "id": "test_tc007_tc022_recuperacion.TC007Recuperacion.test_pid_reutilizado_no_se_mata",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.97,
+      "caso": "TC-007"
+    },
+    {
+      "id": "test_tc007_tc022_recuperacion.TC022RecuperacionCapacidad.test_bajar_max_queue_con_pendientes",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 3.22,
+      "caso": "TC-022"
+    },
+    {
+      "id": "test_tc007_tc022_recuperacion.TC022RecuperacionCapacidad.test_base_integra_tras_kill9_durante_escrituras",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 5.12,
+      "caso": "TC-022"
+    },
+    {
+      "id": "test_tc008_tc020_tc024_fallas_y_recursos.TC008Aislamiento.test_un_trabajo_que_falla_no_afecta_a_otros",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 2.36,
+      "caso": "TC-008"
+    },
+    {
+      "id": "test_tc008_tc020_tc024_fallas_y_recursos.TC020MuerteInesperada.test_falla_de_captura_no_deja_procesos_ni_descuadra_el_limite",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 1.96,
+      "caso": "TC-020"
+    },
+    {
+      "id": "test_tc008_tc020_tc024_fallas_y_recursos.TC020MuerteInesperada.test_senal_externa_queda_failed_con_diagnostico",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 2.19,
+      "caso": "TC-020"
+    },
+    {
+      "id": "test_tc008_tc020_tc024_fallas_y_recursos.TC024RecursosBajoCarga.test_cuatro_lotes_de_90_sin_fugas",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 10.25,
+      "caso": "TC-024"
+    },
+    {
+      "id": "test_tc009_cierre_controlado.TC009CierreControlado.test_cierre_con_tiempo_limite",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 4.86,
+      "caso": "TC-009"
+    },
+    {
+      "id": "test_tc009_cierre_controlado.TC009CierreControlado.test_ctrl_c_hace_el_mismo_cierre_controlado",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 2.52,
+      "caso": "TC-009"
+    },
+    {
+      "id": "test_tc009_cierre_controlado.TC009CierreControlado.test_durante_el_cierre_no_acepta_nuevos",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 3.6,
+      "caso": "TC-009"
+    },
+    {
+      "id": "test_tc009_cierre_controlado.TC009CierreControlado.test_puerto_ocupado",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.47,
+      "caso": "TC-009"
+    },
+    {
+      "id": "test_tc009_cierre_controlado.TC009CierreControlado.test_sigterm_con_servicio_ocioso",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.27,
+      "caso": "TC-009"
+    },
+    {
+      "id": "test_tc012_tc019_tc023_protocolo.TC012Protocolo.test_mensaje_byte_a_byte_y_varias_solicitudes_por_conexion",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.31,
+      "caso": "TC-012"
+    },
+    {
+      "id": "test_tc012_tc019_tc023_protocolo.TC012Protocolo.test_mensajes_invalidos_reciben_error_y_no_tumban_el_servicio",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.21,
+      "caso": "TC-012"
+    },
+    {
+      "id": "test_tc012_tc019_tc023_protocolo.TC019Desconexion.test_desconexion_a_medio_mensaje_no_tiene_efecto",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.81,
+      "caso": "TC-019"
+    },
+    {
+      "id": "test_tc012_tc019_tc023_protocolo.TC019Desconexion.test_desconexion_tras_mensaje_completo_la_operacion_queda_aceptada",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.81,
+      "caso": "TC-019"
+    },
+    {
+      "id": "test_tc012_tc019_tc023_protocolo.TC019Desconexion.test_reintento_con_folio_recupera_el_id",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.72,
+      "caso": "TC-019"
+    },
+    {
+      "id": "test_tc012_tc019_tc023_protocolo.TC023CompatibilidadProtocolo.test_version_incompatible_se_rechaza_explicitamente",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.21,
+      "caso": "TC-023"
+    },
+    {
+      "id": "test_tc016_tc018_saturacion_y_duplicados.TC016Saturacion.test_carrera_diez_envios_con_un_lugar",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.47,
+      "caso": "TC-016"
+    },
+    {
+      "id": "test_tc016_tc018_saturacion_y_duplicados.TC016Saturacion.test_rechazo_explicito_secuencial",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.48,
+      "caso": "TC-016"
+    },
+    {
+      "id": "test_tc016_tc018_saturacion_y_duplicados.TC018Duplicados.test_a_reintento_mismo_folio_mismo_comando",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.33,
+      "caso": "TC-018"
+    },
+    {
+      "id": "test_tc016_tc018_saturacion_y_duplicados.TC018Duplicados.test_b_sin_folio_cada_envio_es_nuevo",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.23,
+      "caso": "TC-018"
+    },
+    {
+      "id": "test_tc016_tc018_saturacion_y_duplicados.TC018Duplicados.test_c_mismo_folio_otro_comando_es_conflicto",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.35,
+      "caso": "TC-018"
+    },
+    {
+      "id": "test_tc016_tc018_saturacion_y_duplicados.TC018Duplicados.test_cli_request_id",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.62,
+      "caso": "TC-018"
+    },
+    {
+      "id": "test_tc016_tc018_saturacion_y_duplicados.TC018Duplicados.test_d_seis_envios_simultaneos_mismo_folio",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.34,
+      "caso": "TC-018"
+    }
+  ]
+}

@@ -1,0 +1,825 @@
+Run ID: 2026-10-21_avance01-linea-base_bc113057
+Evidencia en: /home/edson/porter/verif/results/2026-10-21_avance01-linea-base_bc113057
+
+test_args_null_equivale_a_lista_vacia (test_tc001_envio_y_validacion.TC001EnvioYValidacion.test_args_null_equivale_a_lista_vacia) ... FAIL
+test_comando_inexistente_termina_failed (test_tc001_envio_y_validacion.TC001EnvioYValidacion.test_comando_inexistente_termina_failed)
+Un programa que no existe nunca llega a RUNNING y queda FAILED con diagnóstico. ... ok
+test_entradas_invalidas_se_rechazan_con_invalid_request (test_tc001_envio_y_validacion.TC001EnvioYValidacion.test_entradas_invalidas_se_rechazan_con_invalid_request)
+RF-02 / RNF-14: tipos y tamaños inválidos -> INVALID_REQUEST con mensaje (sin INTERNAL_ERROR). ... 
+  test_entradas_invalidas_se_rechazan_con_invalid_request (test_tc001_envio_y_validacion.TC001EnvioYValidacion.test_entradas_invalidas_se_rechazan_con_invalid_request) (caso='command=5')
+RF-02 / RNF-14: tipos y tamaños inválidos -> INVALID_REQUEST con mensaje (sin INTERNAL_ERROR). ... FAIL
+  test_entradas_invalidas_se_rechazan_con_invalid_request (test_tc001_envio_y_validacion.TC001EnvioYValidacion.test_entradas_invalidas_se_rechazan_con_invalid_request) (caso='args texto')
+RF-02 / RNF-14: tipos y tamaños inválidos -> INVALID_REQUEST con mensaje (sin INTERNAL_ERROR). ... FAIL
+  test_entradas_invalidas_se_rechazan_con_invalid_request (test_tc001_envio_y_validacion.TC001EnvioYValidacion.test_entradas_invalidas_se_rechazan_con_invalid_request) (caso='args con números')
+RF-02 / RNF-14: tipos y tamaños inválidos -> INVALID_REQUEST con mensaje (sin INTERNAL_ERROR). ... FAIL
+  test_entradas_invalidas_se_rechazan_con_invalid_request (test_tc001_envio_y_validacion.TC001EnvioYValidacion.test_entradas_invalidas_se_rechazan_con_invalid_request) (caso='comando de 100 KB')
+RF-02 / RNF-14: tipos y tamaños inválidos -> INVALID_REQUEST con mensaje (sin INTERNAL_ERROR). ... FAIL
+  test_entradas_invalidas_se_rechazan_con_invalid_request (test_tc001_envio_y_validacion.TC001EnvioYValidacion.test_entradas_invalidas_se_rechazan_con_invalid_request) (caso='folio no texto')
+RF-02 / RNF-14: tipos y tamaños inválidos -> INVALID_REQUEST con mensaje (sin INTERNAL_ERROR). ... FAIL
+  test_entradas_invalidas_se_rechazan_con_invalid_request (test_tc001_envio_y_validacion.TC001EnvioYValidacion.test_entradas_invalidas_se_rechazan_con_invalid_request) (caso='status job_id lista')
+RF-02 / RNF-14: tipos y tamaños inválidos -> INVALID_REQUEST con mensaje (sin INTERNAL_ERROR). ... FAIL
+  test_entradas_invalidas_se_rechazan_con_invalid_request (test_tc001_envio_y_validacion.TC001EnvioYValidacion.test_entradas_invalidas_se_rechazan_con_invalid_request) (caso='cancel sin job_id')
+RF-02 / RNF-14: tipos y tamaños inválidos -> INVALID_REQUEST con mensaje (sin INTERNAL_ERROR). ... FAIL
+  test_entradas_invalidas_se_rechazan_con_invalid_request (test_tc001_envio_y_validacion.TC001EnvioYValidacion.test_entradas_invalidas_se_rechazan_con_invalid_request) (caso='list estado inexistente')
+RF-02 / RNF-14: tipos y tamaños inválidos -> INVALID_REQUEST con mensaje (sin INTERNAL_ERROR). ... FAIL
+  test_entradas_invalidas_se_rechazan_con_invalid_request (test_tc001_envio_y_validacion.TC001EnvioYValidacion.test_entradas_invalidas_se_rechazan_con_invalid_request) (caso='output stream inválido')
+RF-02 / RNF-14: tipos y tamaños inválidos -> INVALID_REQUEST con mensaje (sin INTERNAL_ERROR). ... FAIL
+test_entradas_invalidas_se_rechazan_con_invalid_request (test_tc001_envio_y_validacion.TC001EnvioYValidacion.test_entradas_invalidas_se_rechazan_con_invalid_request)
+RF-02 / RNF-14: tipos y tamaños inválidos -> INVALID_REQUEST con mensaje (sin INTERNAL_ERROR). ... FAIL
+test_envio_valido_devuelve_id_unico (test_tc001_envio_y_validacion.TC001EnvioYValidacion.test_envio_valido_devuelve_id_unico)
+RF-01: cada envío válido devuelve un ID distinto y estado QUEUED. ... ok
+test_ayuda_y_codigos_de_salida (test_tc001_envio_y_validacion.TC015AyudaYCodigosCLI.test_ayuda_y_codigos_de_salida) ... FAIL
+test_servicio_apagado_da_codigo_1_y_sugerencia (test_tc001_envio_y_validacion.TC015AyudaYCodigosCLI.test_servicio_apagado_da_codigo_1_y_sugerencia) ... FAIL
+test_fifo (test_tc002_cola_y_concurrencia.TC002ColaYConcurrencia.test_fifo)
+RF-03: con límite 1, los trabajos arrancan en el orden en que llegaron. ... ok
+test_ocho_trabajos_con_limite_tres (test_tc002_cola_y_concurrencia.TC002ColaYConcurrencia.test_ocho_trabajos_con_limite_tres) ... ok
+test_ciclo_de_vida_y_tiempos (test_tc003_tc006_estados_tiempos_salidas.TC003EstadosYTiempos.test_ciclo_de_vida_y_tiempos) ... ok
+test_codigo_distinto_de_cero_es_failed (test_tc003_tc006_estados_tiempos_salidas.TC003EstadosYTiempos.test_codigo_distinto_de_cero_es_failed) ... ok
+test_bytes_que_no_son_texto (test_tc003_tc006_estados_tiempos_salidas.TC006SalidasSeparadas.test_bytes_que_no_son_texto) ... ok
+test_cli_output (test_tc003_tc006_estados_tiempos_salidas.TC006SalidasSeparadas.test_cli_output) ... FAIL
+test_linea_de_200000_caracteres (test_tc003_tc006_estados_tiempos_salidas.TC006SalidasSeparadas.test_linea_de_200000_caracteres)
+Regresión F6: antes, una línea > 64 KiB dejaba el trabajo FAILED y el proceso vivo. ... FAIL
+test_salida_visible_mientras_corre (test_tc003_tc006_estados_tiempos_salidas.TC006SalidasSeparadas.test_salida_visible_mientras_corre) ... ok
+test_stdout_y_stderr_no_se_mezclan (test_tc003_tc006_estados_tiempos_salidas.TC006SalidasSeparadas.test_stdout_y_stderr_no_se_mezclan) ... ok
+test_trabajo_que_lee_stdin_no_se_cuelga (test_tc003_tc006_estados_tiempos_salidas.TC006SalidasSeparadas.test_trabajo_que_lee_stdin_no_se_cuelga)
+Regresión F13: el trabajo recibe una entrada vacía (stdin=DEVNULL). ... ok
+test_rnf05_consulta_en_menos_de_un_segundo_con_100_trabajos (test_tc004_tc013_consultas_y_salud.TC004Consultas.test_rnf05_consulta_en_menos_de_un_segundo_con_100_trabajos) ... 
+    RNF-05: status 2.8 ms, list(100) 4.0 ms
+ok
+test_rnf06_500_registros_sin_perdida_tras_reinicio (test_tc004_tc013_consultas_y_salud.TC004Consultas.test_rnf06_500_registros_sin_perdida_tras_reinicio) ... FAIL
+test_status_list_y_filtro (test_tc004_tc013_consultas_y_salud.TC004Consultas.test_status_list_y_filtro) ... FAIL
+test_configuracion_invalida_no_arranca (test_tc004_tc013_consultas_y_salud.TC013ConfiguracionYSalud.test_configuracion_invalida_no_arranca) ... 
+  test_configuracion_invalida_no_arranca (test_tc004_tc013_consultas_y_salud.TC013ConfiguracionYSalud.test_configuracion_invalida_no_arranca) (variable='MAX_CONCURRENCY', valor='0') ... FAIL
+  test_configuracion_invalida_no_arranca (test_tc004_tc013_consultas_y_salud.TC013ConfiguracionYSalud.test_configuracion_invalida_no_arranca) (variable='MAX_CONCURRENCY', valor='-2') ... FAIL
+  test_configuracion_invalida_no_arranca (test_tc004_tc013_consultas_y_salud.TC013ConfiguracionYSalud.test_configuracion_invalida_no_arranca) (variable='MAX_CONCURRENCY', valor='abc') ... FAIL
+  test_configuracion_invalida_no_arranca (test_tc004_tc013_consultas_y_salud.TC013ConfiguracionYSalud.test_configuracion_invalida_no_arranca) (variable='MAX_QUEUE', valor='0') ... FAIL
+  test_configuracion_invalida_no_arranca (test_tc004_tc013_consultas_y_salud.TC013ConfiguracionYSalud.test_configuracion_invalida_no_arranca) (variable='PORT', valor='99999') ... FAIL
+  test_configuracion_invalida_no_arranca (test_tc004_tc013_consultas_y_salud.TC013ConfiguracionYSalud.test_configuracion_invalida_no_arranca) (variable='GRACE_SECONDS', valor='-1') ... FAIL
+  test_configuracion_invalida_no_arranca (test_tc004_tc013_consultas_y_salud.TC013ConfiguracionYSalud.test_configuracion_invalida_no_arranca) (variable='SHUTDOWN_TIMEOUT', valor='x') ... FAIL
+test_configuracion_se_registra_al_arrancar (test_tc004_tc013_consultas_y_salud.TC013ConfiguracionYSalud.test_configuracion_se_registra_al_arrancar) ... FAIL
+test_health (test_tc004_tc013_consultas_y_salud.TC013ConfiguracionYSalud.test_health) ... FAIL
+test_cancelar_alcanza_a_los_nietos (test_tc005_tc017_tc021_cancelacion.TC005Cancelacion.test_cancelar_alcanza_a_los_nietos)
+Regresión F4: antes el nieto seguía vivo y el trabajo seguía RUNNING ocupando el cupo. ... FAIL
+test_cancelar_en_cola (test_tc005_tc017_tc021_cancelacion.TC005Cancelacion.test_cancelar_en_cola) ... ok
+test_cancelar_en_ejecucion (test_tc005_tc017_tc021_cancelacion.TC005Cancelacion.test_cancelar_en_ejecucion) ... FAIL
+test_cancelar_inmediatamente_despues_de_enviar (test_tc005_tc017_tc021_cancelacion.TC017CancelacionesConcurrentes.test_cancelar_inmediatamente_despues_de_enviar)
+Regresión F3: antes, 25 de 25 respondían ALREADY_FINISHED y el trabajo corría completo. ... FAIL
+test_caso_a_cancelacion_llega_primero (test_tc005_tc017_tc021_cancelacion.TC017CancelacionesConcurrentes.test_caso_a_cancelacion_llega_primero)
+El programa sale con 0 al recibir SIGTERM, pero se pidió cancelar: CANCELED. ... ERROR
+test_caso_b_termina_primero (test_tc005_tc017_tc021_cancelacion.TC017CancelacionesConcurrentes.test_caso_b_termina_primero) ... ok
+test_cinco_cancelaciones_simultaneas (test_tc005_tc017_tc021_cancelacion.TC017CancelacionesConcurrentes.test_cinco_cancelaciones_simultaneas) ... ok
+test_proceso_que_ignora_sigterm (test_tc005_tc017_tc021_cancelacion.TC021Escalamiento.test_proceso_que_ignora_sigterm) ... 
+    TC-021: escalamiento a SIGKILL en 2.11 s (grace=2 s)
+ok
+test_kill9_con_trabajos_corriendo_y_en_cola (test_tc007_tc022_recuperacion.TC007Recuperacion.test_kill9_con_trabajos_corriendo_y_en_cola) ... FAIL
+test_nieto_huerfano_con_lider_muerto (test_tc007_tc022_recuperacion.TC007Recuperacion.test_nieto_huerfano_con_lider_muerto) ... FAIL
+test_pid_reutilizado_no_se_mata (test_tc007_tc022_recuperacion.TC007Recuperacion.test_pid_reutilizado_no_se_mata)
+La base dice RUNNING con un PID que ahora pertenece a otro programa: no se toca. ... FAIL
+test_bajar_max_queue_con_pendientes (test_tc007_tc022_recuperacion.TC022RecuperacionCapacidad.test_bajar_max_queue_con_pendientes)
+Regresión: antes el servicio no arrancaba (QueueFullError en recover_on_startup). ... FAIL
+test_base_integra_tras_kill9_durante_escrituras (test_tc007_tc022_recuperacion.TC022RecuperacionCapacidad.test_base_integra_tras_kill9_durante_escrituras)
+RNF-28: matar el servicio en plena actividad no deja la base inutilizable. ... ok
+test_un_trabajo_que_falla_no_afecta_a_otros (test_tc008_tc020_tc024_fallas_y_recursos.TC008Aislamiento.test_un_trabajo_que_falla_no_afecta_a_otros) ... ok
+test_falla_de_captura_no_deja_procesos_ni_descuadra_el_limite (test_tc008_tc020_tc024_fallas_y_recursos.TC020MuerteInesperada.test_falla_de_captura_no_deja_procesos_ni_descuadra_el_limite)
+Regresión F6: el proceso se termina y la reserva de cupo se libera una sola vez. ... FAIL
+test_senal_externa_queda_failed_con_diagnostico (test_tc008_tc020_tc024_fallas_y_recursos.TC020MuerteInesperada.test_senal_externa_queda_failed_con_diagnostico)
+Regresión F11: antes kill -9 externo quedaba CANCELED. ... 
+  test_senal_externa_queda_failed_con_diagnostico (test_tc008_tc020_tc024_fallas_y_recursos.TC020MuerteInesperada.test_senal_externa_queda_failed_con_diagnostico) (senal='SIGKILL')
+Regresión F11: antes kill -9 externo quedaba CANCELED. ... FAIL
+  test_senal_externa_queda_failed_con_diagnostico (test_tc008_tc020_tc024_fallas_y_recursos.TC020MuerteInesperada.test_senal_externa_queda_failed_con_diagnostico) (senal='SIGTERM')
+Regresión F11: antes kill -9 externo quedaba CANCELED. ... FAIL
+  test_senal_externa_queda_failed_con_diagnostico (test_tc008_tc020_tc024_fallas_y_recursos.TC020MuerteInesperada.test_senal_externa_queda_failed_con_diagnostico) (senal='SIGSEGV')
+Regresión F11: antes kill -9 externo quedaba CANCELED. ... FAIL
+test_cuatro_lotes_de_90_sin_fugas (test_tc008_tc020_tc024_fallas_y_recursos.TC024RecursosBajoCarga.test_cuatro_lotes_de_90_sin_fugas) ... 
+    TC-024: descriptores abiertos tras cada lote de 90: [7, 7, 7, 7]
+ok
+test_cierre_con_tiempo_limite (test_tc009_cierre_controlado.TC009CierreControlado.test_cierre_con_tiempo_limite) ... FAIL
+test_ctrl_c_hace_el_mismo_cierre_controlado (test_tc009_cierre_controlado.TC009CierreControlado.test_ctrl_c_hace_el_mismo_cierre_controlado)
+Regresión: antes Ctrl+C mataba a los trabajos (FAILED -2). ... FAIL
+test_durante_el_cierre_no_acepta_nuevos (test_tc009_cierre_controlado.TC009CierreControlado.test_durante_el_cierre_no_acepta_nuevos) ... FAIL
+test_puerto_ocupado (test_tc009_cierre_controlado.TC009CierreControlado.test_puerto_ocupado)
+Regresión F14: antes quedaba vivo, sin escuchar y lanzando los trabajos recuperados. ... FAIL
+test_sigterm_con_servicio_ocioso (test_tc009_cierre_controlado.TC009CierreControlado.test_sigterm_con_servicio_ocioso) ... ok
+test_mensaje_byte_a_byte_y_varias_solicitudes_por_conexion (test_tc012_tc019_tc023_protocolo.TC012Protocolo.test_mensaje_byte_a_byte_y_varias_solicitudes_por_conexion) ... ok
+test_mensajes_invalidos_reciben_error_y_no_tumban_el_servicio (test_tc012_tc019_tc023_protocolo.TC012Protocolo.test_mensajes_invalidos_reciben_error_y_no_tumban_el_servicio)
+Regresión F15: antes se cortaba la conexión sin respuesta ni registro. ... 
+  test_mensajes_invalidos_reciben_error_y_no_tumban_el_servicio (test_tc012_tc019_tc023_protocolo.TC012Protocolo.test_mensajes_invalidos_reciben_error_y_no_tumban_el_servicio) (caso='longitud de 2 GB')
+Regresión F15: antes se cortaba la conexión sin respuesta ni registro. ... ERROR
+  test_mensajes_invalidos_reciben_error_y_no_tumban_el_servicio (test_tc012_tc019_tc023_protocolo.TC012Protocolo.test_mensajes_invalidos_reciben_error_y_no_tumban_el_servicio) (caso='JSON inválido')
+Regresión F15: antes se cortaba la conexión sin respuesta ni registro. ... ERROR
+  test_mensajes_invalidos_reciben_error_y_no_tumban_el_servicio (test_tc012_tc019_tc023_protocolo.TC012Protocolo.test_mensajes_invalidos_reciben_error_y_no_tumban_el_servicio) (caso='JSON que no es objeto')
+Regresión F15: antes se cortaba la conexión sin respuesta ni registro. ... ERROR
+test_mensajes_invalidos_reciben_error_y_no_tumban_el_servicio (test_tc012_tc019_tc023_protocolo.TC012Protocolo.test_mensajes_invalidos_reciben_error_y_no_tumban_el_servicio)
+Regresión F15: antes se cortaba la conexión sin respuesta ni registro. ... FAIL
+test_desconexion_a_medio_mensaje_no_tiene_efecto (test_tc012_tc019_tc023_protocolo.TC019Desconexion.test_desconexion_a_medio_mensaje_no_tiene_efecto) ... ok
+test_desconexion_tras_mensaje_completo_la_operacion_queda_aceptada (test_tc012_tc019_tc023_protocolo.TC019Desconexion.test_desconexion_tras_mensaje_completo_la_operacion_queda_aceptada) ... FAIL
+test_reintento_con_folio_recupera_el_id (test_tc012_tc019_tc023_protocolo.TC019Desconexion.test_reintento_con_folio_recupera_el_id)
+D10: si el cliente perdió la respuesta, reenviar con el mismo folio devuelve el mismo trabajo. ... FAIL
+test_version_incompatible_se_rechaza_explicitamente (test_tc012_tc019_tc023_protocolo.TC023CompatibilidadProtocolo.test_version_incompatible_se_rechaza_explicitamente) ... ok
+test_carrera_diez_envios_con_un_lugar (test_tc016_tc018_saturacion_y_duplicados.TC016Saturacion.test_carrera_diez_envios_con_un_lugar)
+Regresión F1: antes 9 INTERNAL_ERROR y 9 filas fantasma. ... FAIL
+test_rechazo_explicito_secuencial (test_tc016_tc018_saturacion_y_duplicados.TC016Saturacion.test_rechazo_explicito_secuencial) ... FAIL
+test_a_reintento_mismo_folio_mismo_comando (test_tc016_tc018_saturacion_y_duplicados.TC018Duplicados.test_a_reintento_mismo_folio_mismo_comando) ... FAIL
+test_b_sin_folio_cada_envio_es_nuevo (test_tc016_tc018_saturacion_y_duplicados.TC018Duplicados.test_b_sin_folio_cada_envio_es_nuevo) ... ok
+test_c_mismo_folio_otro_comando_es_conflicto (test_tc016_tc018_saturacion_y_duplicados.TC018Duplicados.test_c_mismo_folio_otro_comando_es_conflicto)
+Regresión F8: antes el trabajo original desaparecía (INSERT OR REPLACE). ... 
+  test_c_mismo_folio_otro_comando_es_conflicto (test_tc016_tc018_saturacion_y_duplicados.TC018Duplicados.test_c_mismo_folio_otro_comando_es_conflicto) (comando='ls', args=[])
+Regresión F8: antes el trabajo original desaparecía (INSERT OR REPLACE). ... FAIL
+  test_c_mismo_folio_otro_comando_es_conflicto (test_tc016_tc018_saturacion_y_duplicados.TC018Duplicados.test_c_mismo_folio_otro_comando_es_conflicto) (comando='echo', args=['dos'])
+Regresión F8: antes el trabajo original desaparecía (INSERT OR REPLACE). ... FAIL
+test_c_mismo_folio_otro_comando_es_conflicto (test_tc016_tc018_saturacion_y_duplicados.TC018Duplicados.test_c_mismo_folio_otro_comando_es_conflicto)
+Regresión F8: antes el trabajo original desaparecía (INSERT OR REPLACE). ... ERROR
+test_cli_request_id (test_tc016_tc018_saturacion_y_duplicados.TC018Duplicados.test_cli_request_id) ... FAIL
+test_d_seis_envios_simultaneos_mismo_folio (test_tc016_tc018_saturacion_y_duplicados.TC018Duplicados.test_d_seis_envios_simultaneos_mismo_folio) ... FAIL
+
+======================================================================
+ERROR: test_caso_a_cancelacion_llega_primero (test_tc005_tc017_tc021_cancelacion.TC017CancelacionesConcurrentes.test_caso_a_cancelacion_llega_primero)
+El programa sale con 0 al recibir SIGTERM, pero se pidió cancelar: CANCELED.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/edson/porter/verif/scripts/test_tc005_tc017_tc021_cancelacion.py", line 96, in test_caso_a_cancelacion_llega_primero
+    self.assertEqual((j["status"], j["exit_code"]), ("CANCELED", 0))
+                      ~^^^^^^^^^^
+TypeError: 'NoneType' object is not subscriptable
+
+======================================================================
+ERROR: test_mensajes_invalidos_reciben_error_y_no_tumban_el_servicio (test_tc012_tc019_tc023_protocolo.TC012Protocolo.test_mensajes_invalidos_reciben_error_y_no_tumban_el_servicio) (caso='longitud de 2 GB')
+Regresión F15: antes se cortaba la conexión sin respuesta ni registro.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/edson/porter/verif/scripts/test_tc012_tc019_tc023_protocolo.py", line 58, in test_mensajes_invalidos_reciben_error_y_no_tumban_el_servicio
+    resp = asyncio.run(_enviar(datos))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/edson/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/home/edson/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/edson/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/home/edson/porter/verif/scripts/test_tc012_tc019_tc023_protocolo.py", line 52, in _enviar
+    return await asyncio.wait_for(leer_mensaje(r), 3)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/edson/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/asyncio/tasks.py", line 520, in wait_for
+    return await fut
+           ^^^^^^^^^
+  File "/home/edson/porter/verif/scripts/jr_helpers.py", line 45, in leer_mensaje
+    (n,) = struct.unpack("!I", await reader.readexactly(4))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/edson/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/asyncio/streams.py", line 750, in readexactly
+    raise exceptions.IncompleteReadError(incomplete, n)
+asyncio.exceptions.IncompleteReadError: 0 bytes read on a total of 4 expected bytes
+
+======================================================================
+ERROR: test_mensajes_invalidos_reciben_error_y_no_tumban_el_servicio (test_tc012_tc019_tc023_protocolo.TC012Protocolo.test_mensajes_invalidos_reciben_error_y_no_tumban_el_servicio) (caso='JSON inválido')
+Regresión F15: antes se cortaba la conexión sin respuesta ni registro.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/edson/porter/verif/scripts/test_tc012_tc019_tc023_protocolo.py", line 58, in test_mensajes_invalidos_reciben_error_y_no_tumban_el_servicio
+    resp = asyncio.run(_enviar(datos))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/edson/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/home/edson/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/edson/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/home/edson/porter/verif/scripts/test_tc012_tc019_tc023_protocolo.py", line 52, in _enviar
+    return await asyncio.wait_for(leer_mensaje(r), 3)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/edson/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/asyncio/tasks.py", line 520, in wait_for
+    return await fut
+           ^^^^^^^^^
+  File "/home/edson/porter/verif/scripts/jr_helpers.py", line 45, in leer_mensaje
+    (n,) = struct.unpack("!I", await reader.readexactly(4))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/edson/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/asyncio/streams.py", line 750, in readexactly
+    raise exceptions.IncompleteReadError(incomplete, n)
+asyncio.exceptions.IncompleteReadError: 0 bytes read on a total of 4 expected bytes
+
+======================================================================
+ERROR: test_mensajes_invalidos_reciben_error_y_no_tumban_el_servicio (test_tc012_tc019_tc023_protocolo.TC012Protocolo.test_mensajes_invalidos_reciben_error_y_no_tumban_el_servicio) (caso='JSON que no es objeto')
+Regresión F15: antes se cortaba la conexión sin respuesta ni registro.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/edson/porter/verif/scripts/test_tc012_tc019_tc023_protocolo.py", line 58, in test_mensajes_invalidos_reciben_error_y_no_tumban_el_servicio
+    resp = asyncio.run(_enviar(datos))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/edson/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/home/edson/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/edson/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/home/edson/porter/verif/scripts/test_tc012_tc019_tc023_protocolo.py", line 52, in _enviar
+    return await asyncio.wait_for(leer_mensaje(r), 3)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/edson/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/asyncio/tasks.py", line 520, in wait_for
+    return await fut
+           ^^^^^^^^^
+  File "/home/edson/porter/verif/scripts/jr_helpers.py", line 45, in leer_mensaje
+    (n,) = struct.unpack("!I", await reader.readexactly(4))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/edson/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/asyncio/streams.py", line 750, in readexactly
+    raise exceptions.IncompleteReadError(incomplete, n)
+asyncio.exceptions.IncompleteReadError: 0 bytes read on a total of 4 expected bytes
+
+======================================================================
+ERROR: test_c_mismo_folio_otro_comando_es_conflicto (test_tc016_tc018_saturacion_y_duplicados.TC018Duplicados.test_c_mismo_folio_otro_comando_es_conflicto)
+Regresión F8: antes el trabajo original desaparecía (INSERT OR REPLACE).
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/edson/porter/verif/scripts/test_tc016_tc018_saturacion_y_duplicados.py", line 66, in test_c_mismo_folio_otro_comando_es_conflicto
+    self.assertEqual((original["command"], original["args"], original["status"]),
+                      ~~~~~~~~^^^^^^^^^^^
+TypeError: 'NoneType' object is not subscriptable
+
+======================================================================
+FAIL: test_args_null_equivale_a_lista_vacia (test_tc001_envio_y_validacion.TC001EnvioYValidacion.test_args_null_equivale_a_lista_vacia)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/edson/porter/verif/scripts/test_tc001_envio_y_validacion.py", line 53, in test_args_null_equivale_a_lista_vacia
+    self.assertEqual(j["status"], "SUCCEEDED", j)
+AssertionError: 'FAILED' != 'SUCCEEDED'
+- FAILED
++ SUCCEEDED
+ : {'id': '42a00d9c-0300-49ee-a817-cc50b4c5ba31', 'command': 'echo', 'args': None, 'status': 'FAILED', 'client_request_id': None, 'pid': None, 'submitted_at': '2026-10-22T03:16:53.391782+00:00', 'started_at': None, 'finished_at': '2026-10-22T03:16:53.408962+00:00', 'exit_code': -1}
+
+======================================================================
+FAIL: test_entradas_invalidas_se_rechazan_con_invalid_request (test_tc001_envio_y_validacion.TC001EnvioYValidacion.test_entradas_invalidas_se_rechazan_con_invalid_request) (caso='command=5')
+RF-02 / RNF-14: tipos y tamaños inválidos -> INVALID_REQUEST con mensaje (sin INTERNAL_ERROR).
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/edson/porter/verif/scripts/test_tc001_envio_y_validacion.py", line 43, in test_entradas_invalidas_se_rechazan_con_invalid_request
+    self.assertEqual(r.get("code"), "INVALID_REQUEST", r)
+AssertionError: 'INTERNAL_ERROR' != 'INVALID_REQUEST'
+- INTERNAL_ERROR
++ INVALID_REQUEST
+ : {'type': 'error', 'version': 1, 'code': 'INTERNAL_ERROR', 'message': "Error interno: 'int' object has no attribute 'strip'"}
+
+======================================================================
+FAIL: test_entradas_invalidas_se_rechazan_con_invalid_request (test_tc001_envio_y_validacion.TC001EnvioYValidacion.test_entradas_invalidas_se_rechazan_con_invalid_request) (caso='args texto')
+RF-02 / RNF-14: tipos y tamaños inválidos -> INVALID_REQUEST con mensaje (sin INTERNAL_ERROR).
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/edson/porter/verif/scripts/test_tc001_envio_y_validacion.py", line 42, in test_entradas_invalidas_se_rechazan_con_invalid_request
+    self.assertEqual(r.get("type"), "error", r)
+AssertionError: 'submit_response' != 'error'
+- submit_response
++ error
+ : {'type': 'submit_response', 'version': 1, 'ok': True, 'job_id': '6de6b703-8dce-4fb9-8463-619574e91aa4', 'status': 'QUEUED'}
+
+======================================================================
+FAIL: test_entradas_invalidas_se_rechazan_con_invalid_request (test_tc001_envio_y_validacion.TC001EnvioYValidacion.test_entradas_invalidas_se_rechazan_con_invalid_request) (caso='args con números')
+RF-02 / RNF-14: tipos y tamaños inválidos -> INVALID_REQUEST con mensaje (sin INTERNAL_ERROR).
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/edson/porter/verif/scripts/test_tc001_envio_y_validacion.py", line 42, in test_entradas_invalidas_se_rechazan_con_invalid_request
+    self.assertEqual(r.get("type"), "error", r)
+AssertionError: 'submit_response' != 'error'
+- submit_response
++ error
+ : {'type': 'submit_response', 'version': 1, 'ok': True, 'job_id': 'ba1dadc0-5443-4ecc-b10b-2a4f0806d281', 'status': 'QUEUED'}
+
+======================================================================
+FAIL: test_entradas_invalidas_se_rechazan_con_invalid_request (test_tc001_envio_y_validacion.TC001EnvioYValidacion.test_entradas_invalidas_se_rechazan_con_invalid_request) (caso='comando de 100 KB')
+RF-02 / RNF-14: tipos y tamaños inválidos -> INVALID_REQUEST con mensaje (sin INTERNAL_ERROR).
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/edson/porter/verif/scripts/test_tc001_envio_y_validacion.py", line 42, in test_entradas_invalidas_se_rechazan_con_invalid_request
+    self.assertEqual(r.get("type"), "error", r)
+AssertionError: 'submit_response' != 'error'
+- submit_response
++ error
+ : {'type': 'submit_response', 'version': 1, 'ok': True, 'job_id': '0398fbf6-22ef-4c78-a03f-68117f331e73', 'status': 'QUEUED'}
+
+======================================================================
+FAIL: test_entradas_invalidas_se_rechazan_con_invalid_request (test_tc001_envio_y_validacion.TC001EnvioYValidacion.test_entradas_invalidas_se_rechazan_con_invalid_request) (caso='folio no texto')
+RF-02 / RNF-14: tipos y tamaños inválidos -> INVALID_REQUEST con mensaje (sin INTERNAL_ERROR).
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/edson/porter/verif/scripts/test_tc001_envio_y_validacion.py", line 42, in test_entradas_invalidas_se_rechazan_con_invalid_request
+    self.assertEqual(r.get("type"), "error", r)
+AssertionError: 'submit_response' != 'error'
+- submit_response
++ error
+ : {'type': 'submit_response', 'version': 1, 'ok': True, 'job_id': 'eaf8e9c1-3217-482a-a363-e69697d6e3ae', 'status': 'QUEUED'}
+
+======================================================================
+FAIL: test_entradas_invalidas_se_rechazan_con_invalid_request (test_tc001_envio_y_validacion.TC001EnvioYValidacion.test_entradas_invalidas_se_rechazan_con_invalid_request) (caso='status job_id lista')
+RF-02 / RNF-14: tipos y tamaños inválidos -> INVALID_REQUEST con mensaje (sin INTERNAL_ERROR).
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/edson/porter/verif/scripts/test_tc001_envio_y_validacion.py", line 43, in test_entradas_invalidas_se_rechazan_con_invalid_request
+    self.assertEqual(r.get("code"), "INVALID_REQUEST", r)
+AssertionError: 'INTERNAL_ERROR' != 'INVALID_REQUEST'
+- INTERNAL_ERROR
++ INVALID_REQUEST
+ : {'type': 'error', 'version': 1, 'code': 'INTERNAL_ERROR', 'message': "Error interno: Error binding parameter 1: type 'list' is not supported"}
+
+======================================================================
+FAIL: test_entradas_invalidas_se_rechazan_con_invalid_request (test_tc001_envio_y_validacion.TC001EnvioYValidacion.test_entradas_invalidas_se_rechazan_con_invalid_request) (caso='cancel sin job_id')
+RF-02 / RNF-14: tipos y tamaños inválidos -> INVALID_REQUEST con mensaje (sin INTERNAL_ERROR).
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/edson/porter/verif/scripts/test_tc001_envio_y_validacion.py", line 43, in test_entradas_invalidas_se_rechazan_con_invalid_request
+    self.assertEqual(r.get("code"), "INVALID_REQUEST", r)
+AssertionError: 'NOT_FOUND' != 'INVALID_REQUEST'
+- NOT_FOUND
++ INVALID_REQUEST
+ : {'type': 'error', 'version': 1, 'code': 'NOT_FOUND', 'message': 'Trabajo no encontrado.'}
+
+======================================================================
+FAIL: test_entradas_invalidas_se_rechazan_con_invalid_request (test_tc001_envio_y_validacion.TC001EnvioYValidacion.test_entradas_invalidas_se_rechazan_con_invalid_request) (caso='list estado inexistente')
+RF-02 / RNF-14: tipos y tamaños inválidos -> INVALID_REQUEST con mensaje (sin INTERNAL_ERROR).
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/edson/porter/verif/scripts/test_tc001_envio_y_validacion.py", line 42, in test_entradas_invalidas_se_rechazan_con_invalid_request
+    self.assertEqual(r.get("type"), "error", r)
+AssertionError: 'list_response' != 'error'
+- list_response
++ error
+ : {'type': 'list_response', 'version': 1, 'jobs': []}
+
+======================================================================
+FAIL: test_entradas_invalidas_se_rechazan_con_invalid_request (test_tc001_envio_y_validacion.TC001EnvioYValidacion.test_entradas_invalidas_se_rechazan_con_invalid_request) (caso='output stream inválido')
+RF-02 / RNF-14: tipos y tamaños inválidos -> INVALID_REQUEST con mensaje (sin INTERNAL_ERROR).
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/edson/porter/verif/scripts/test_tc001_envio_y_validacion.py", line 43, in test_entradas_invalidas_se_rechazan_con_invalid_request
+    self.assertEqual(r.get("code"), "INVALID_REQUEST", r)
+AssertionError: 'NOT_FOUND' != 'INVALID_REQUEST'
+- NOT_FOUND
++ INVALID_REQUEST
+ : {'type': 'error', 'version': 1, 'code': 'NOT_FOUND', 'message': 'Trabajo no encontrado.'}
+
+======================================================================
+FAIL: test_entradas_invalidas_se_rechazan_con_invalid_request (test_tc001_envio_y_validacion.TC001EnvioYValidacion.test_entradas_invalidas_se_rechazan_con_invalid_request)
+RF-02 / RNF-14: tipos y tamaños inválidos -> INVALID_REQUEST con mensaje (sin INTERNAL_ERROR).
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/edson/porter/verif/scripts/test_tc001_envio_y_validacion.py", line 46, in test_entradas_invalidas_se_rechazan_con_invalid_request
+    self.assertEqual(s.db("select count(*) from jobs")[0][0], 0, "No debe crearse ningún trabajo")
+AssertionError: 4 != 0 : No debe crearse ningún trabajo
+
+======================================================================
+FAIL: test_ayuda_y_codigos_de_salida (test_tc001_envio_y_validacion.TC015AyudaYCodigosCLI.test_ayuda_y_codigos_de_salida)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/edson/porter/verif/scripts/test_tc001_envio_y_validacion.py", line 72, in test_ayuda_y_codigos_de_salida
+    self.assertIn(palabra, texto)
+AssertionError: 'output' not found in 'Uso: python -m src.cliente.cli <comando> [argumentos]\nComandos disponibles:\n  submit <comando> [args...]   Enviar un nuevo trabajo\n  status <job_id>               Consultar estado de un trabajo\n  list                          Listar todos los trabajos\n  cancel <job_id>               Cancelar un trabajo'
+
+======================================================================
+FAIL: test_servicio_apagado_da_codigo_1_y_sugerencia (test_tc001_envio_y_validacion.TC015AyudaYCodigosCLI.test_servicio_apagado_da_codigo_1_y_sugerencia)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/edson/porter/verif/scripts/test_tc001_envio_y_validacion.py", line 86, in test_servicio_apagado_da_codigo_1_y_sugerencia
+    self.assertIn("conexión", texto.lower())
+AssertionError: 'conexión' not found in "[-] error: comando desconocido 'health'. usa --help para ver la lista."
+
+======================================================================
+FAIL: test_cli_output (test_tc003_tc006_estados_tiempos_salidas.TC006SalidasSeparadas.test_cli_output)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/edson/porter/verif/scripts/test_tc003_tc006_estados_tiempos_salidas.py", line 51, in test_cli_output
+    self.assertEqual(s.cli("output", r["job_id"]), (0, "SALIDA"))
+AssertionError: Tuples differ: (1, "[-] Error: comando desconocido 'output'. Usa --help para ver la lista.") != (0, 'SALIDA')
+
+First differing element 0:
+1
+0
+
+- (1, "[-] Error: comando desconocido 'output'. Usa --help para ver la lista.")
++ (0, 'SALIDA')
+
+======================================================================
+FAIL: test_linea_de_200000_caracteres (test_tc003_tc006_estados_tiempos_salidas.TC006SalidasSeparadas.test_linea_de_200000_caracteres)
+Regresión F6: antes, una línea > 64 KiB dejaba el trabajo FAILED y el proceso vivo.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/edson/porter/verif/scripts/test_tc003_tc006_estados_tiempos_salidas.py", line 59, in test_linea_de_200000_caracteres
+    self.assertEqual((j["status"], j["exit_code"]), ("SUCCEEDED", 0))
+AssertionError: Tuples differ: ('FAILED', -1) != ('SUCCEEDED', 0)
+
+First differing element 0:
+'FAILED'
+'SUCCEEDED'
+
+- ('FAILED', -1)
++ ('SUCCEEDED', 0)
+
+======================================================================
+FAIL: test_rnf06_500_registros_sin_perdida_tras_reinicio (test_tc004_tc013_consultas_y_salud.TC004Consultas.test_rnf06_500_registros_sin_perdida_tras_reinicio)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/edson/porter/verif/scripts/test_tc004_tc013_consultas_y_salud.py", line 70, in test_rnf06_500_registros_sin_perdida_tras_reinicio
+    self.assertTrue(all(f[0] == "SUCCEEDED" and all(v is not None for v in f[1:]) for f in filas),
+AssertionError: False is not true : Todos con estado y tiempos completos
+
+======================================================================
+FAIL: test_status_list_y_filtro (test_tc004_tc013_consultas_y_salud.TC004Consultas.test_status_list_y_filtro)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/edson/porter/verif/scripts/test_tc004_tc013_consultas_y_salud.py", line 35, in test_status_list_y_filtro
+    self.assertNotIn(ok, texto)
+AssertionError: '3f00fd90-b92f-4c5b-8e21-9ef75edaebc9' unexpectedly found in "[*] Trabajos registrados:\n    ID: 3f00fd90-b92f-4c5b-8e21-9ef75edaebc9 | Comando: 'true' | Estado: SUCCEEDED | Exit code: 0\n    ID: 68377a18-7901-48a1-902b-65f1ab02a5f4 | Comando: 'false' | Estado: FAILED | Exit code: 1"
+
+======================================================================
+FAIL: test_configuracion_invalida_no_arranca (test_tc004_tc013_consultas_y_salud.TC013ConfiguracionYSalud.test_configuracion_invalida_no_arranca) (variable='MAX_CONCURRENCY', valor='0')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/edson/porter/verif/scripts/test_tc004_tc013_consultas_y_salud.py", line 95, in test_configuracion_invalida_no_arranca
+    self.assertFalse(s.iniciar(), f"{var}={valor} no debería permitir arrancar")
+AssertionError: True is not false : MAX_CONCURRENCY=0 no debería permitir arrancar
+
+======================================================================
+FAIL: test_configuracion_invalida_no_arranca (test_tc004_tc013_consultas_y_salud.TC013ConfiguracionYSalud.test_configuracion_invalida_no_arranca) (variable='MAX_CONCURRENCY', valor='-2')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/edson/porter/verif/scripts/test_tc004_tc013_consultas_y_salud.py", line 95, in test_configuracion_invalida_no_arranca
+    self.assertFalse(s.iniciar(), f"{var}={valor} no debería permitir arrancar")
+AssertionError: True is not false : MAX_CONCURRENCY=-2 no debería permitir arrancar
+
+======================================================================
+FAIL: test_configuracion_invalida_no_arranca (test_tc004_tc013_consultas_y_salud.TC013ConfiguracionYSalud.test_configuracion_invalida_no_arranca) (variable='MAX_CONCURRENCY', valor='abc')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/edson/porter/verif/scripts/test_tc004_tc013_consultas_y_salud.py", line 97, in test_configuracion_invalida_no_arranca
+    self.assertIn("Configuración inválida", s.salida())
+AssertionError: 'Configuración inválida' not found in 'Traceback (most recent call last):\n  File "<frozen runpy>", line 198, in _run_module_as_main\n  File "<frozen runpy>", line 88, in _run_code\n  File "/home/edson/porter/src/servicio/main.py", line 70, in <module>\n    asyncio.run(arrancar())\n  File "/home/edson/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py", line 195, in run\n    return runner.run(main)\n           ^^^^^^^^^^^^^^^^\n  File "/home/edson/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py", line 118, in run\n    return self._loop.run_until_complete(task)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/home/edson/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete\n    return future.result()\n           ^^^^^^^^^^^^^^^\n  File "/home/edson/porter/src/servicio/main.py", line 21, in arrancar\n    config = operacion.load_config()\n             ^^^^^^^^^^^^^^^^^^^^^^^\n  File "/home/edson/porter/src/servicio/operacion.py", line 23, in load_config\n    "max_concurrency": int(os.getenv("JOBRUNNER_MAX_CONCURRENCY", 3)),\n                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nValueError: invalid literal for int() with base 10: \'abc\'\n'
+
+======================================================================
+FAIL: test_configuracion_invalida_no_arranca (test_tc004_tc013_consultas_y_salud.TC013ConfiguracionYSalud.test_configuracion_invalida_no_arranca) (variable='MAX_QUEUE', valor='0')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/edson/porter/verif/scripts/test_tc004_tc013_consultas_y_salud.py", line 95, in test_configuracion_invalida_no_arranca
+    self.assertFalse(s.iniciar(), f"{var}={valor} no debería permitir arrancar")
+AssertionError: True is not false : MAX_QUEUE=0 no debería permitir arrancar
+
+======================================================================
+FAIL: test_configuracion_invalida_no_arranca (test_tc004_tc013_consultas_y_salud.TC013ConfiguracionYSalud.test_configuracion_invalida_no_arranca) (variable='PORT', valor='99999')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/edson/porter/verif/scripts/test_tc004_tc013_consultas_y_salud.py", line 97, in test_configuracion_invalida_no_arranca
+    self.assertIn("Configuración inválida", s.salida())
+AssertionError: 'Configuración inválida' not found in ''
+
+======================================================================
+FAIL: test_configuracion_invalida_no_arranca (test_tc004_tc013_consultas_y_salud.TC013ConfiguracionYSalud.test_configuracion_invalida_no_arranca) (variable='GRACE_SECONDS', valor='-1')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/edson/porter/verif/scripts/test_tc004_tc013_consultas_y_salud.py", line 95, in test_configuracion_invalida_no_arranca
+    self.assertFalse(s.iniciar(), f"{var}={valor} no debería permitir arrancar")
+AssertionError: True is not false : GRACE_SECONDS=-1 no debería permitir arrancar
+
+======================================================================
+FAIL: test_configuracion_invalida_no_arranca (test_tc004_tc013_consultas_y_salud.TC013ConfiguracionYSalud.test_configuracion_invalida_no_arranca) (variable='SHUTDOWN_TIMEOUT', valor='x')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/edson/porter/verif/scripts/test_tc004_tc013_consultas_y_salud.py", line 95, in test_configuracion_invalida_no_arranca
+    self.assertFalse(s.iniciar(), f"{var}={valor} no debería permitir arrancar")
+AssertionError: True is not false : SHUTDOWN_TIMEOUT=x no debería permitir arrancar
+
+======================================================================
+FAIL: test_configuracion_se_registra_al_arrancar (test_tc004_tc013_consultas_y_salud.TC013ConfiguracionYSalud.test_configuracion_se_registra_al_arrancar)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/edson/porter/verif/scripts/test_tc004_tc013_consultas_y_salud.py", line 103, in test_configuracion_se_registra_al_arrancar
+    self.assertTrue(inicio)
+AssertionError: [] is not true
+
+======================================================================
+FAIL: test_health (test_tc004_tc013_consultas_y_salud.TC013ConfiguracionYSalud.test_health)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/edson/porter/verif/scripts/test_tc004_tc013_consultas_y_salud.py", line 84, in test_health
+    self.assertEqual(codigo, 0)
+AssertionError: 1 != 0
+
+======================================================================
+FAIL: test_cancelar_alcanza_a_los_nietos (test_tc005_tc017_tc021_cancelacion.TC005Cancelacion.test_cancelar_alcanza_a_los_nietos)
+Regresión F4: antes el nieto seguía vivo y el trabajo seguía RUNNING ocupando el cupo.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/edson/porter/verif/scripts/test_tc005_tc017_tc021_cancelacion.py", line 50, in test_cancelar_alcanza_a_los_nietos
+    self.assertIsNotNone(j, "El trabajo debe terminar aunque tenga nietos")
+AssertionError: unexpectedly None : El trabajo debe terminar aunque tenga nietos
+
+======================================================================
+FAIL: test_cancelar_en_ejecucion (test_tc005_tc017_tc021_cancelacion.TC005Cancelacion.test_cancelar_en_ejecucion)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/edson/porter/verif/scripts/test_tc005_tc017_tc021_cancelacion.py", line 39, in test_cancelar_en_ejecucion
+    self.assertTrue(s.eventos("CANCEL_REQUESTED", a))
+AssertionError: [] is not true
+
+======================================================================
+FAIL: test_cancelar_inmediatamente_despues_de_enviar (test_tc005_tc017_tc021_cancelacion.TC017CancelacionesConcurrentes.test_cancelar_inmediatamente_despues_de_enviar)
+Regresión F3: antes, 25 de 25 respondían ALREADY_FINISHED y el trabajo corría completo.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/edson/porter/verif/scripts/test_tc005_tc017_tc021_cancelacion.py", line 84, in test_cancelar_inmediatamente_despues_de_enviar
+    self.assertEqual({res for _, res in resultados}, {"CANCELING"})
+AssertionError: Items in the first set but not the second:
+'ALREADY_FINISHED'
+Items in the second set but not the first:
+'CANCELING'
+
+======================================================================
+FAIL: test_kill9_con_trabajos_corriendo_y_en_cola (test_tc007_tc022_recuperacion.TC007Recuperacion.test_kill9_con_trabajos_corriendo_y_en_cola)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/edson/porter/verif/scripts/test_tc007_tc022_recuperacion.py", line 40, in test_kill9_con_trabajos_corriendo_y_en_cola
+    self.assertEqual(s.procesos("sleep 777"), [], "No deben quedar huérfanos (RNF-30)")
+AssertionError: Lists differ: [3082, 3083, 3085] != []
+
+First list contains 3 additional elements.
+First extra element 0:
+3082
+
+- [3082, 3083, 3085]
++ [] : No deben quedar huérfanos (RNF-30)
+
+======================================================================
+FAIL: test_nieto_huerfano_con_lider_muerto (test_tc007_tc022_recuperacion.TC007Recuperacion.test_nieto_huerfano_con_lider_muerto)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/edson/porter/verif/scripts/test_tc007_tc022_recuperacion.py", line 53, in test_nieto_huerfano_con_lider_muerto
+    self.assertTrue(esperar_que(lambda: s.procesos("sleep 339") == [], 3), "El nieto debe eliminarse")
+AssertionError: False is not true : El nieto debe eliminarse
+
+======================================================================
+FAIL: test_pid_reutilizado_no_se_mata (test_tc007_tc022_recuperacion.TC007Recuperacion.test_pid_reutilizado_no_se_mata)
+La base dice RUNNING con un PID que ahora pertenece a otro programa: no se toca.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/edson/porter/verif/scripts/test_tc007_tc022_recuperacion.py", line 71, in test_pid_reutilizado_no_se_mata
+    self.assertTrue(s.eventos("ORPHAN_SKIPPED", "pid-reutilizado"))
+AssertionError: [] is not true
+
+======================================================================
+FAIL: test_bajar_max_queue_con_pendientes (test_tc007_tc022_recuperacion.TC022RecuperacionCapacidad.test_bajar_max_queue_con_pendientes)
+Regresión: antes el servicio no arrancaba (QueueFullError en recover_on_startup).
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/edson/porter/verif/scripts/test_tc007_tc022_recuperacion.py", line 86, in test_bajar_max_queue_con_pendientes
+    self.assertTrue(s.iniciar(), f"Debe arrancar aunque haya 8 pendientes y capacidad 3:\n{s.salida()}")
+AssertionError: False is not true : Debe arrancar aunque haya 8 pendientes y capacidad 3:
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/edson/porter/src/servicio/main.py", line 70, in <module>
+    asyncio.run(arrancar())
+  File "/home/edson/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/home/edson/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/edson/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/home/edson/porter/src/servicio/main.py", line 41, in arrancar
+    await ctrl.recover_on_startup()
+  File "/home/edson/porter/src/servicio/gestion_trabajos/control.py", line 267, in recover_on_startup
+    self.cola.enqueue(job.id)
+  File "/home/edson/porter/src/servicio/gestion_trabajos/cola.py", line 45, in enqueue
+    raise QueueFullError("La cola de trabajos está llena.")
+src.servicio.gestion_trabajos.cola.QueueFullError: La cola de trabajos está llena.
+
+
+======================================================================
+FAIL: test_falla_de_captura_no_deja_procesos_ni_descuadra_el_limite (test_tc008_tc020_tc024_fallas_y_recursos.TC020MuerteInesperada.test_falla_de_captura_no_deja_procesos_ni_descuadra_el_limite)
+Regresión F6: el proceso se termina y la reserva de cupo se libera una sola vez.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/edson/porter/verif/scripts/test_tc008_tc020_tc024_fallas_y_recursos.py", line 54, in test_falla_de_captura_no_deja_procesos_ni_descuadra_el_limite
+    self.assertEqual(s.procesos("sleep 341"), [], "El proceso no debe quedar vivo")
+AssertionError: Lists differ: [3328] != []
+
+First list contains 1 additional elements.
+First extra element 0:
+3328
+
+- [3328]
++ [] : El proceso no debe quedar vivo
+
+======================================================================
+FAIL: test_senal_externa_queda_failed_con_diagnostico (test_tc008_tc020_tc024_fallas_y_recursos.TC020MuerteInesperada.test_senal_externa_queda_failed_con_diagnostico) (senal='SIGKILL')
+Regresión F11: antes kill -9 externo quedaba CANCELED.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/edson/porter/verif/scripts/test_tc008_tc020_tc024_fallas_y_recursos.py", line 42, in test_senal_externa_queda_failed_con_diagnostico
+    self.assertEqual((fin["status"], fin["exit_code"]), ("FAILED", -int(sig)))
+AssertionError: Tuples differ: ('CANCELED', -9) != ('FAILED', -9)
+
+First differing element 0:
+'CANCELED'
+'FAILED'
+
+- ('CANCELED', -9)
+?   ^ ^^^
+
++ ('FAILED', -9)
+?   ^ ^
+
+
+======================================================================
+FAIL: test_senal_externa_queda_failed_con_diagnostico (test_tc008_tc020_tc024_fallas_y_recursos.TC020MuerteInesperada.test_senal_externa_queda_failed_con_diagnostico) (senal='SIGTERM')
+Regresión F11: antes kill -9 externo quedaba CANCELED.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/edson/porter/verif/scripts/test_tc008_tc020_tc024_fallas_y_recursos.py", line 42, in test_senal_externa_queda_failed_con_diagnostico
+    self.assertEqual((fin["status"], fin["exit_code"]), ("FAILED", -int(sig)))
+AssertionError: Tuples differ: ('CANCELED', -15) != ('FAILED', -15)
+
+First differing element 0:
+'CANCELED'
+'FAILED'
+
+- ('CANCELED', -15)
+?   ^ ^^^
+
++ ('FAILED', -15)
+?   ^ ^
+
+
+======================================================================
+FAIL: test_senal_externa_queda_failed_con_diagnostico (test_tc008_tc020_tc024_fallas_y_recursos.TC020MuerteInesperada.test_senal_externa_queda_failed_con_diagnostico) (senal='SIGSEGV')
+Regresión F11: antes kill -9 externo quedaba CANCELED.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/edson/porter/verif/scripts/test_tc008_tc020_tc024_fallas_y_recursos.py", line 43, in test_senal_externa_queda_failed_con_diagnostico
+    self.assertTrue(s.eventos("KILLED_BY_SIGNAL", j))
+AssertionError: [] is not true
+
+======================================================================
+FAIL: test_cierre_con_tiempo_limite (test_tc009_cierre_controlado.TC009CierreControlado.test_cierre_con_tiempo_limite)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/edson/porter/verif/scripts/test_tc009_cierre_controlado.py", line 45, in test_cierre_con_tiempo_limite
+    self.assertTrue(termino, "El cierre debe terminar en tiempo acotado")
+AssertionError: False is not true : El cierre debe terminar en tiempo acotado
+
+======================================================================
+FAIL: test_ctrl_c_hace_el_mismo_cierre_controlado (test_tc009_cierre_controlado.TC009CierreControlado.test_ctrl_c_hace_el_mismo_cierre_controlado)
+Regresión: antes Ctrl+C mataba a los trabajos (FAILED -2).
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/edson/porter/verif/scripts/test_tc009_cierre_controlado.py", line 65, in test_ctrl_c_hace_el_mismo_cierre_controlado
+    self.assertEqual(s.db("select status, exit_code from jobs")[0], ("CANCELED", -15))
+AssertionError: Tuples differ: ('FAILED', -2) != ('CANCELED', -15)
+
+First differing element 0:
+'FAILED'
+'CANCELED'
+
+- ('FAILED', -2)
++ ('CANCELED', -15)
+
+======================================================================
+FAIL: test_durante_el_cierre_no_acepta_nuevos (test_tc009_cierre_controlado.TC009CierreControlado.test_durante_el_cierre_no_acepta_nuevos)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/edson/porter/verif/scripts/test_tc009_cierre_controlado.py", line 32, in test_durante_el_cierre_no_acepta_nuevos
+    self.assertTrue(s.eventos("REJECTED"))
+AssertionError: [] is not true
+
+======================================================================
+FAIL: test_puerto_ocupado (test_tc009_cierre_controlado.TC009CierreControlado.test_puerto_ocupado)
+Regresión F14: antes quedaba vivo, sin escuchar y lanzando los trabajos recuperados.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/edson/porter/verif/scripts/test_tc009_cierre_controlado.py", line 92, in test_puerto_ocupado
+    self.assertTrue(termino, "Con el puerto ocupado el servicio debe terminar")
+AssertionError: False is not true : Con el puerto ocupado el servicio debe terminar
+
+======================================================================
+FAIL: test_mensajes_invalidos_reciben_error_y_no_tumban_el_servicio (test_tc012_tc019_tc023_protocolo.TC012Protocolo.test_mensajes_invalidos_reciben_error_y_no_tumban_el_servicio)
+Regresión F15: antes se cortaba la conexión sin respuesta ni registro.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/edson/porter/verif/scripts/test_tc012_tc019_tc023_protocolo.py", line 60, in test_mensajes_invalidos_reciben_error_y_no_tumban_el_servicio
+    self.assertEqual(len(s.eventos("PROTOCOL_ERROR")), 3)
+AssertionError: 0 != 3
+
+======================================================================
+FAIL: test_desconexion_tras_mensaje_completo_la_operacion_queda_aceptada (test_tc012_tc019_tc023_protocolo.TC019Desconexion.test_desconexion_tras_mensaje_completo_la_operacion_queda_aceptada)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/edson/porter/verif/scripts/test_tc012_tc019_tc023_protocolo.py", line 76, in test_desconexion_tras_mensaje_completo_la_operacion_queda_aceptada
+    self.assertNotIn("Traceback", s.salida())
+AssertionError: 'Traceback' unexpectedly found in 'Unhandled exception in client_connected_cb\ntransport: <_SelectorSocketTransport closed fd=8>\nTraceback (most recent call last):\n  File "/home/edson/porter/src/servicio/entrada.py", line 177, in _on_connect\n    await handle_client(reader, writer, job_manager, max_message_bytes)\n  File "/home/edson/porter/src/servicio/entrada.py", line 161, in handle_client\n    await writer.wait_closed()\n  File "/home/edson/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/asyncio/streams.py", line 364, in wait_closed\n    await self._protocol._get_close_waiter(self)\n  File "/home/edson/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/asyncio/selector_events.py", line 1013, in _read_ready__data_received\n    data = self._sock.recv(self.max_size)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nConnectionResetError: [Errno 104] Connection reset by peer\n'
+
+======================================================================
+FAIL: test_reintento_con_folio_recupera_el_id (test_tc012_tc019_tc023_protocolo.TC019Desconexion.test_reintento_con_folio_recupera_el_id)
+D10: si el cliente perdió la respuesta, reenviar con el mismo folio devuelve el mismo trabajo.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/edson/porter/verif/scripts/test_tc012_tc019_tc023_protocolo.py", line 97, in test_reintento_con_folio_recupera_el_id
+    self.assertEqual(r["job_id"], original)
+AssertionError: '5ac24fac-5ea6-4934-9799-8059a26c95a6' != 'd03e5897-24aa-440b-9675-c411f32e02a9'
+- 5ac24fac-5ea6-4934-9799-8059a26c95a6
++ d03e5897-24aa-440b-9675-c411f32e02a9
+
+
+======================================================================
+FAIL: test_carrera_diez_envios_con_un_lugar (test_tc016_tc018_saturacion_y_duplicados.TC016Saturacion.test_carrera_diez_envios_con_un_lugar)
+Regresión F1: antes 9 INTERNAL_ERROR y 9 filas fantasma.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/edson/porter/verif/scripts/test_tc016_tc018_saturacion_y_duplicados.py", line 32, in test_carrera_diez_envios_con_un_lugar
+    self.assertEqual(conteo, Counter({"QUEUE_FULL": 9, "QUEUED": 1}))
+AssertionError: Counter({'INTERNAL_ERROR': 9, 'QUEUED': 1}) != Counter({'QUEUE_FULL': 9, 'QUEUED': 1})
+
+======================================================================
+FAIL: test_rechazo_explicito_secuencial (test_tc016_tc018_saturacion_y_duplicados.TC016Saturacion.test_rechazo_explicito_secuencial)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/edson/porter/verif/scripts/test_tc016_tc018_saturacion_y_duplicados.py", line 21, in test_rechazo_explicito_secuencial
+    self.assertEqual(len(s.eventos("REJECTED")), 2, "Los rechazos se registran (RF-23)")
+AssertionError: 0 != 2 : Los rechazos se registran (RF-23)
+
+======================================================================
+FAIL: test_a_reintento_mismo_folio_mismo_comando (test_tc016_tc018_saturacion_y_duplicados.TC018Duplicados.test_a_reintento_mismo_folio_mismo_comando)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/edson/porter/verif/scripts/test_tc016_tc018_saturacion_y_duplicados.py", line 45, in test_a_reintento_mismo_folio_mismo_comando
+    self.assertEqual(r2["job_id"], r1["job_id"])
+AssertionError: 'd8d04907-e062-4889-8e2f-8deddd2d430e' != 'e4ac534e-4d5d-4952-9e6c-ae8075e67b24'
+- d8d04907-e062-4889-8e2f-8deddd2d430e
++ e4ac534e-4d5d-4952-9e6c-ae8075e67b24
+
+
+======================================================================
+FAIL: test_c_mismo_folio_otro_comando_es_conflicto (test_tc016_tc018_saturacion_y_duplicados.TC018Duplicados.test_c_mismo_folio_otro_comando_es_conflicto) (comando='ls', args=[])
+Regresión F8: antes el trabajo original desaparecía (INSERT OR REPLACE).
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/edson/porter/verif/scripts/test_tc016_tc018_saturacion_y_duplicados.py", line 63, in test_c_mismo_folio_otro_comando_es_conflicto
+    self.assertEqual((r.get("type"), r.get("code")), ("error", "REQUEST_ID_CONFLICT"), r)
+AssertionError: Tuples differ: ('submit_response', None) != ('error', 'REQUEST_ID_CONFLICT')
+
+First differing element 0:
+'submit_response'
+'error'
+
+- ('submit_response', None)
++ ('error', 'REQUEST_ID_CONFLICT') : {'type': 'submit_response', 'version': 1, 'ok': True, 'job_id': '80d90cd1-c8d8-40b8-b4a5-479ec97fc51b', 'status': 'QUEUED'}
+
+======================================================================
+FAIL: test_c_mismo_folio_otro_comando_es_conflicto (test_tc016_tc018_saturacion_y_duplicados.TC018Duplicados.test_c_mismo_folio_otro_comando_es_conflicto) (comando='echo', args=['dos'])
+Regresión F8: antes el trabajo original desaparecía (INSERT OR REPLACE).
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/edson/porter/verif/scripts/test_tc016_tc018_saturacion_y_duplicados.py", line 63, in test_c_mismo_folio_otro_comando_es_conflicto
+    self.assertEqual((r.get("type"), r.get("code")), ("error", "REQUEST_ID_CONFLICT"), r)
+AssertionError: Tuples differ: ('submit_response', None) != ('error', 'REQUEST_ID_CONFLICT')
+
+First differing element 0:
+'submit_response'
+'error'
+
+- ('submit_response', None)
++ ('error', 'REQUEST_ID_CONFLICT') : {'type': 'submit_response', 'version': 1, 'ok': True, 'job_id': '80d90cd1-c8d8-40b8-b4a5-479ec97fc51b', 'status': 'QUEUED'}
+
+======================================================================
+FAIL: test_cli_request_id (test_tc016_tc018_saturacion_y_duplicados.TC018Duplicados.test_cli_request_id)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/edson/porter/verif/scripts/test_tc016_tc018_saturacion_y_duplicados.py", line 82, in test_cli_request_id
+    self.assertEqual((c1, c2, c3, c4), (0, 0, 1, 1))
+AssertionError: Tuples differ: (0, 0, 0, 0) != (0, 0, 1, 1)
+
+First differing element 2:
+0
+1
+
+- (0, 0, 0, 0)
+?        ^  ^
+
++ (0, 0, 1, 1)
+?        ^  ^
+
+
+======================================================================
+FAIL: test_d_seis_envios_simultaneos_mismo_folio (test_tc016_tc018_saturacion_y_duplicados.TC018Duplicados.test_d_seis_envios_simultaneos_mismo_folio)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/edson/porter/verif/scripts/test_tc016_tc018_saturacion_y_duplicados.py", line 73, in test_d_seis_envios_simultaneos_mismo_folio
+    self.assertEqual(len({r.get("job_id") for r in respuestas}), 1, respuestas)
+AssertionError: 6 != 1 : [{'type': 'submit_response', 'version': 1, 'ok': True, 'job_id': '2c5a31da-57c5-4adf-9f33-6a1456397c93', 'status': 'QUEUED'}, {'type': 'submit_response', 'version': 1, 'ok': True, 'job_id': '2bb2f1e0-c69b-4f3b-926d-d181c32396b1', 'status': 'QUEUED'}, {'type': 'submit_response', 'version': 1, 'ok': True, 'job_id': '6e7815a5-992f-4cca-9a7a-5c8a730a5a78', 'status': 'QUEUED'}, {'type': 'submit_response', 'version': 1, 'ok': True, 'job_id': 'e719085a-1d57-4feb-8d27-548d446f42a7', 'status': 'QUEUED'}, {'type': 'submit_response', 'version': 1, 'ok': True, 'job_id': 'a6a9be94-5cf1-48d6-9ba2-9e4a4e26c636', 'status': 'QUEUED'}, {'type': 'submit_response', 'version': 1, 'ok': True, 'job_id': '8a5600e4-0471-40d1-a06f-56904c55f349', 'status': 'QUEUED'}]
+
+----------------------------------------------------------------------
+Ran 57 tests in 123.793s
+
+FAILED (failures=51, errors=5)

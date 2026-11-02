@@ -1,0 +1,7 @@
+Fecha (UTC): 2026-11-02T20:45:24.486780+00:00
+Distribución: Ubuntu 24.04.4 LTS
+Kernel: Linux 6.8.0-147-generic (x86_64)
+Python: 3.12.3 (/usr/bin/python3)
+SQLite: 3.45.1
+CPUs: 2
+Usuario: ubuntu (uid 1000)

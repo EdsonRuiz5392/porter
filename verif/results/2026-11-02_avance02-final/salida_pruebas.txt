@@ -1,0 +1,93 @@
+Run ID: 2026-11-02_avance02-final
+Evidencia en: /home/ubuntu/porter-48/verif/results/2026-11-02_avance02-final
+
+test_args_null_equivale_a_lista_vacia (test_tc001_envio_y_validacion.TC001EnvioYValidacion.test_args_null_equivale_a_lista_vacia) ... ok
+test_comando_inexistente_termina_failed (test_tc001_envio_y_validacion.TC001EnvioYValidacion.test_comando_inexistente_termina_failed)
+Un programa que no existe nunca llega a RUNNING y queda FAILED con diagnóstico. ... ok
+test_entradas_invalidas_se_rechazan_con_invalid_request (test_tc001_envio_y_validacion.TC001EnvioYValidacion.test_entradas_invalidas_se_rechazan_con_invalid_request)
+RF-02 / RNF-14: tipos y tamaños inválidos -> INVALID_REQUEST con mensaje (sin INTERNAL_ERROR). ... ok
+test_envio_valido_devuelve_id_unico (test_tc001_envio_y_validacion.TC001EnvioYValidacion.test_envio_valido_devuelve_id_unico)
+RF-01: cada envío válido devuelve un ID distinto y estado QUEUED. ... ok
+test_ayuda_y_codigos_de_salida (test_tc001_envio_y_validacion.TC015AyudaYCodigosCLI.test_ayuda_y_codigos_de_salida) ... ok
+test_servicio_apagado_da_codigo_1_y_sugerencia (test_tc001_envio_y_validacion.TC015AyudaYCodigosCLI.test_servicio_apagado_da_codigo_1_y_sugerencia) ... ok
+test_fifo (test_tc002_cola_y_concurrencia.TC002ColaYConcurrencia.test_fifo)
+RF-03: con límite 1, los trabajos arrancan en el orden en que llegaron. ... ok
+test_ocho_trabajos_con_limite_tres (test_tc002_cola_y_concurrencia.TC002ColaYConcurrencia.test_ocho_trabajos_con_limite_tres) ... ok
+test_ciclo_de_vida_y_tiempos (test_tc003_tc006_estados_tiempos_salidas.TC003EstadosYTiempos.test_ciclo_de_vida_y_tiempos) ... ok
+test_codigo_distinto_de_cero_es_failed (test_tc003_tc006_estados_tiempos_salidas.TC003EstadosYTiempos.test_codigo_distinto_de_cero_es_failed) ... ok
+test_bytes_que_no_son_texto (test_tc003_tc006_estados_tiempos_salidas.TC006SalidasSeparadas.test_bytes_que_no_son_texto) ... ok
+test_cli_output (test_tc003_tc006_estados_tiempos_salidas.TC006SalidasSeparadas.test_cli_output) ... ok
+test_linea_de_200000_caracteres (test_tc003_tc006_estados_tiempos_salidas.TC006SalidasSeparadas.test_linea_de_200000_caracteres)
+Regresión F6: antes, una línea > 64 KiB dejaba el trabajo FAILED y el proceso vivo. ... ok
+test_salida_visible_mientras_corre (test_tc003_tc006_estados_tiempos_salidas.TC006SalidasSeparadas.test_salida_visible_mientras_corre) ... ok
+test_stdout_y_stderr_no_se_mezclan (test_tc003_tc006_estados_tiempos_salidas.TC006SalidasSeparadas.test_stdout_y_stderr_no_se_mezclan) ... ok
+test_trabajo_que_lee_stdin_no_se_cuelga (test_tc003_tc006_estados_tiempos_salidas.TC006SalidasSeparadas.test_trabajo_que_lee_stdin_no_se_cuelga)
+Regresión F13: el trabajo recibe una entrada vacía (stdin=DEVNULL). ... ok
+test_rnf05_consulta_en_menos_de_un_segundo_con_100_trabajos (test_tc004_tc013_consultas_y_salud.TC004Consultas.test_rnf05_consulta_en_menos_de_un_segundo_con_100_trabajos) ... 
+    RNF-05: status 3.4 ms, list(100) 4.8 ms
+ok
+test_rnf06_500_registros_sin_perdida_tras_reinicio (test_tc004_tc013_consultas_y_salud.TC004Consultas.test_rnf06_500_registros_sin_perdida_tras_reinicio) ... ok
+test_status_list_y_filtro (test_tc004_tc013_consultas_y_salud.TC004Consultas.test_status_list_y_filtro) ... ok
+test_configuracion_invalida_no_arranca (test_tc004_tc013_consultas_y_salud.TC013ConfiguracionYSalud.test_configuracion_invalida_no_arranca) ... ok
+test_configuracion_se_registra_al_arrancar (test_tc004_tc013_consultas_y_salud.TC013ConfiguracionYSalud.test_configuracion_se_registra_al_arrancar) ... ok
+test_health (test_tc004_tc013_consultas_y_salud.TC013ConfiguracionYSalud.test_health) ... ok
+test_cancelar_alcanza_a_los_nietos (test_tc005_tc017_tc021_cancelacion.TC005Cancelacion.test_cancelar_alcanza_a_los_nietos)
+Regresión F4: antes el nieto seguía vivo y el trabajo seguía RUNNING ocupando el cupo. ... ok
+test_cancelar_en_cola (test_tc005_tc017_tc021_cancelacion.TC005Cancelacion.test_cancelar_en_cola) ... ok
+test_cancelar_en_ejecucion (test_tc005_tc017_tc021_cancelacion.TC005Cancelacion.test_cancelar_en_ejecucion) ... ok
+test_cancelar_inmediatamente_despues_de_enviar (test_tc005_tc017_tc021_cancelacion.TC017CancelacionesConcurrentes.test_cancelar_inmediatamente_despues_de_enviar)
+Regresión F3: antes, 25 de 25 respondían ALREADY_FINISHED y el trabajo corría completo. ... ok
+test_caso_a_cancelacion_llega_primero (test_tc005_tc017_tc021_cancelacion.TC017CancelacionesConcurrentes.test_caso_a_cancelacion_llega_primero)
+El programa sale con 0 al recibir SIGTERM, pero se pidió cancelar: CANCELED. ... ok
+test_caso_b_termina_primero (test_tc005_tc017_tc021_cancelacion.TC017CancelacionesConcurrentes.test_caso_b_termina_primero) ... ok
+test_cinco_cancelaciones_simultaneas (test_tc005_tc017_tc021_cancelacion.TC017CancelacionesConcurrentes.test_cinco_cancelaciones_simultaneas) ... ok
+test_proceso_que_ignora_sigterm (test_tc005_tc017_tc021_cancelacion.TC021Escalamiento.test_proceso_que_ignora_sigterm) ... 
+    TC-021: escalamiento a SIGKILL en 2.12 s (grace=2 s)
+ok
+test_kill9_con_trabajos_corriendo_y_en_cola (test_tc007_tc022_recuperacion.TC007Recuperacion.test_kill9_con_trabajos_corriendo_y_en_cola) ... ok
+test_nieto_huerfano_con_lider_muerto (test_tc007_tc022_recuperacion.TC007Recuperacion.test_nieto_huerfano_con_lider_muerto) ... ok
+test_pid_reutilizado_no_se_mata (test_tc007_tc022_recuperacion.TC007Recuperacion.test_pid_reutilizado_no_se_mata)
+La base dice RUNNING con un PID que ahora pertenece a otro programa: no se toca. ... ok
+test_bajar_max_queue_con_pendientes (test_tc007_tc022_recuperacion.TC022RecuperacionCapacidad.test_bajar_max_queue_con_pendientes)
+Regresión: antes el servicio no arrancaba (QueueFullError en recover_on_startup). ... ok
+test_base_integra_tras_kill9_durante_escrituras (test_tc007_tc022_recuperacion.TC022RecuperacionCapacidad.test_base_integra_tras_kill9_durante_escrituras)
+RNF-28: matar el servicio en plena actividad no deja la base inutilizable. ... ok
+test_un_trabajo_que_falla_no_afecta_a_otros (test_tc008_tc020_tc024_fallas_y_recursos.TC008Aislamiento.test_un_trabajo_que_falla_no_afecta_a_otros) ... ok
+test_falla_de_captura_no_deja_procesos_ni_descuadra_el_limite (test_tc008_tc020_tc024_fallas_y_recursos.TC020MuerteInesperada.test_falla_de_captura_no_deja_procesos_ni_descuadra_el_limite)
+Regresión F6: el proceso se termina y la reserva de cupo se libera una sola vez. ... ok
+test_senal_externa_queda_failed_con_diagnostico (test_tc008_tc020_tc024_fallas_y_recursos.TC020MuerteInesperada.test_senal_externa_queda_failed_con_diagnostico)
+Regresión F11: antes kill -9 externo quedaba CANCELED. ... ok
+test_cuatro_lotes_de_90_sin_fugas (test_tc008_tc020_tc024_fallas_y_recursos.TC024RecursosBajoCarga.test_cuatro_lotes_de_90_sin_fugas) ... 
+    TC-024: descriptores abiertos tras cada lote de 90: [7, 7, 7, 7]
+ok
+test_cierre_con_tiempo_limite (test_tc009_cierre_controlado.TC009CierreControlado.test_cierre_con_tiempo_limite) ... 
+    TC-009: cierre con límite en 4.2 s (timeout=2, grace=2)
+ok
+test_ctrl_c_hace_el_mismo_cierre_controlado (test_tc009_cierre_controlado.TC009CierreControlado.test_ctrl_c_hace_el_mismo_cierre_controlado)
+Regresión: antes Ctrl+C mataba a los trabajos (FAILED -2). ... ok
+test_durante_el_cierre_no_acepta_nuevos (test_tc009_cierre_controlado.TC009CierreControlado.test_durante_el_cierre_no_acepta_nuevos) ... ok
+test_puerto_ocupado (test_tc009_cierre_controlado.TC009CierreControlado.test_puerto_ocupado)
+Regresión F14: antes quedaba vivo, sin escuchar y lanzando los trabajos recuperados. ... ok
+test_sigterm_con_servicio_ocioso (test_tc009_cierre_controlado.TC009CierreControlado.test_sigterm_con_servicio_ocioso) ... ok
+test_mensaje_byte_a_byte_y_varias_solicitudes_por_conexion (test_tc012_tc019_tc023_protocolo.TC012Protocolo.test_mensaje_byte_a_byte_y_varias_solicitudes_por_conexion) ... ok
+test_mensajes_invalidos_reciben_error_y_no_tumban_el_servicio (test_tc012_tc019_tc023_protocolo.TC012Protocolo.test_mensajes_invalidos_reciben_error_y_no_tumban_el_servicio)
+Regresión F15: antes se cortaba la conexión sin respuesta ni registro. ... ok
+test_desconexion_a_medio_mensaje_no_tiene_efecto (test_tc012_tc019_tc023_protocolo.TC019Desconexion.test_desconexion_a_medio_mensaje_no_tiene_efecto) ... ok
+test_desconexion_tras_mensaje_completo_la_operacion_queda_aceptada (test_tc012_tc019_tc023_protocolo.TC019Desconexion.test_desconexion_tras_mensaje_completo_la_operacion_queda_aceptada) ... ok
+test_reintento_con_folio_recupera_el_id (test_tc012_tc019_tc023_protocolo.TC019Desconexion.test_reintento_con_folio_recupera_el_id)
+D10: si el cliente perdió la respuesta, reenviar con el mismo folio devuelve el mismo trabajo. ... ok
+test_version_incompatible_se_rechaza_explicitamente (test_tc012_tc019_tc023_protocolo.TC023CompatibilidadProtocolo.test_version_incompatible_se_rechaza_explicitamente) ... ok
+test_carrera_diez_envios_con_un_lugar (test_tc016_tc018_saturacion_y_duplicados.TC016Saturacion.test_carrera_diez_envios_con_un_lugar)
+Regresión F1: antes 9 INTERNAL_ERROR y 9 filas fantasma. ... ok
+test_rechazo_explicito_secuencial (test_tc016_tc018_saturacion_y_duplicados.TC016Saturacion.test_rechazo_explicito_secuencial) ... ok
+test_a_reintento_mismo_folio_mismo_comando (test_tc016_tc018_saturacion_y_duplicados.TC018Duplicados.test_a_reintento_mismo_folio_mismo_comando) ... ok
+test_b_sin_folio_cada_envio_es_nuevo (test_tc016_tc018_saturacion_y_duplicados.TC018Duplicados.test_b_sin_folio_cada_envio_es_nuevo) ... ok
+test_c_mismo_folio_otro_comando_es_conflicto (test_tc016_tc018_saturacion_y_duplicados.TC018Duplicados.test_c_mismo_folio_otro_comando_es_conflicto)
+Regresión F8: antes el trabajo original desaparecía (INSERT OR REPLACE). ... ok
+test_cli_request_id (test_tc016_tc018_saturacion_y_duplicados.TC018Duplicados.test_cli_request_id) ... ok
+test_d_seis_envios_simultaneos_mismo_folio (test_tc016_tc018_saturacion_y_duplicados.TC018Duplicados.test_d_seis_envios_simultaneos_mismo_folio) ... ok
+
+----------------------------------------------------------------------
+Ran 57 tests in 85.046s
+
+OK

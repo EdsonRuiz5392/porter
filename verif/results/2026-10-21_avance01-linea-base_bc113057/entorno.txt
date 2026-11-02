@@ -1,0 +1,7 @@
+Fecha (UTC): 2026-10-22T03:16:53.126568+00:00
+Distribución: Kali GNU/Linux Rolling
+Kernel: Linux 6.18.33.2-microsoft-standard-WSL2 (x86_64)
+Python: 3.12.15 (/home/edson/porter/.venv/bin/python3)
+SQLite: 3.53.1
+CPUs: 12
+Usuario: edson (uid 1000)
