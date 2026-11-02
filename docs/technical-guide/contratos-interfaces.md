@@ -14,7 +14,7 @@ Sintaxis Python con type hints. `async def` = corutina, se llama con `await`. `X
 
 ## 3. Estados válidos
 
-`QUEUED → RUNNING → (SUCCEEDED | FAILED | CANCELED)`, o `QUEUED → CANCELED` directo.
+`QUEUED → RUNNING → (SUCCEEDED | FAILED | CANCELED)`, o directo `QUEUED → CANCELED` (cancelado antes de lanzarse) y `QUEUED → FAILED` (no se pudo lanzar). Los estados finales no cambian. El detalle está en [`arquitectura-y-estados.md`](arquitectura-y-estados.md).
 
 ---
 
@@ -59,7 +59,7 @@ async def write_message(writer: asyncio.StreamWriter, message: dict) -> None
 
 Excepciones: `ProtocolError` (base), `MessageTooLargeError`, `InvalidMessageError`.
 
-Constantes: `ERROR_INVALID_REQUEST`, `ERROR_QUEUE_FULL`, `ERROR_NOT_FOUND`, `ERROR_VERSION_UNSUPPORTED`, `ERROR_SERVICE_CLOSING`, `ERROR_INTERNAL`, `PROTOCOL_VERSION = 1`.
+Constantes: `ERROR_INVALID_REQUEST`, `ERROR_QUEUE_FULL`, `ERROR_NOT_FOUND`, `ERROR_VERSION_UNSUPPORTED`, `ERROR_SERVICE_CLOSING`, `ERROR_INTERNAL`, `ERROR_REQUEST_ID_CONFLICT`, `PROTOCOL_VERSION = 1`.
 
 ### Esquema de mensajes (`"version": 1` obligatorio en todos)
 
@@ -67,13 +67,15 @@ Constantes: `ERROR_INVALID_REQUEST`, `ERROR_QUEUE_FULL`, `ERROR_NOT_FOUND`, `ERR
 |---|---|---|---|
 | `submit` | `command`, `args`, `client_request_id?` | `submit_response` | `ok`, `job_id`, `status` |
 | `status` | `job_id` | `status_response` | `job` (objeto Job completo) |
-| `list` | `status_filter?` | `list_response` | `jobs` (lista de Job) |
+| `list` | `status_filter?` | `list_response` | `jobs` (lista con `id`, `command`, `status`, `exit_code`) |
 | `cancel` | `job_id` | `cancel_response` | `job_id`, `result` |
 | `output` | `job_id`, `stream` (`"stdout"` \| `"stderr"`) | `output_response` | `job_id`, `stream`, `content` |
 | `health` | — | `health_response` | `active`, `running`, `queued`, `recent_errors` |
 | — | — | `error` | `code`, `message` |
 
-`result` en `cancel_response`: `"CANCELING" | "ALREADY_FINISHED" | "NOT_FOUND"`.
+`result` en `cancel_response`: `"CANCELING" | "ALREADY_FINISHED"`. Un trabajo inexistente responde `error` con `NOT_FOUND`.
+
+Un mensaje demasiado grande o que no sea JSON válido recibe `error` con `INVALID_REQUEST` y se cierra la conexión; una versión incompatible recibe `VERSION_UNSUPPORTED` y la conexión sigue abierta.
 
 ---
 
@@ -87,7 +89,7 @@ Constantes: `ERROR_INVALID_REQUEST`, `ERROR_QUEUE_FULL`, `ERROR_NOT_FOUND`, `ERR
 async def handle_client(reader: asyncio.StreamReader, writer: asyncio.StreamWriter, job_manager, max_message_bytes: int) -> None
 async def main(host: str, port: int, allowed_networks: list[str], job_manager, max_message_bytes: int) -> None
 ```
-Traduce cada `type` de mensaje a una función de `control.py` (o de `operacion.py` para `health`), y traduce las excepciones de `control.py` (`InvalidRequestError`, `QueueFullError`, `ServiceClosingError`, etc.) a un mensaje `"error"` con su código correspondiente.
+Traduce cada `type` de mensaje a una función de `control.py` (o de `operacion.py` para `health`), y traduce las excepciones de `control.py` (`InvalidRequestError`, `QueueFullError`, `ServiceClosingError`, etc.) a un mensaje `"error"` con su código correspondiente. Registra `PROTOCOL_ERROR` en la bitácora y tolera que el cliente se desconecte (ADR-007, ADR-011).
 
 ---
 
@@ -95,13 +97,14 @@ Traduce cada `type` de mensaje a una función de `control.py` (o de `operacion.p
 
 - **Dueño**: Dylan
 - **RF**: 01, 02, 03, 05, 06, 07, 08, 09, 17, 25, 27
-- **ADR**: ADR-001, ADR-005
+- **ADR**: ADR-001, ADR-005, ADR-006, ADR-007, ADR-010
 
 ### `cola.py`
 ```python
 def __init__(self, max_size: int)
 def is_full(self) -> bool
 def enqueue(self, job_id: str) -> None
+def restore(self, job_id: str) -> None   # solo en la recuperación; no aplica el límite (ADR-010)
 def dequeue(self) -> str | None
 def remove(self, job_id: str) -> bool
 def size(self) -> int
@@ -110,7 +113,7 @@ Excepción: `QueueFullError`.
 
 ### `control.py`
 ```python
-def __init__(self, cola, launcher, persistencia, bitacora, max_concurrency: int, grace_seconds: float)
+def __init__(self, cola, launcher, persistencia, bitacora, max_concurrency: int, grace_seconds: float, data_dir: str)
 async def submit(self, command: str, args: list[str], client_request_id: str | None) -> Job
 async def get(self, job_id: str) -> Job | None
 async def list(self, status_filter: JobStatus | None = None) -> list[Job]
@@ -119,13 +122,15 @@ async def get_output(self, job_id: str, stream: str) -> str | None
 async def mark_running(self, job_id: str, pid: int) -> None
 async def mark_finished(self, job_id: str, exit_code: int | None, status: JobStatus) -> None
 async def recover_on_startup(self) -> None
+async def cancel_all_running(self, motivo: str) -> int
+def in_progress_count(self) -> int
 def is_accepting(self) -> bool
 def stop_accepting(self) -> None
 def running_count(self) -> int
 def queued_count(self) -> int
 def recent_errors_count(self) -> int
 ```
-Excepciones: `ControlError` (base), `InvalidRequestError`, `QueueFullError`, `ServiceClosingError`.
+Excepciones: `ControlError` (base), `InvalidRequestError`, `QueueFullError`, `ServiceClosingError`, `RequestIdConflictError`.
 
 Internamente (no forman parte del contrato público, pero todos los usan): `_try_dispatch()` saca de la cola y arranca trabajos cuando hay lugar; `_run_job(job_id)` corre en segundo plano el ciclo completo de un trabajo.
 
@@ -137,14 +142,16 @@ Nota de responsabilidad: `get_output` apoya RF-11 (Ángel), `request_cancel` apo
 
 - **Dueño**: Marcos
 - **RF**: 04, 10, 26, 29, 30
-- **ADR**: ADR-002, ADR-005
+- **ADR**: ADR-002, ADR-008, ADR-009
 
 ```python
 async def start(self, command: str, args: list[str], job_id: str) -> asyncio.subprocess.Process
 async def cancel(self, proc: asyncio.subprocess.Process, grace_seconds: float) -> None
 async def stream_output(self, proc, stdout_path: str, stderr_path: str) -> int
 ```
-`stream_output` debe leer stdout y stderr al mismo tiempo (no uno tras otro), para no bloquear al proceso hijo si llena el buffer de uno mientras nadie lo vacía.
+`start` lanza el trabajo en su propio grupo de procesos (`start_new_session=True`) y con `stdin=DEVNULL`. `cancel` señala a todo el grupo con `os.killpg`: SIGTERM, espera `grace_seconds` y, si queda alguien, SIGKILL.
+
+`stream_output` lee stdout y stderr al mismo tiempo y por bloques de bytes, para no bloquear al proceso hijo si llena el buffer de uno mientras nadie lo vacía y para no tener límite de largo de línea.
 
 ---
 
@@ -152,7 +159,7 @@ async def stream_output(self, proc, stdout_path: str, stderr_path: str) -> int
 
 - **Dueño**: Ángel
 - **RF**: 11, 12, 13, 14, 15, 16, 23, 24
-- **ADR**: ADR-003, ADR-001
+- **ADR**: ADR-001, ADR-003, ADR-007, ADR-010, ADR-011, ADR-012
 
 ### `persistencia.py`
 ```python
@@ -162,7 +169,9 @@ async def load_job(self, job_id: str) -> Job | None
 async def load_all(self) -> list[Job]
 async def find_by_client_request_id(self, client_request_id: str) -> Job | None
 ```
-Excepción: `DuplicateClientRequestError` (la tabla debe tener una restricción UNIQUE sobre `client_request_id`, como red de seguridad ante dos solicitudes casi simultáneas con el mismo ID).
+`save_job` usa `INSERT … ON CONFLICT(id) DO UPDATE`, nunca `INSERT OR REPLACE`, para no borrar filas.
+
+Excepción: `DuplicateClientRequestError` (la tabla tiene una restricción UNIQUE sobre `client_request_id`, como red de seguridad ante dos solicitudes casi simultáneas con el mismo ID).
 
 ### `bitacora.py`
 ```python
@@ -173,18 +182,18 @@ def log_event(self, job_id: str | None, event: str, detail: str = "") -> None
 ### `operacion.py`
 ```python
 def load_config() -> dict
-async def shutdown(job_manager) -> None
+async def shutdown(job_manager, timeout: float) -> None
 async def health_summary(job_manager) -> dict
 def check_rate_limit(current_count: int, max_allowed: int) -> bool
 ```
-`health_summary` y `shutdown` usan los métodos de `control.py`: `is_accepting()`, `running_count()`, `queued_count()`, `recent_errors_count()`, `stop_accepting()`.
+`health_summary` y `shutdown` usan los métodos de `control.py`: `is_accepting()`, `running_count()`, `queued_count()`, `recent_errors_count()`, `stop_accepting()`, `in_progress_count()`, `cancel_all_running()`. `load_config` termina el proceso con un mensaje claro si una variable es inválida.
 
 ---
 
 ## 10. `cliente/cli.py`
 
 - **Dueño**: Dylan
-- **RF**: 17
+- **RF**: 17 (además expone RF-09, 11, 24 y 27)
 
 ```python
 def _leer_configuracion_conexion() -> tuple[str, int, int]
@@ -193,37 +202,41 @@ def main() -> int
 ```
 `main()` es una función normal (no `async`); usa `asyncio.run(_enviar_solicitud(...))` internamente para poder llamar a las funciones `async` de `protocolo.py`. `_leer_configuracion_conexion()` lee sus propias variables de entorno (no importa `servicio.operacion`, para mantener al cliente independiente del paquete del servicio).
 
+Comandos: `submit [--request-id FOLIO] <comando> [args...]`, `status <id>`, `list [--status ESTADO]`, `cancel <id>`, `output <id> [stdout|stderr]` y `health`. Termina con código 0 si hubo éxito y 1 si hubo un error.
+
 ---
 
 ## 11. `servicio/main.py`
 
-- **Ya viene resuelto** — no hay nada que implementar aquí, es la referencia de cómo se conectan todas las piezas.
+- **Dueño**: Ángel
+- **ADR**: ADR-011
 
 ```python
 async def arrancar() -> None
 ```
-Arma `persistencia`, `bitacora`, `cola`, `launcher` y `control` con la configuración de `operacion.load_config()`, llama a `control.recover_on_startup()` (RF-13) antes de aceptar conexiones, arranca `entrada.main(...)`, y espera una señal de apagado para llamar a `operacion.shutdown(control)` (RF-15).
+Valida la configuración con `operacion.load_config()`, verifica que el puerto esté libre, arma `persistencia`, `bitacora`, `cola`, `launcher` y `control`, llama a `control.recover_on_startup()` (RF-13) antes de aceptar conexiones, arranca `entrada.main(...)` y espera SIGINT o SIGTERM para llamar a `operacion.shutdown(control, shutdown_timeout)` (RF-15). Si el servidor se detiene solo, registra `SERVICE_ERROR`, cierra y termina con código 1.
 
 ---
 
 ## 12. Flujo de referencia: enviar un trabajo
 
-`cli.py` → `protocolo.write_message()` → `entrada.handle_client()` → `protocolo.read_message()` → `control.submit()` → `cola` / `persistencia.save_job()` / `bitacora.log_event()` → `control._try_dispatch()` → `launcher.start()` → respuesta de vuelta por el mismo camino.
+`cli.py` → `protocolo.write_message()` → `entrada.handle_client()` → `protocolo.read_message()` → `control.submit()` (con `_submit_lock`: revisar duplicados y capacidad → `persistencia.save_job()` → `cola.enqueue()` → `bitacora.log_event()`) → `control._try_dispatch()` → `launcher.start()` → respuesta de vuelta por el mismo camino.
 
 ---
 
 ## 13. Configuración
 
-| Variable | Tipo |
-|---|---|
-| `JOBRUNNER_HOST` | str |
-| `JOBRUNNER_PORT` | int |
-| `JOBRUNNER_MAX_CONCURRENCY` | int |
-| `JOBRUNNER_MAX_QUEUE` | int |
-| `JOBRUNNER_GRACE_SECONDS` | float |
-| `JOBRUNNER_DATA_DIR` | str |
-| `JOBRUNNER_ALLOWED_NETWORKS` | list[str] |
-| `JOBRUNNER_MAX_MESSAGE_BYTES` | int |
+| Variable | Tipo | Por defecto | Válido |
+|---|---|---|---|
+| `JOBRUNNER_HOST` | str | `127.0.0.1` | — |
+| `JOBRUNNER_PORT` | int | `9000` | 1 a 65535 |
+| `JOBRUNNER_MAX_CONCURRENCY` | int | `3` | Al menos 1 |
+| `JOBRUNNER_MAX_QUEUE` | int | `100` | Al menos 1 |
+| `JOBRUNNER_GRACE_SECONDS` | float | `5` | 0 o más |
+| `JOBRUNNER_SHUTDOWN_TIMEOUT` | float | `30` | 0 o más |
+| `JOBRUNNER_DATA_DIR` | str | `./data` | — |
+| `JOBRUNNER_ALLOWED_NETWORKS` | list[str] | `127.0.0.1` | Se lee; se aplica en el Hito 3 |
+| `JOBRUNNER_MAX_MESSAGE_BYTES` | int | `1048576` | Al menos 1024 |
 
 ---
 
