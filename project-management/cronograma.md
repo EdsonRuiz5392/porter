@@ -2,7 +2,7 @@
 
 Registro de lo que ha ocurrido en el proyecto: juntas, commits, pull requests e issues, en orden de fecha. Complementa a `schedule-and-risks.md` (hitos y riesgos) y a las minutas de [`minutas/`](minutas/).
 
-**Última actualización:** 1 de octubre de 2026 · **Fuente:** historial de Git de `main` e información de GitHub (PR e issues). Las fechas son hora local (UTC−6).
+**Última actualización:** 2 de noviembre de 2026 · **Fuente:** historial de Git de `main` e información de GitHub (PR e issues). Las fechas son hora local (UTC−6).
 
 ## Fechas clave
 
@@ -14,8 +14,10 @@ Registro de lo que ha ocurrido en el proyecto: juntas, commits, pull requests e 
 | 28 de septiembre | Junta 3 |
 | 1 de octubre | Junta 4 |
 | 5 de octubre | El repositorio debe estar público (24 horas antes de la presentación) |
-| **6 de octubre** | **Technical Review 1 — Avance 01 (núcleo local), presencial** |
-| 8 de octubre | Fin de la ventana pública del Avance 01 (48 horas después) |
+| **8 de octubre** | **Technical Review 1 — Avance 01 (núcleo local), presencial** (programada al inicio para el 6) |
+| 21 de octubre | Junta 5 |
+| 30 de octubre | Entrega del Avance 02 |
+| **3 de noviembre** | **Technical Review 2 — Avance 02, presencial** (confirmar la fecha en el correo institucional) |
 
 ## Juntas
 
@@ -25,6 +27,7 @@ Registro de lo que ha ocurrido en el proyecto: juntas, commits, pull requests e 
 | 2 | Lunes 21 de septiembre | Pruebas, contexto de las IA de cada integrante, roles y próximos eventos | [minuta](minutas/2026-09-21-junta-2.md) |
 | 3 | Lunes 28 de septiembre | Roles por módulo, issues, documentación y pruebas con scripts | [minuta](minutas/2026-09-28-junta-3.md) |
 | 4 | Jueves 1 de octubre | Actualización de documentación, últimos detalles y presentación | [minuta](minutas/2026-10-01-junta-4.md) |
+| 5 | Miércoles 21 de octubre | Coordinación del Avance 02 | [minuta](minutas/2026-10-21-junta-5.md) |
 
 ## Línea de tiempo
 
@@ -93,6 +96,59 @@ Registro de lo que ha ocurrido en el proyecto: juntas, commits, pull requests e 
 | 1 oct | Se mezcla el PR #27: ajustes de sincronía y contratos en cola y control | Dylan; mezcla Marcos | PR #27, #23 |
 | 1 oct | Se cierra el defecto #15 del `launcher`, durante la junta | Marcos | #15 |
 | 1 oct | README en dos versiones, cronograma y minutas de las cuatro juntas | Edson | este documento |
+| 1 oct | Se implementan persistencia, bitácora y operación | Ángel | PR #28, #29, #30 |
+| 1 oct | Cola, control y CLI del núcleo local | Dylan | PR #31 |
+| 2 oct | Correcciones de protocolo y entrada | Juan | PR #32, #33 |
+| 2 oct | `launcher` con interfaz asíncrona | Marcos | PR #34 |
+| 2 oct | Registros de uso de IA por integrante | Edson | `cff6ac2` |
+
+### Semana del 5 al 11 de octubre — Technical Review 1
+
+| Fecha | Qué pasó | Quién | Referencia |
+|---|---|---|---|
+| 6 oct | `main.py` se adapta a la firma de `Control`; el servicio arranca desde un clon limpio | Ángel | `e8dca95` |
+| **8 oct** | **Technical Review 1** | Equipo | _minuta pendiente_ |
+
+### Semana del 12 al 18 de octubre — auditoría de robustez
+
+| Fecha | Qué pasó | Quién | Referencia |
+|---|---|---|---|
+| 15 oct | Auditoría de robustez: 10 defectos reproducidos | Edson | [INC-001](../docs/incidents/INC-001-trabajos-fantasma-cola-llena.md) |
+| 16 oct | GitHub Project, milestone "Avance 02" y etiquetas; historial asignado a sus autores | Edson | [tablero](https://github.com/users/EdsonRuiz5392/projects/1) |
+
+### Semana del 19 al 25 de octubre — plan y primeras correcciones
+
+| Fecha | Qué pasó | Quién | Referencia |
+|---|---|---|---|
+| 20 y 21 oct | Se abren los issues #35 a #48 del Avance 02 | Ángel | #35–#48 |
+| 21 oct | 57 pruebas automatizadas en `verif/scripts/`; la prueba de contratos pasa a `anteriores/` | Ángel | `6745aea`, `bc11305` |
+| **21 oct** | **Junta 5** | Equipo | [minuta](minutas/2026-10-21-junta-5.md) |
+| 21 oct | Línea base del Avance 01: 23 de 57 | Edson | PR #50, `63a9586` |
+| 21 oct | Persistencia sin `INSERT OR REPLACE` | Ángel | PR #49 |
+| 22 oct | `cola.restore()` para la recuperación | Dylan | PR #52 |
+| 23 oct | ADR renumerados; ADR-006 y ADR-007 | Ángel | `61b3b2c`, `343eb95` |
+| 24 oct | `launcher`: grupos de procesos y captura por bloques; se cierra #38 | Marcos | PR #53 |
+| 25 oct | Protocolo: `REQUEST_ID_CONFLICT` | Juan | PR #51 |
+
+### Semana del 26 de octubre al 1 de noviembre — integración y entrega
+
+| Fecha | Qué pasó | Quién | Referencia |
+|---|---|---|---|
+| 27 oct | ADR-008 a ADR-010 | Ángel | `8c0f00d` |
+| 27 oct | `control`: candado de admisión, cancelación pendiente, recuperación y duplicados; se cierran #35, #36, #37, #39, #40, #41 y #42 | Dylan | PR #54 |
+| 28 oct | `entrada`: errores de protocolo y desconexiones; se cierra #45 | Juan | PR #56 |
+| 29 oct | ADR-011 y ADR-012 | Ángel | `6ed57b2` |
+| 29 oct | CLI: `output`, `health`, `list --status` y `--request-id`; se cierra #47 | Dylan | PR #55 |
+| 29 oct | Cierre con tiempo límite, configuración validada y puerto ocupado; se cierran #43, #44 y #46 | Ángel | PR #57 |
+| 30 oct | Fecha de entrega del Avance 02 | Equipo | — |
+
+### Semana del 2 al 8 de noviembre — evidencia y Technical Review 2
+
+| Fecha | Qué pasó | Quién | Referencia |
+|---|---|---|---|
+| 2 nov | Corrida final en Ubuntu 24.04: 57 de 57 | Edson | PR #50, `e663848` |
+| 2 nov | Se detectan dos fallas intermitentes en Kali y se registran | Edson | #58, #59 |
+| 2 nov | Actualización de la documentación del Avance 02 | Edson | este documento |
 
 ## Pull requests
 
@@ -110,6 +166,22 @@ Registro de lo que ha ocurrido en el proyecto: juntas, commits, pull requests e 
 | #25 | Protocolo TCP con delimitación de mensajes y entrada | Juan | 30 sep | — |
 | #26 | Cola de trabajos | Dylan | 30 sep | — |
 | #27 | Ajustes de sincronía y contratos en cola y control | Dylan | 1 oct | #23 |
+| #28 | Persistencia | Ángel | 1 oct | — |
+| #29 | Bitácora | Ángel | 1 oct | — |
+| #30 | Operación | Ángel | 1 oct | — |
+| #31 | Núcleo local: cola, control y CLI | Dylan | 1 oct | — |
+| #32 | Corrección de protocolo | Juan | 2 oct | — |
+| #33 | Corrección de entrada | Juan | 2 oct | — |
+| #34 | `launcher` asíncrono | Marcos | 2 oct | — |
+| #49 | Persistencia: `ON CONFLICT(id)` | Ángel | 21 oct | #41 (Refs) |
+| #51 | Protocolo: `REQUEST_ID_CONFLICT` | Juan | 25 oct | #41 (Refs) |
+| #52 | Cola: `restore()` | Dylan | 22 oct | #36 (Refs) |
+| #53 | Launcher: grupos de procesos y captura por bloques | Marcos | 24 oct | #38 |
+| #54 | Control: concurrencia, cancelación y recuperación | Dylan | 27 oct | #35, #36, #37, #39, #40, #41, #42 |
+| #55 | CLI: comandos nuevos | Dylan | 29 oct | #47 |
+| #56 | Entrada: errores de protocolo | Juan | 28 oct | #45 |
+| #57 | Cierre controlado y configuración | Ángel | 29 oct | #43, #44, #46 |
+| #50 | Evidencia antes y después del Avance 02 | Edson | Abierto | #48 |
 
 ## Issues
 
@@ -130,3 +202,25 @@ Registro de lo que ha ocurrido en el proyecto: juntas, commits, pull requests e 
 | #20 | Script de verificación con un solo comando | Edson | 29 sep | 29 sep |
 | #22 | Implementación y validación de `cli.py` | — | 29 sep | 29 sep |
 | #23 | Estructura de `cola.py` y lógica de `control.py` | — | 29 sep | 1 oct |
+| #35 | La cola llena con envíos simultáneos crea trabajos fantasma | Dylan | 20 oct | 27 oct |
+| #36 | El servicio no arranca si hay más pendientes que `MAX_QUEUE` | Dylan | 20 oct | 27 oct |
+| #37 | Cancelar un trabajo recién enviado se pierde | Dylan | 20 oct | 27 oct |
+| #38 | Cancelar no alcanza a los nietos y Ctrl+C mata a los trabajos | Marcos | 20 oct | 24 oct |
+| #39 | Procesos huérfanos después de una caída | Dylan | 20 oct | 27 oct |
+| #40 | Una línea mayor a 64 KiB rompe la captura y el límite | Marcos | 21 oct | 27 oct |
+| #41 | Duplicados: se borra el trabajo original | Ángel | 21 oct | 27 oct |
+| #42 | Un proceso que muere por señal ajena queda CANCELED | Dylan | 21 oct | 27 oct |
+| #43 | La bitácora no registra rechazos ni el ciclo de vida | Ángel | 21 oct | 29 oct |
+| #44 | Cierre sin límite y servicio mudo con el puerto ocupado | Ángel | 21 oct | 29 oct |
+| #45 | Entradas y mensajes inválidos | Juan | 21 oct | 28 oct |
+| #46 | Se acepta una configuración inválida | Ángel | 21 oct | 29 oct |
+| #47 | CLI: comandos nuevos | Dylan | 21 oct | 29 oct |
+| #48 | Ejecutar las pruebas y subir la evidencia | Edson | 21 oct | Abierto |
+
+## Observaciones del proceso
+
+Datos de GitHub al 2 de noviembre:
+
+- De los 8 PR mezclados del Avance 02, ninguno tiene las 4 aprobaciones que pide el procedimiento: 5 tienen 0 y 3 tienen 1 (#52, #53, #55).
+- Commits directos a `main` en el Avance 02: `6745aea`, `bc11305`, `61b3b2c`, `343eb95`, `8c0f00d` y `6ed57b2` (Ángel). Antes, 5 de documentación (Edson, 1 y 2 de octubre).
+- **Acción:** a partir de ahora, todo cambio va por PR con las 4 aprobaciones visibles.

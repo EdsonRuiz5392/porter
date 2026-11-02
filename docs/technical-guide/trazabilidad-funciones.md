@@ -22,6 +22,7 @@ Considerar casos en los que se programe algo que no parece estar aqui (comentarl
 | `__init__` | RF-03 | — |
 | `is_full` | RF-25 | RNF-29 |
 | `enqueue` | RF-03 | RNF-07 |
+| `restore` | RF-13, RF-25 | RNF-31 |
 | `dequeue` | RF-03 | — |
 | `remove` | RF-10 (apoyo) | RNF-27 |
 | `size` | RF-24 (apoyo) | — |
@@ -40,7 +41,11 @@ Considerar casos en los que se programe algo que no parece estar aqui (comentarl
 | `mark_finished` | RF-04, RF-06, RF-07 | RNF-27 |
 | `_try_dispatch` | RF-04, RF-05 | RNF-07, RNF-29 |
 | `_run_job` | RF-04, RF-07; RF-29 (apoyo) | RNF-09 (apoyo) |
-| `recover_on_startup` | RF-13 (apoyo) | RNF-10, RNF-31 |
+| `recover_on_startup` | RF-13 (apoyo) | RNF-10, RNF-30, RNF-31 |
+| `_terminar_grupo_huerfano` | RF-13 (apoyo) | RNF-30 |
+| `_resolver_duplicado` | RF-27 | RNF-27 |
+| `_validar_envio` / `_validar_job_id` | RF-02 | RNF-14 |
+| `cancel_all_running` / `in_progress_count` | RF-15 (apoyo) | RNF-25, RNF-30 |
 | `is_accepting` / `stop_accepting` | RF-15 (apoyo) | — |
 | `running_count` / `queued_count` / `recent_errors_count` | RF-24 (apoyo) | — |
 

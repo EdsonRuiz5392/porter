@@ -16,19 +16,25 @@ Las dos guías llegan al mismo resultado; la segunda explica cada paso y qué de
 
 ## Estado del proyecto
 
-**Al 1 de octubre de 2026 — Avance 01 (núcleo local), en integración.** La operación remota todavía no forma parte de este avance.
+**Al 2 de noviembre de 2026 — Avance 02 (concurrencia, persistencia y robustez).** La operación remota corresponde al Hito 3 y todavía no está disponible.
 
-| Módulo | Responsable | Estado |
+| Parte | Responsable | Estado |
 |---|---|---|
-| `src/cliente/cli.py` | Dylan | Implementado |
-| `src/servicio/gestion_trabajos/cola.py`, `control.py` | Dylan | Implementados |
-| `src/servicio/gestion_trabajos/launcher.py` | Marcos | Implementado con `asyncio` |
-| `src/comun/protocolo.py`, `src/servicio/entrada.py` | Juan | Implementados; pendiente alinear firmas y constantes con el contrato |
-| `src/servicio/persistencia.py`, `bitacora.py`, `operacion.py` | Ángel | En integración: demostrados en la junta del 1 de octubre, pendientes de subir a `main` |
-| `src/servicio/main.py` | Ángel | Listo |
-| Verificación (`verif/`) | Edson | Plan, matriz de trazabilidad, 9 casos de prueba, prueba de contratos y script de evidencia |
+| `src/cliente/cli.py` | Dylan | `submit`, `status`, `list`, `cancel`, `output` y `health` |
+| `src/servicio/gestion_trabajos/cola.py`, `control.py` | Dylan | Cola, límite de concurrencia, duplicados, cancelación y recuperación |
+| `src/servicio/gestion_trabajos/launcher.py` | Marcos | Grupo de procesos por trabajo, escalamiento y captura de salida |
+| `src/comun/protocolo.py`, `src/servicio/entrada.py` | Juan | Protocolo con validación y error explícito |
+| `src/servicio/persistencia.py`, `bitacora.py`, `operacion.py`, `main.py` | Ángel | SQLite, bitácora, configuración validada y cierre con límite de tiempo |
+| Verificación (`verif/`) | Edson | Plan, matriz, casos TC y evidencia |
 
-**Qué funciona hoy desde `main`:** clonar, instalar, correr las pruebas automatizadas y la ayuda del cliente. **El servicio completo aún no arranca desde `main`** hasta que termine la integración de los módulos marcados arriba; los pasos de ejecución de esta guía describen el uso previsto para la revisión del 6 de octubre.
+**Resultado de la verificación automatizada (57 pruebas):**
+
+| Corrida | Código | Entorno | Resultado |
+|---|---|---|---|
+| [`2026-10-21_avance01-linea-base_bc113057`](verif/results/2026-10-21_avance01-linea-base_bc113057/resumen.md) | Avance 01 (`bc11305`) | Kali en WSL2 | **FAIL:** 23 PASS, 32 FAIL, 2 ERROR |
+| [`2026-11-02_avance02-final`](verif/results/2026-11-02_avance02-final/resumen.md) | Avance 02 (`3755ec6`) | Ubuntu 24.04 | **PASS:** 57 de 57 |
+
+**Defectos abiertos:** dos fallas intermitentes observadas en Kali, no en Ubuntu 24.04: #58 (`database is locked` con carga) y #59 (`health` no cuenta los trabajos en tránsito).
 
 ## Guía rápida
 
@@ -43,7 +49,7 @@ python3 -m venv .venv && source .venv/bin/activate
 pip install -r src/requirements.txt
 ```
 
-**Configuración** por variables de entorno `JOBRUNNER_*` (host, puerto, concurrencia, cola, tiempo de gracia, directorio de datos, redes permitidas, tamaño máximo de mensaje). Los valores de ejemplo están en `src/.env.example`; para cargarlos en la terminal actual:
+**Configuración** por variables de entorno `JOBRUNNER_*` (host, puerto, concurrencia, cola, tiempo de gracia, tiempo de cierre, directorio de datos, redes permitidas, tamaño máximo de mensaje). Los valores de ejemplo están en `src/.env.example`; para cargarlos en la terminal actual:
 
 ```bash
 set -a; source src/.env.example; set +a
@@ -57,21 +63,23 @@ python -m src.servicio.main
 
 ```bash
 python -m src.cliente.cli submit sleep 30     # devuelve el ID del trabajo
-python -m src.cliente.cli status <ID>         # estado y código de salida
-python -m src.cliente.cli list                # todos los trabajos
-python -m src.cliente.cli cancel <ID>         # SIGTERM y, tras el tiempo de gracia, SIGKILL
+python -m src.cliente.cli status <ID>         # estado, PID, tiempos y código de salida
+python -m src.cliente.cli list --status FAILED  # lista, con filtro opcional
+python -m src.cliente.cli cancel <ID>         # SIGTERM al grupo y, tras la gracia, SIGKILL
+python -m src.cliente.cli output <ID> stderr  # salida capturada (stdout por defecto)
+python -m src.cliente.cli health              # resumen de salud
 python -m src.cliente.cli --help
 ```
 
-El servicio se detiene con `Ctrl+C` (cierre controlado). Los datos quedan en `JOBRUNNER_DATA_DIR`: `jobs.db` (SQLite), `jobrunner.log` (bitácora) y la salida de cada trabajo.
+El servicio se detiene con `Ctrl+C` o `kill -TERM` (cierre controlado, con límite de tiempo `JOBRUNNER_SHUTDOWN_TIMEOUT`). Los datos quedan en `JOBRUNNER_DATA_DIR`: `jobs.db` (SQLite), `jobrunner.log` (bitácora) y la salida de cada trabajo en `output/`. Más detalle en la [guía de usuario](docs/user-guide/guia-usuario.md).
 
 **Pruebas, con un solo comando:**
 
 ```bash
-bash verif/scripts/run_verification.sh
+python3 verif/scripts/run_verificacion.py
 ```
 
-Corre `pytest` sobre `verif/scripts/` y guarda la evidencia en `verif/results/<run-id>/` (commit, entorno, comando, salida y resumen PASS/FAIL). Termina con código 0 si todo pasa y 1 si algo falla. Los casos de prueba manuales están en `verif/test-cases/`.
+Corre 57 pruebas contra el servicio real, en alrededor de 2 minutos, y guarda la evidencia en `verif/results/<run-id>/` (commit, entorno, comando, salida y resumen PASS/FAIL). Termina con código 0 si todo pasa y 1 si algo falla. Solo usa la biblioteca estándar. Para correr un grupo: `--filtro tc009`. Los casos están en `verif/test-cases/`.
 
 ## Guía paso a paso
 
@@ -146,13 +154,13 @@ El primero crea la "caja" aislada, el segundo entra en ella y el tercero instala
 python -m src.cliente.cli --help
 ```
 
-**Qué deberías ver:** la lista de comandos disponibles: `submit`, `status`, `list` y `cancel`.
+**Qué deberías ver:** la lista de comandos disponibles: `submit`, `status`, `list`, `cancel`, `output` y `health`.
 
 ```bash
-bash verif/scripts/run_verification.sh
+python3 verif/scripts/run_verificacion.py
 ```
 
-Esto corre las pruebas automáticas del proyecto. **Qué deberías ver:** una lista de comprobaciones marcadas `PASSED` o `FAILED` y, al final, un resumen con `PASS` o `FAIL` y la carpeta donde quedó guardado el resultado.
+Esto corre las pruebas automáticas del proyecto y tarda alrededor de 2 minutos. **Qué deberías ver:** una lista de pruebas marcadas `ok` o `FAIL` y, al final, `Resultado global: PASS` o `FAIL` y la carpeta donde quedó guardado el resultado.
 
 ### Paso 5 — Encender el servicio
 
@@ -168,7 +176,7 @@ python -m src.servicio.main
 
 **Qué deberías ver:** la terminal se queda "ocupada", sin devolverte el `$`. Eso es correcto: el servicio está atendiendo. **No cierres esta terminal.**
 
-> Si aparece un mensaje con `NotImplementedError`, es porque la integración del servicio aún no termina en esta versión; revisa la sección [Estado del proyecto](#estado-del-proyecto).
+> Si aparece `No se puede escuchar en…`, el puerto está ocupado. Si aparece `Configuración inválida`, revisa la variable que indica el mensaje.
 
 ### Paso 6 — Enviar tu primer trabajo
 
@@ -204,6 +212,22 @@ Cancela el trabajo antes de que termine:
 python -m src.cliente.cli cancel ID
 ```
 
+Para ver lo que imprimió un trabajo:
+
+```bash
+python -m src.cliente.cli submit echo hola
+```
+
+```bash
+python -m src.cliente.cli output ID
+```
+
+Y para ver cómo está el servicio:
+
+```bash
+python -m src.cliente.cli health
+```
+
 **Los estados posibles** de un trabajo:
 
 | Estado | Significa |
@@ -211,12 +235,12 @@ python -m src.cliente.cli cancel ID
 | `QUEUED` | Está en la fila, esperando turno |
 | `RUNNING` | Se está ejecutando |
 | `SUCCEEDED` | Terminó bien (código de salida 0) |
-| `FAILED` | Terminó con error (código distinto de 0) |
-| `CANCELED` | Alguien lo canceló |
+| `FAILED` | Terminó con error, no se pudo lanzar, murió por una señal que nadie pidió, o el servicio se cayó mientras corría |
+| `CANCELED` | Alguien lo canceló, o lo terminó el cierre del servicio |
 
 ### Paso 7 — Apagar
 
-En la terminal del servicio, presiona `Ctrl+C`. El servicio deja de aceptar trabajos nuevos y se cierra de forma ordenada.
+En la terminal del servicio, presiona `Ctrl+C`. El servicio deja de aceptar trabajos nuevos, espera a los que están corriendo (30 segundos por defecto), cancela los que sigan y se cierra. Los que estaban en la fila se ejecutan la próxima vez que lo enciendas.
 
 ### Si algo sale mal
 
@@ -224,7 +248,7 @@ En la terminal del servicio, presiona `Ctrl+C`. El servicio deja de aceptar trab
 |---|---|
 | `command not found: python3` o `git` | Repite el Paso 1 |
 | `ensurepip is not available` | `sudo apt install -y python3-venv` y repite el Paso 3 |
-| `No module named pytest` | Falta activar el entorno: `source .venv/bin/activate` |
+| `No se puede escuchar en…` | Otro programa usa ese puerto: cambia `JOBRUNNER_PORT` o detén el otro |
 | `No module named src` | No estás en la carpeta del proyecto: `cd porter` |
 | `Error de conexión con el servicio` | El servicio no está encendido, o las dos terminales no cargaron la misma configuración (Paso 5) |
 
@@ -244,7 +268,9 @@ En la terminal del servicio, presiona `Ctrl+C`. El servicio deja de aceptar trab
         └──────► Bitácora (eventos con fecha e ID de trabajo)
 ```
 
-El **recorrido de una solicitud**: el cliente arma un mensaje y lo envía; `entrada` lo lee y lo valida; `control` crea el trabajo, lo guarda, lo anota en la bitácora y lo encola; cuando hay lugar, el `launcher` lo arranca como un **proceso separado**; al terminar, se registra su **código de salida** y su estado final. Una cancelación envía la señal `SIGTERM` y, si el proceso no termina dentro del tiempo de gracia, `SIGKILL`.
+El **recorrido de una solicitud**: el cliente arma un mensaje y lo envía; `entrada` lo lee y lo valida; `control` valida, guarda el trabajo, lo encola y lo anota en la bitácora, todo con un candado para que dos envíos simultáneos no se estorben; cuando hay lugar, el `launcher` lo arranca en su **propio grupo de procesos**; al terminar, se registra su **código de salida** y su estado final. Una cancelación envía `SIGTERM` a todo el grupo y, si queda alguien vivo tras el tiempo de gracia, `SIGKILL`. Al reiniciar, se recupera el historial y se limpian los procesos que quedaron de una caída.
+
+El detalle y las transiciones de estado válidas están en [arquitectura y estados](docs/technical-guide/arquitectura-y-estados.md).
 
 ## Estructura del repositorio
 
@@ -254,22 +280,29 @@ El **recorrido de una solicitud**: el cliente arma un mensaje y lo envía; `entr
 | `src/comun/` | Modelo de trabajo y protocolo de mensajes |
 | `src/servicio/` | Servicio: entrada, operación, persistencia, bitácora y gestión de trabajos |
 | `docs/decisions/` | Decisiones de arquitectura (ADR) |
-| `docs/technical-guide/` | Contratos de interfaz, mapa de uso y módulos explicados |
+| `docs/user-guide/` | Guía de usuario |
+| `docs/technical-guide/` | Arquitectura y estados, contratos de interfaz, mapa de uso y módulos explicados |
+| `docs/incidents/` | Incidentes técnicos |
 | `docs/ai-usage/` | Registro del uso de herramientas de IA |
 | `verif/verification-plan/` | Plan de verificación y matriz de trazabilidad |
 | `verif/test-cases/` | Casos de prueba `TC-XXX` |
-| `verif/scripts/` | Pruebas automatizadas y script de verificación |
+| `verif/scripts/` | Pruebas automatizadas y ejecutor (`run_verificacion.py`); la prueba de contratos está en `anteriores/` |
 | `verif/results/` | Evidencia de cada corrida |
 | `project-management/` | Roles, alcance, cronograma y minutas |
 
 ## Documentación
 
-- Decisiones de arquitectura: [`docs/decisions/`](docs/decisions/)
+- **Guía de usuario: [`docs/user-guide/guia-usuario.md`](docs/user-guide/guia-usuario.md)**
+- **Arquitectura y modelo de estados: [`docs/technical-guide/arquitectura-y-estados.md`](docs/technical-guide/arquitectura-y-estados.md)**
+- Decisiones de arquitectura (ADR-000 a ADR-012): [`docs/decisions/`](docs/decisions/)
+- Incidentes técnicos: [`docs/incidents/`](docs/incidents/)
+- Uso de IA: [`docs/ai-usage/`](docs/ai-usage/)
 - Contratos entre módulos: [`docs/technical-guide/contratos-interfaces.md`](docs/technical-guide/contratos-interfaces.md)
 - Módulos explicados en prosa: [`docs/technical-guide/modulos-explicados.md`](docs/technical-guide/modulos-explicados.md)
 - Alcance del Avance 1: [`project-management/alcance-avance-1.md`](project-management/alcance-avance-1.md)
 - Roles y responsabilidades: [`project-management/roles-matrix.md`](project-management/roles-matrix.md)
 - Cronograma y actividad del proyecto: [`project-management/cronograma.md`](project-management/cronograma.md)
+- Hitos y riesgos: [`project-management/schedule-and-risks.md`](project-management/schedule-and-risks.md)
 - Minutas de las juntas: [`project-management/minutas/`](project-management/minutas/)
 - Plan de verificación: [`verif/verification-plan/plan-verificacion.md`](verif/verification-plan/plan-verificacion.md)
 - Matriz de trazabilidad: [`verif/verification-plan/traceability-matrix.md`](verif/verification-plan/traceability-matrix.md)
@@ -287,4 +320,4 @@ El **recorrido de una solicitud**: el cliente arma un mensaje y lo envía; `entr
 
 ## Forma de trabajo
 
-Issue asignado → rama propia → commits → pull request con `Closes #N` → revisión del equipo → merge a `main` → issue cerrado. La evidencia de cada prueba se guarda en `verif/results/`. El uso de herramientas de IA está permitido y se registra en `docs/ai-usage/`; el equipo es responsable de comprender, probar y defender todo lo entregado.
+Issue asignado → rama propia → commits → pull request con `Closes #N` → aprobación de los otros cuatro integrantes → merge a `main` → issue cerrado. El avance se sigue en el [tablero del proyecto](https://github.com/users/EdsonRuiz5392/projects/1). La evidencia de cada prueba se guarda en `verif/results/`. El uso de herramientas de IA está permitido y se registra en `docs/ai-usage/`; el equipo es responsable de comprender, probar y defender todo lo entregado.

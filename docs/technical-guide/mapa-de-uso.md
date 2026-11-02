@@ -26,6 +26,7 @@ Es utilizado por: `entrada`, `cli`.
 Es utilizada por: `control`.
 - Al llegar un trabajo nuevo: `is_full()`, y si hay espacio, `enqueue(job_id)`.
 - Al arrancar el siguiente: `dequeue()`.
+- Al recuperar tras un reinicio: `restore(job_id)`.
 - Al cancelar uno que sigue en cola: `remove(job_id)`.
 - Para el resumen de salud: `size()`.
 
@@ -52,8 +53,8 @@ Es utilizada por: `control`.
 
 ## bitacora
 
-Es utilizada por: `control`.
-- Eventos: `CREATED`, `STARTED`, `FINISHED`, `CANCELED`, `REJECTED` → `log_event(job_id, event, detail)`.
+Es utilizada por: `control`, `entrada` (`PROTOCOL_ERROR`) y `main` (ciclo de vida del servicio).
+- `log_event(job_id, event, detail)`. La lista de eventos está en [`arquitectura-y-estados.md`](arquitectura-y-estados.md), sección 9.
 
 ---
 
@@ -62,7 +63,7 @@ Es utilizada por: `control`.
 Es utilizado por: `entrada` (operaciones de trabajos), `operacion` (salud y cierre), `main` (recuperación al arrancar).
 
 - `entrada` lo usa según el tipo de mensaje: `submit`, `get`, `list`, `request_cancel`, `get_output`.
-- `operacion` lo usa para: `is_accepting()`, `running_count()`, `queued_count()`, `recent_errors_count()`, `stop_accepting()`.
+- `operacion` lo usa para: `is_accepting()`, `running_count()`, `queued_count()`, `recent_errors_count()`, `stop_accepting()`, `in_progress_count()`, `cancel_all_running()`.
 - `main` lo usa una sola vez, al arrancar: `recover_on_startup()`.
 
 ---
@@ -72,7 +73,7 @@ Es utilizado por: `entrada` (operaciones de trabajos), `operacion` (salud y cier
 Es utilizada por: `entrada` (mensaje `health`), `main` (configuración y cierre).
 
 - `entrada`: `health_summary(job_manager)`.
-- `main`: `load_config()`, `shutdown(job_manager)`.
+- `main`: `load_config()`, `shutdown(job_manager, timeout)`.
 
 ---
 

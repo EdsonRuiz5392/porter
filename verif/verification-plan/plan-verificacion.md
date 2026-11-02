@@ -1,7 +1,7 @@
 # Plan de Verificación, Validación y Aceptación — Porter
 
-**Responsable:** Edson Ruiz (líder de verificación) · **Aprueba:** Dylan (responsable de producto)
-**Versión:** 0.1 (borrador del Avance 01) · **Fecha:** 2026-09-21
+**Responsable:** Edson Ruiz (líder de verificación) · **Aprueba:** Ángel (responsable de producto)
+**Versión:** 0.2 (Avance 02) · **Fecha:** 2026-11-02
 **Base:** doc 05 (Plan de verificación del cliente), doc 04 (Estándares), doc 06 (Hitos).
 **Matriz asociada:** [traceability-matrix.md](traceability-matrix.md)
 
@@ -20,9 +20,9 @@ Una demostración manual, o un reporte generado por IA, no sustituye una prueba 
 | Rol | Quién | Qué hace |
 |---|---|---|
 | Líder de verificación | Edson | Mantiene este plan y la matriz; diseña los casos TC; mantiene el script de verificación; registra la evidencia |
-| Autor de cada módulo | Dylan (`src/cli`), Juan (`src/network`), Ángel (`src/db`), Marcos (`src/core`) | Implementa su módulo con pruebas unitarias y corre los casos de su área |
+| Autor de cada módulo | Dylan (`cli`, `cola`, `control`), Juan (`entrada`, `protocolo`), Ángel (`persistencia`, `bitacora`, `operacion`, `main`), Marcos (`launcher`) | Implementa su módulo con pruebas unitarias y corre los casos de su área |
 | Revisor distinto del autor | Según `project-management/roles-matrix.md` | Confirma los resultados críticos del área que revisa |
-| Responsable de producto | Dylan | Decide la aceptación y aprueba las excepciones |
+| Responsable de producto | Ángel | Decide la aceptación y aprueba las excepciones |
 
 ## 3. Métodos de verificación
 
@@ -37,10 +37,10 @@ Una demostración manual, o un reporte generado por IA, no sustituye una prueba 
 
 | Nivel | Qué cubre | Dónde vive | Primer hito |
 |---|---|---|---|
-| Unitarias | Funciones y módulos aislados | Pruebas de cada módulo | H1 |
+| Unitarias | Interfaces de los módulos | `verif/scripts/anteriores/test_contratos.py` | H1 |
 | Integración | Procesos, IPC, persistencia y red | `verif/scripts/` | H1 |
 | Sistema | Flujo completo del cliente al servicio | Casos TC | H1 |
-| Robustez | Fallos, límites y desconexiones | TC-008, TC-016 a TC-022 | H1 y H2 |
+| Robustez | Fallos, límites y desconexiones | TC-007, TC-008, TC-016 a TC-022, TC-024 | H1 y H2 |
 | Seguridad | Exposición, validación y autorización de red | TC-011, TC-012 | H3 |
 | Aceptación | Escenarios de usuario sobre una versión candidata | Escenarios A a E (sección 11) | H4 |
 
@@ -65,7 +65,7 @@ Los datos de entrada controlados van en `verif/test-data/`.
 
 ## 6. Entorno controlado
 
-Entorno de referencia propuesto (**pendiente de que el equipo lo confirme**):
+Entorno de referencia, **confirmado por producto**:
 
 | Elemento | Valor |
 |---|---|
@@ -75,12 +75,12 @@ Entorno de referencia propuesto (**pendiente de que el equipo lo confirme**):
 | Python | 3.12.3 |
 | SQLite | 3.45.1 |
 | Límite de concurrencia | 3 (valor de RNF-04) |
-| Interfaz y puerto | 127.0.0.1, puerto por definir (ADR-03) |
+| Interfaz y puerto | 127.0.0.1, puerto 9000 por defecto; cada prueba usa un puerto libre |
 | Topología LAN/VPN | Por definir en el Hito 3 |
 
 Cada corrida registra además el **commit** probado y la configuración usada. Si un integrante usa otra distribución, sus resultados sirven como apoyo, pero la evidencia formal se toma en el entorno de referencia (RNF-01 exige *una* distribución declarada).
 
-**Herramienta de pruebas (decisión pendiente):** se propone `python3 -m unittest`, que viene con Python y no requiere instalar nada, lo que favorece la construcción desde un clon limpio (RNF-02). Si el equipo prefiere `pytest`, hay que declararlo con su versión en un archivo de dependencias, porque hoy no está instalado en el entorno de referencia.
+**Herramienta de pruebas:** `unittest` de la biblioteca estándar, ejecutado con `python3 verif/scripts/run_verificacion.py`. No requiere instalar nada, lo que favorece la construcción desde un clon limpio (RNF-02). La prueba de contratos usa `pytest`, declarado en `src/requirements.txt`.
 
 ## 7. Criterios de entrada y de salida
 
@@ -110,7 +110,7 @@ Cada corrida registra además el **commit** probado y la configuración usada. S
 - bitácoras
 - resumen PASS/FAIL
 
-**Convención de `run-id`:** `AAAAMMDD-HHMM-<commit de 7 caracteres>`, por ejemplo `20260930-1815-a7c717e`.
+**Convención de `run-id`:** por defecto `<fecha>_<hora>_<commit corto>`. Con `--run-id` se puede usar un nombre que conserve la fecha, por ejemplo `2026-11-02_avance02-final`. El commit exacto queda en `version.txt`.
 
 Los resultados **no se editan** para ocultar fallas (doc 04).
 
@@ -126,10 +126,10 @@ Los resultados **no se editan** para ocultar fallas (doc 04).
 
 | Hito | Casos que se verifican | Además |
 |---|---|---|
-| **H1 · Avance 01 (RT-1, 6 oct)** | TC-001, TC-002 (parcial), TC-003, TC-004, TC-005, TC-006, TC-008, TC-014, TC-015. Recomendados: TC-020 y TC-021 | Pruebas unitarias; script de verificación con un solo comando (RNF-20); primera corrida registrada sobre la versión etiquetada |
-| H2 · Concurrencia y persistencia | TC-002 (completo), TC-007, TC-009, TC-013, TC-016, TC-017, TC-018, TC-020, TC-021, TC-022, TC-025, TC-026, TC-027 | Incidente de concurrencia, persistencia o procesos con su prueba de regresión (doc 06) |
-| H3 · Operación remota | TC-010, TC-011, TC-012, TC-019, TC-023 | Conexión permitida y conexión rechazada (doc 01) |
-| H4 · Candidato de entrega | TC-024 y regresión completa | Verificación cruzada con otro equipo; instalación desde clon limpio por un tercero |
+| H1 · Avance 01 | TC-001, TC-002 (parcial), TC-003, TC-004, TC-005, TC-006, TC-008, TC-014, TC-015. Recomendados: TC-020 y TC-021 | Pruebas unitarias; script de verificación con un solo comando (RNF-20); primera corrida registrada sobre la versión etiquetada |
+| **H2 · Concurrencia y persistencia (Avance 02)** | TC-002, TC-007, TC-009, TC-013, TC-016, TC-017, TC-018, TC-020, TC-021, TC-022 y, en local, TC-012, TC-019, TC-023 y TC-024. Corrida `2026-11-02_avance02-final` | Incidente [INC-001](../../docs/incidents/INC-001-trabajos-fantasma-cola-llena.md) con su prueba de regresión (doc 06) |
+| H3 · Operación remota | TC-010, TC-011 y repetir TC-012, TC-019 y TC-023 entre dos equipos | Conexión permitida y conexión rechazada (doc 01) |
+| H4 · Candidato de entrega | TC-014 y regresión completa | Verificación cruzada con otro equipo; instalación desde clon limpio por un tercero |
 | H5 · Aceptación | Matriz completa en PASS/FAIL | Requisito elegido al azar trazado de punta a punta |
 
 ## 11. Validación con usuarios
@@ -171,11 +171,20 @@ En una revisión técnica, el cliente puede introducir una falla sin aviso (doc 
 
 Una explicación, prueba o reporte producido por IA no es evidencia suficiente sin una ejecución reproducible y revisión humana (doc 05). Toda prueba sugerida por IA se ejecuta en el entorno de referencia, se revisa y se registra en `docs/ai-usage/` antes de contar como evidencia.
 
-## 16. Decisiones pendientes de este plan
+## 16. Decisiones
 
-| Decisión | Propuesta | Responsable |
+| Decisión | Resultado | Responsable |
 |---|---|---|
-| Distribución de referencia | Ubuntu 24.04 LTS | Equipo |
-| Herramienta de pruebas | `python3 -m unittest` | Edson con Dylan |
-| Analizador estático para RNF-19 | Por definir | Edson con Dylan |
-| Casos propuestos TC-025, TC-026 y TC-027 | Aceptarlos en la matriz | Dylan (producto) |
+| Distribución de referencia | Ubuntu 24.04 LTS | Ángel |
+| Herramienta de pruebas | `unittest`, con `run_verificacion.py` | Equipo |
+| Analizador estático para RNF-19 | Pendiente | Ángel |
+| Casos propuestos TC-025, TC-026 y TC-027 | Pendiente: decidir si se dan por cubiertos | Ángel |
+
+## 17. Resultados del Avance 02
+
+| Corrida | Código | Entorno | Resultado |
+|---|---|---|---|
+| `2026-10-21_avance01-linea-base_bc113057` | Avance 01 | Kali en WSL2 | 23 PASS, 32 FAIL, 2 ERROR |
+| `2026-11-02_avance02-final` | Avance 02 | Ubuntu 24.04 | 57 PASS |
+
+**Fallas intermitentes.** Repetir las pruebas de carga en Kali mostró dos defectos que no aparecieron en dos corridas adicionales ni en la formal en Ubuntu 24.04. Se registran como issues y no se ocultan: #58 y #59. Una corrida en PASS en el entorno de referencia no demuestra que no existan.
