@@ -12,5 +12,6 @@ Capturas de pantalla de cada junta, mostradas en las minutas de la carpeta super
 | `junta3-01.png` | 3 · 28 sep | Detalle del diagrama: módulos de gestión de trabajos |
 | `junta4-01.png` | 4 · 1 oct | Bitácora y base de datos funcionando |
 | `junta4-02.png` | 4 · 1 oct | Chat de la llamada sobre el diagrama |
+| `junta5-01.png` | 5 · 21 oct | Llamada con los cinco integrantes |
 
-Las imágenes actuales son versiones reducidas. Para sustituir una por la captura original en tamaño completo, basta subir el archivo con el mismo nombre.
+`junta4-01.png` y `junta5-01.png` son capturas en tamaño completo. Las demás son versiones reducidas; para sustituir una por la original, basta subir el archivo con el mismo nombre.
