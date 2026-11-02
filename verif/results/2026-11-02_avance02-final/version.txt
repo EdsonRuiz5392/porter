@@ -1,0 +1,3 @@
+Commit: 3755ec6daec39bea315f1758708694ad68851c99
+Rama: 48-ejecutar-las-pruebas-automatizadas-y-subir-la-evidencia
+Cambios sin commit en src/: no

@@ -1,0 +1,2 @@
+python3 verif/scripts/run_verificacion.py --run-id 2026-11-02_avance02-final
+(ejecutado en /home/ubuntu/porter-48)
