@@ -12,7 +12,7 @@ los demas esperan de el.
 
 Requisitos: RNF-17 (codigo modular), RNF-18 (interfaces documentadas),
 RNF-20 (pruebas con un solo comando).
-Ejecucion: python -m pytest verif/scripts/test_contratos.py -v
+Ejecucion: python -m pytest verif/scripts/anteriores/test_contratos.py -v
 Responsable: Edson (verificacion).
 """
 import importlib
@@ -35,7 +35,7 @@ CONTRATOS = [
     ("src.servicio.gestion_trabajos.cola", "Cola", "remove", False, ["job_id"]),
     ("src.servicio.gestion_trabajos.cola", "Cola", "size", False, []),
     ("src.servicio.gestion_trabajos.control", "Control", "__init__", False,
-     ["cola", "launcher", "persistencia", "bitacora", "max_concurrency", "grace_seconds"]),
+     ["cola", "launcher", "persistencia", "bitacora", "max_concurrency", "grace_seconds", "data_dir"]),
     ("src.servicio.gestion_trabajos.control", "Control", "submit", True,
      ["command", "args", "client_request_id"]),
     ("src.servicio.gestion_trabajos.control", "Control", "get", True, ["job_id"]),
@@ -66,7 +66,7 @@ CONTRATOS = [
     ("src.servicio.bitacora", "Bitacora", "__init__", False, ["log_path"]),
     ("src.servicio.bitacora", "Bitacora", "log_event", False, ["job_id", "event", "detail"]),
     ("src.servicio.operacion", None, "load_config", False, []),
-    ("src.servicio.operacion", None, "shutdown", True, ["job_manager"]),
+    ("src.servicio.operacion", None, "shutdown", True, ["job_manager", "timeout"]),
     ("src.servicio.operacion", None, "health_summary", True, ["job_manager"]),
     ("src.servicio.operacion", None, "check_rate_limit", False, ["current_count", "max_allowed"]),
     ("src.cliente.cli", None, "_leer_configuracion_conexion", False, []),
