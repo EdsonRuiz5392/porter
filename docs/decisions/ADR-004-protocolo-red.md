@@ -1,6 +1,6 @@
 # ADR-004: Formato y framing del protocolo de red (Python)
 
-- Estado:Propuesto
+- Estado:Aceptado
 - Fecha: 2026-09-25
 - Requisitos relacionados: RF-18, RF-21, RF-22, RNF-14, RNF-24, RNF-32
 

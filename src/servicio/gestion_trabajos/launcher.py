@@ -4,146 +4,133 @@ Responsable: Marcos.
 Ver docs/technical-guide/contratos-interfaces.md, sección 8.
 Se apoya en: ADR-002 (IPC con subprocess), ADR-005 (escalamiento SIGTERM -> SIGKILL).
 RF que cubre: 04, 10, 26, 29, 30.
-
-Módulo Launcher - Servicio de Gestión de Trabajos 02-10-2026
-Responsable de lanzar, cancelar y transmitir la salida de procesos independientes
-utilizando concurrencia asíncrona con asyncio.
 """
 
 import asyncio
 import logging
 import os
+import signal
 from typing import List, Optional
 
 logger = logging.getLogger("servicio.gestion_trabajos.launcher")
 
 
-class Launcher:
-    """
-    Clase encargada de la gestión del ciclo de vida de procesos hijos de manera asíncrona.
-    Conforme a contratos-interfaces.md, ADR-003 (IPC con asyncio) y ADR-006 (SIGTERM -> SIGKILL).
-    """
+def _grupo_vivo(pgid: int) -> bool:
+    """True si todavía existe algún proceso en el grupo pgid."""
+    try:
+        os.killpg(pgid, 0)  # la señal 0 no hace nada: solo pregunta si existe
+        return True
+    except ProcessLookupError:
+        return False
 
-    def __init__(self, directorio_trabajo: Optional[str] = None):
-        self.directorio_trabajo = directorio_trabajo or os.getcwd()
+
+class Launcher:
+    """Encargado del ciclo de vida de procesos hijos de manera asíncrona."""
 
     async def start(
         self,
         command: str,
         args: List[str],
-        job_id: str
+        job_id: str,
     ) -> asyncio.subprocess.Process:
         """
-        Lanza la ejecución asíncrona de un trabajo mediante un proceso hijo.
+        Lanza el comando como un proceso hijo completamente separado del
+        servicio (RF-04), capturando stdout y stderr por separado.
 
-        Args:
-            command (str): Comando ejecutable principal.
-            args (List[str]): Lista de argumentos adicionales para el comando.
-            job_id (str): Identificador único del trabajo.
-
-        Returns:
-            asyncio.subprocess.Process: Instancia del proceso hijo asíncrono.
+        F4/F5: start_new_session=True pone al trabajo en su propio grupo de
+        procesos (su "familia"), cuyo ID es igual a su PID. Así se puede
+        terminar a toda la familia (hijo y nietos) con os.killpg, y el Ctrl+C
+        de la terminal del servicio ya no les llega.
+        stdin=DEVNULL: el trabajo no hereda la entrada del servicio.
         """
         logger.info(f"[Trabajo {job_id}] Lanzando comando: {command} con args: {args}")
 
-        # Se inicia el proceso asíncrono canalizando stdout y stderr
         proc = await asyncio.create_subprocess_exec(
             command,
             *args,
+            stdin=asyncio.subprocess.DEVNULL,
             stdout=asyncio.subprocess.PIPE,
             stderr=asyncio.subprocess.PIPE,
-            cwd=self.directorio_trabajo
+            start_new_session=True,
         )
 
-        logger.info(f"[Trabajo {job_id}] Proceso iniciado exitosamente con PID {proc.pid}")
+        logger.info(f"[Trabajo {job_id}] Proceso iniciado con PID {proc.pid}")
         return proc
 
     async def cancel(
         self,
         proc: asyncio.subprocess.Process,
-        grace_seconds: int = 5
-    ) -> bool:
+        grace_seconds: float,
+    ) -> None:
         """
-        Cancela de manera segura un proceso en ejecución aplicando escalamiento SIGTERM -> SIGKILL
-        según lo estipulado en la ADR-006.
-
-        Args:
-            proc (asyncio.subprocess.Process): Instancia del proceso a cancelar.
-            grace_seconds (int): Segundos de gracia antes de forzar el cierre con SIGKILL.
-
-        Returns:
-            bool: True si el proceso finalizó correctamente durante la cancelación.
+        Escalamiento SIGTERM -> SIGKILL (ADR-005), aplicado a todo el grupo
+        del trabajo: pide amablemente que termine, espera hasta grace_seconds
+        a que muera TODA la familia, y si queda alguien vivo la mata a la fuerza.
         """
-        if proc.returncode is not None:
+        if proc.returncode is not None and not _grupo_vivo(proc.pid):
             logger.info(f"El proceso PID {proc.pid} ya había finalizado con código {proc.returncode}")
-            return True
+            return
 
+        pgid = proc.pid
         try:
-            logger.info(f"Enviando SIGTERM al proceso PID {proc.pid}. Esperando {grace_seconds}s...")
-            proc.terminate()
-
-            # Esperar el tiempo de gracia especificado
-            try:
-                await asyncio.wait_for(proc.wait(), timeout=grace_seconds)
-                logger.info(f"Proceso PID {proc.pid} finalizó de forma limpia tras SIGTERM")
-                return True
-            except asyncio.TimeoutError:
-                logger.warning(f"Tiempo de gracia agotado para PID {proc.pid}. Escalando a SIGKILL...")
-                proc.kill()
-                await proc.wait()
-                logger.info(f"Proceso PID {proc.pid} finalizado forzosamente mediante SIGKILL")
-                return True
-
+            logger.info(f"Enviando SIGTERM al grupo {pgid}. Esperando {grace_seconds}s...")
+            os.killpg(pgid, signal.SIGTERM)
         except ProcessLookupError:
-            logger.warning(f"El proceso PID {proc.pid} ya no existía al intentar cancelarlo")
-            return True
-        except Exception as e:
-            logger.error(f"Error inesperado al cancelar el proceso PID {proc.pid}: {e}")
-            return False
+            logger.warning(f"El grupo {pgid} ya no existía al intentar cancelarlo")
+            return
+
+        loop = asyncio.get_running_loop()
+        limite = loop.time() + grace_seconds
+        while _grupo_vivo(pgid) and loop.time() < limite:
+            await asyncio.sleep(0.1)
+
+        if _grupo_vivo(pgid):
+            logger.warning(f"Tiempo de gracia agotado para el grupo {pgid}. Escalando a SIGKILL...")
+            try:
+                os.killpg(pgid, signal.SIGKILL)
+            except ProcessLookupError:
+                pass
+            logger.info(f"Grupo {pgid} finalizado forzosamente mediante SIGKILL")
+        else:
+            logger.info(f"Grupo {pgid} finalizó de forma limpia tras SIGTERM")
+
+        await proc.wait()
 
     async def stream_output(
         self,
         proc: asyncio.subprocess.Process,
         stdout_path: str,
-        stderr_path: str
+        stderr_path: str,
     ) -> int:
         """
-        Lee de forma concurrente los flujos stdout y stderr del proceso hijo,
-        escribe las salidas en sus respectivos archivos en disco y retorna el código de salida.
+        Lee stdout y stderr al mismo tiempo (con asyncio.gather, no uno tras
+        otro) para no bloquear al proceso hijo si llena el buffer de uno
+        mientras nadie lo vacía, y los guarda en archivos separados (RF-11).
 
-        Args:
-            proc (asyncio.subprocess.Process): Proceso en ejecución.
-            stdout_path (str): Ruta del archivo donde se guardará la salida estándar.
-            stderr_path (str): Ruta del archivo donde se guardarán los errores.
+        F6: lee por bloques de bytes (no por líneas), así una línea enorme no
+        rompe la lectura; flush() hace visible la salida mientras corre.
 
-        Returns:
-            int: Código de salida (returncode) del proceso al finalizar.
+        No crea carpetas: asume que stdout_path/stderr_path ya están en una
+        carpeta que existe (la crea main.py al arrancar), para mantener la
+        responsabilidad de este módulo enfocada solo en el proceso.
         """
-        # Asegurar la existencia de los directorios de destino
-        for path in (stdout_path, stderr_path):
-            parent = os.path.dirname(path)
-            if parent:
-                os.makedirs(parent, exist_ok=True)
 
-        async def _write_stream(stream: Optional[asyncio.StreamReader], file_path: str):
+        async def _escribir_stream(stream: Optional[asyncio.StreamReader], ruta: str):
             if not stream:
                 return
-            with open(file_path, "w", encoding="utf-8") as f:
+            with open(ruta, "wb") as f:
                 while True:
-                    line = await stream.readline()
-                    if not line:
+                    bloque = await stream.read(65536)
+                    if not bloque:
                         break
-                    decoded_line = line.decode("utf-8", errors="replace")
-                    f.write(decoded_line)
+                    f.write(bloque)
                     f.flush()
 
-        # Consumir stdout y stderr simultáneamente usando asyncio.gather
         await asyncio.gather(
-            _write_stream(proc.stdout, stdout_path),
-            _write_stream(proc.stderr, stderr_path)
+            _escribir_stream(proc.stdout, stdout_path),
+            _escribir_stream(proc.stderr, stderr_path),
         )
 
-        # Esperar la finalización total del proceso y obtener su código de retorno
         returncode = await proc.wait()
         logger.info(f"Proceso PID {proc.pid} completó stream_output con retorno {returncode}")
         return returncode

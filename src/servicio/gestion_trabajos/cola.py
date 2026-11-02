@@ -45,6 +45,16 @@ class Cola:
             raise QueueFullError("La cola de trabajos está llena.")
         self._queue.append(job_id)
 
+    def restore(self, job_id: str) -> None:
+        """
+        Reencola un trabajo YA ACEPTADO durante la recuperación (F2), sin
+        aplicar el límite: max_size decide si se aceptan trabajos nuevos, no
+        si se conservan los que ya se aceptaron (RF-25). Mientras la cola
+        siga por encima del límite, is_full() da True y los envíos nuevos
+        reciben QUEUE_FULL.
+        """
+        self._queue.append(job_id)
+
     def dequeue(self) -> Optional[str]:
         """
         Saca y regresa el job_id que lleva más tiempo esperando (el primero
