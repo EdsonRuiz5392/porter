@@ -1,0 +1,3 @@
+Sin repositorio git: se identifica el código con el SHA-256 de todos los archivos de src/.
+SHA-256 de src/: ca49101cfe482f9e75cc638996c72ebbeaa03e2c517c226c20a2c8708b1bcb07
+Archivos: 18

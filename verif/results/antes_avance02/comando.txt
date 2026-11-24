@@ -1,0 +1,2 @@
+python3 verif/scripts/run_verificacion.py --run-id antes_avance02
+(ejecutado en /tmp/jr-antes-g_0cxiko)

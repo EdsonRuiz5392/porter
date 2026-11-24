@@ -1,0 +1,76 @@
+Run ID: repeticiones_avance03/con_carga/avance02-tc022-08
+Evidencia en: /tmp/jr-antes-g_0cxiko/verif/results/repeticiones_avance03/con_carga/avance02-tc022-08
+
+test_kill9_con_trabajos_corriendo_y_en_cola (test_tc007_tc022_recuperacion.TC007Recuperacion.test_kill9_con_trabajos_corriendo_y_en_cola) ... ok
+test_nieto_huerfano_con_lider_muerto (test_tc007_tc022_recuperacion.TC007Recuperacion.test_nieto_huerfano_con_lider_muerto) ... ok
+test_pid_reutilizado_no_se_mata (test_tc007_tc022_recuperacion.TC007Recuperacion.test_pid_reutilizado_no_se_mata)
+La base dice RUNNING con un PID que ahora pertenece a otro programa: no se toca. ... ok
+test_bajar_max_queue_con_pendientes (test_tc007_tc022_recuperacion.TC022RecuperacionCapacidad.test_bajar_max_queue_con_pendientes)
+Regresión: antes el servicio no arrancaba (QueueFullError en recover_on_startup). ... ok
+test_base_integra_tras_kill9_durante_escrituras (test_tc007_tc022_recuperacion.TC022RecuperacionCapacidad.test_base_integra_tras_kill9_durante_escrituras)
+RNF-28: matar el servicio en plena actividad no deja la base inutilizable. ... FAIL
+test_health_cuenta_los_trabajos_en_transito (test_tc013_tc022_tc024_regresion_issues_avance03.TC013SaludEnTransito.test_health_cuenta_los_trabajos_en_transito)
+Regresión Issue TC-022: con un QUEUED en la base, health no puede decir 0 en ejecución y 0 en cola. ... FAIL
+test_bloqueo_de_7s_no_marca_failed_un_trabajo_valido (test_tc013_tc022_tc024_regresion_issues_avance03.TC024BaseOcupada.test_bloqueo_de_7s_no_marca_failed_un_trabajo_valido)
+Regresión Issue database is locked: un bloqueo de 7 s ya no alcanza los 5 s de antes (ADR-018). ... FAIL
+test_si_la_base_no_responde_el_cupo_se_libera (test_tc013_tc022_tc024_regresion_issues_avance03.TC024BaseOcupada.test_si_la_base_no_responde_el_cupo_se_libera)
+Regresión: antes el trabajo se quedaba 'en curso' para siempre y su lugar de ejecución se perdía. ... FAIL
+
+======================================================================
+FAIL: test_base_integra_tras_kill9_durante_escrituras (test_tc007_tc022_recuperacion.TC022RecuperacionCapacidad.test_base_integra_tras_kill9_durante_escrituras)
+RNF-28: matar el servicio en plena actividad no deja la base inutilizable.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/jr-antes-g_0cxiko/verif/scripts/test_tc007_tc022_recuperacion.py", line 109, in test_base_integra_tras_kill9_durante_escrituras
+    self.assertTrue(estados <= {"SUCCEEDED", "FAILED"}, f"Sin estados imposibles: {estados}")
+AssertionError: False is not true : Sin estados imposibles: {'FAILED', 'SUCCEEDED', 'QUEUED'}
+
+======================================================================
+FAIL: test_health_cuenta_los_trabajos_en_transito (test_tc013_tc022_tc024_regresion_issues_avance03.TC013SaludEnTransito.test_health_cuenta_los_trabajos_en_transito)
+Regresión Issue TC-022: con un QUEUED en la base, health no puede decir 0 en ejecución y 0 en cola.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/jr-antes-g_0cxiko/verif/scripts/test_tc013_tc022_tc024_regresion_issues_avance03.py", line 97, in test_health_cuenta_los_trabajos_en_transito
+    self.assertEqual((foto["running"], foto["queued"]), (0, 1),
+AssertionError: Tuples differ: (0, 0) != (0, 1)
+
+First differing element 1:
+0
+1
+
+- (0, 0)
+?     ^
+
++ (0, 1)
+?     ^
+ : queued debe coincidir con lo que la base reporta como QUEUED: {'running': 0, 'queued': 0, 'starting': None, 'base': 'QUEUED'}
+
+======================================================================
+FAIL: test_bloqueo_de_7s_no_marca_failed_un_trabajo_valido (test_tc013_tc022_tc024_regresion_issues_avance03.TC024BaseOcupada.test_bloqueo_de_7s_no_marca_failed_un_trabajo_valido)
+Regresión Issue database is locked: un bloqueo de 7 s ya no alcanza los 5 s de antes (ADR-018).
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/jr-antes-g_0cxiko/verif/scripts/test_tc013_tc022_tc024_regresion_issues_avance03.py", line 112, in test_bloqueo_de_7s_no_marca_failed_un_trabajo_valido
+    self.assertEqual((fin["status"], fin["exit_code"]), ("SUCCEEDED", 0), fin)
+AssertionError: Tuples differ: ('FAILED', -1) != ('SUCCEEDED', 0)
+
+First differing element 0:
+'FAILED'
+'SUCCEEDED'
+
+- ('FAILED', -1)
++ ('SUCCEEDED', 0) : {'id': '2c4302f1-0ed0-4413-a49c-c98da7dbd6f5', 'command': 'sleep', 'args': ['1'], 'status': 'FAILED', 'client_request_id': None, 'pid': 4544, 'submitted_at': '2026-11-24T03:08:37.184489+00:00', 'started_at': '2026-11-24T03:08:37.350565+00:00', 'finished_at': '2026-11-24T03:08:43.693745+00:00', 'exit_code': -1}
+
+======================================================================
+FAIL: test_si_la_base_no_responde_el_cupo_se_libera (test_tc013_tc022_tc024_regresion_issues_avance03.TC024BaseOcupada.test_si_la_base_no_responde_el_cupo_se_libera)
+Regresión: antes el trabajo se quedaba 'en curso' para siempre y su lugar de ejecución se perdía.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/jr-antes-g_0cxiko/verif/scripts/test_tc013_tc022_tc024_regresion_issues_avance03.py", line 123, in test_si_la_base_no_responde_el_cupo_se_libera
+    self.assertTrue(s.iniciar(), s.salida())
+AssertionError: False is not true : 
+
+----------------------------------------------------------------------
+Ran 8 tests in 75.642s
+
+FAILED (failures=4)

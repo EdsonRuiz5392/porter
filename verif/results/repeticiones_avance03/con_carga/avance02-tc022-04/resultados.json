@@ -1,0 +1,69 @@
+{
+  "run_id": "repeticiones_avance03/con_carga/avance02-tc022-04",
+  "duracion_s": 74.8,
+  "totales": {
+    "PASS": 4,
+    "FAIL": 4,
+    "ERROR": 0,
+    "SKIP": 0
+  },
+  "resultado_global": "FAIL",
+  "pruebas": [
+    {
+      "id": "test_tc007_tc022_recuperacion.TC007Recuperacion.test_kill9_con_trabajos_corriendo_y_en_cola",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 3.01,
+      "caso": "TC-007"
+    },
+    {
+      "id": "test_tc007_tc022_recuperacion.TC007Recuperacion.test_nieto_huerfano_con_lider_muerto",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 1.51,
+      "caso": "TC-007"
+    },
+    {
+      "id": "test_tc007_tc022_recuperacion.TC007Recuperacion.test_pid_reutilizado_no_se_mata",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 2.33,
+      "caso": "TC-007"
+    },
+    {
+      "id": "test_tc007_tc022_recuperacion.TC022RecuperacionCapacidad.test_bajar_max_queue_con_pendientes",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 6.76,
+      "caso": "TC-022"
+    },
+    {
+      "id": "test_tc007_tc022_recuperacion.TC022RecuperacionCapacidad.test_base_integra_tras_kill9_durante_escrituras",
+      "resultado": "FAIL",
+      "detalle": "AssertionError: False is not true : Sin estados imposibles: {'SUCCEEDED', 'QUEUED', 'FAILED', 'RUNNING'}",
+      "segundos": 29.7,
+      "caso": "TC-022"
+    },
+    {
+      "id": "test_tc013_tc022_tc024_regresion_issues_avance03.TC013SaludEnTransito.test_health_cuenta_los_trabajos_en_transito",
+      "resultado": "FAIL",
+      "detalle": "AssertionError: Tuples differ: (0, 0) != (0, 1) : queued debe coincidir con lo que la base reporta como QUEUED: {'running': 0, 'queued': 0, 'starting': None, 'base': 'QUEUED'}",
+      "segundos": 4.09,
+      "caso": "TC-013"
+    },
+    {
+      "id": "test_tc013_tc022_tc024_regresion_issues_avance03.TC024BaseOcupada.test_bloqueo_de_7s_no_marca_failed_un_trabajo_valido",
+      "resultado": "FAIL",
+      "detalle": "AssertionError: Tuples differ: ('FAILED', -1) != ('SUCCEEDED', 0)",
+      "segundos": 8.29,
+      "caso": "TC-024"
+    },
+    {
+      "id": "test_tc013_tc022_tc024_regresion_issues_avance03.TC024BaseOcupada.test_si_la_base_no_responde_el_cupo_se_libera",
+      "resultado": "FAIL",
+      "detalle": "AssertionError: 'QUEUED' != 'SUCCEEDED' : Con MAX_CONCURRENCY=1, otro trabajo debe poder correr: {'id': 'bc647958-49e8-44c9-9ced-de7ca1f76aa3', 'command': 'echo', 'args': ['despues'], 'status': 'QUEUED', 'client_request_id': None, 'pid': None, 'submitted_at': '2026-11-24T03:03:43.631792+00:00', 'sta",
+      "segundos": 19.11,
+      "caso": "TC-024"
+    }
+  ]
+}
