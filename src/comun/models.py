@@ -43,3 +43,6 @@ class Job:
     exit_code: int | None = None          # código de salida del proceso
     stdout_path: str | None = None        # dónde quedó guardada su salida estándar
     stderr_path: str | None = None        # dónde quedó guardada su salida de error
+    # ADR-016: cuándo se empezó a crear su proceso. Es solo para la recuperación
+    # tras una caída (INC-03); no se expone en el protocolo.
+    launch_started_at: str | None = None
