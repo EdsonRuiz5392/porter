@@ -1,0 +1,681 @@
+Run ID: antes_avance02
+Evidencia en: /tmp/jr-antes-g_0cxiko/verif/results/antes_avance02
+
+test_args_null_equivale_a_lista_vacia (test_tc001_envio_y_validacion.TC001EnvioYValidacion.test_args_null_equivale_a_lista_vacia) ... ok
+test_comando_inexistente_termina_failed (test_tc001_envio_y_validacion.TC001EnvioYValidacion.test_comando_inexistente_termina_failed)
+Un programa que no existe nunca llega a RUNNING y queda FAILED con diagnóstico. ... ok
+test_entradas_invalidas_se_rechazan_con_invalid_request (test_tc001_envio_y_validacion.TC001EnvioYValidacion.test_entradas_invalidas_se_rechazan_con_invalid_request)
+RF-02 / RNF-14: tipos y tamaños inválidos -> INVALID_REQUEST con mensaje (sin INTERNAL_ERROR). ... ok
+test_envio_valido_devuelve_id_unico (test_tc001_envio_y_validacion.TC001EnvioYValidacion.test_envio_valido_devuelve_id_unico)
+RF-01: cada envío válido devuelve un ID distinto y estado QUEUED. ... ok
+test_ayuda_y_codigos_de_salida (test_tc001_envio_y_validacion.TC015AyudaYCodigosCLI.test_ayuda_y_codigos_de_salida) ... ok
+test_servicio_apagado_da_codigo_1_y_sugerencia (test_tc001_envio_y_validacion.TC015AyudaYCodigosCLI.test_servicio_apagado_da_codigo_1_y_sugerencia) ... ok
+test_fifo (test_tc002_cola_y_concurrencia.TC002ColaYConcurrencia.test_fifo)
+RF-03: con límite 1, los trabajos arrancan en el orden en que llegaron. ... ok
+test_ocho_trabajos_con_limite_tres (test_tc002_cola_y_concurrencia.TC002ColaYConcurrencia.test_ocho_trabajos_con_limite_tres) ... ok
+test_ciclo_de_vida_y_tiempos (test_tc003_tc006_estados_tiempos_salidas.TC003EstadosYTiempos.test_ciclo_de_vida_y_tiempos) ... ok
+test_codigo_distinto_de_cero_es_failed (test_tc003_tc006_estados_tiempos_salidas.TC003EstadosYTiempos.test_codigo_distinto_de_cero_es_failed) ... ok
+test_bytes_que_no_son_texto (test_tc003_tc006_estados_tiempos_salidas.TC006SalidasSeparadas.test_bytes_que_no_son_texto) ... ok
+test_cli_output (test_tc003_tc006_estados_tiempos_salidas.TC006SalidasSeparadas.test_cli_output) ... ok
+test_linea_de_200000_caracteres (test_tc003_tc006_estados_tiempos_salidas.TC006SalidasSeparadas.test_linea_de_200000_caracteres)
+Regresión F6: antes, una línea > 64 KiB dejaba el trabajo FAILED y el proceso vivo. ... ok
+test_salida_visible_mientras_corre (test_tc003_tc006_estados_tiempos_salidas.TC006SalidasSeparadas.test_salida_visible_mientras_corre) ... ok
+test_stdout_y_stderr_no_se_mezclan (test_tc003_tc006_estados_tiempos_salidas.TC006SalidasSeparadas.test_stdout_y_stderr_no_se_mezclan) ... ok
+test_trabajo_que_lee_stdin_no_se_cuelga (test_tc003_tc006_estados_tiempos_salidas.TC006SalidasSeparadas.test_trabajo_que_lee_stdin_no_se_cuelga)
+Regresión F13: el trabajo recibe una entrada vacía (stdin=DEVNULL). ... ok
+test_rnf05_consulta_en_menos_de_un_segundo_con_100_trabajos (test_tc004_tc013_consultas_y_salud.TC004Consultas.test_rnf05_consulta_en_menos_de_un_segundo_con_100_trabajos) ... 
+    RNF-05: status 3.1 ms, list(100) 3.5 ms
+ok
+test_rnf06_500_registros_sin_perdida_tras_reinicio (test_tc004_tc013_consultas_y_salud.TC004Consultas.test_rnf06_500_registros_sin_perdida_tras_reinicio) ... FAIL
+test_status_list_y_filtro (test_tc004_tc013_consultas_y_salud.TC004Consultas.test_status_list_y_filtro) ... ok
+test_configuracion_invalida_no_arranca (test_tc004_tc013_consultas_y_salud.TC013ConfiguracionYSalud.test_configuracion_invalida_no_arranca) ... ok
+test_configuracion_se_registra_al_arrancar (test_tc004_tc013_consultas_y_salud.TC013ConfiguracionYSalud.test_configuracion_se_registra_al_arrancar) ... ok
+test_health (test_tc004_tc013_consultas_y_salud.TC013ConfiguracionYSalud.test_health) ... ok
+test_descendiente_con_setsid_tambien_se_termina (test_tc005_tc007_tc009_tc013_robustez_avance03.TC005CancelacionDescendientes.test_descendiente_con_setsid_tambien_se_termina)
+Límite del ADR-008: un nieto que se sale del grupo con setsid sobrevivía a la cancelación. ... ERROR
+test_caida_durante_el_arranque_no_ejecuta_el_trabajo_dos_veces (test_tc005_tc007_tc009_tc013_robustez_avance03.TC007CaidaEnArranque.test_caida_durante_el_arranque_no_ejecuta_el_trabajo_dos_veces)
+Regresión INC-03: antes la base decía QUEUED, se relanzaba y quedaba un huérfano invisible. ... FAIL
+test_cierre_no_espera_a_clientes_ociosos (test_tc005_tc007_tc009_tc013_robustez_avance03.TC009CierreConClientes.test_cierre_no_espera_a_clientes_ociosos)
+RNF-25: un cliente conectado sin hacer nada no retrasa el cierre, y su socket se cierra. ... FAIL
+test_bitacora_registra_el_origen_de_cada_envio (test_tc005_tc007_tc009_tc013_robustez_avance03.TC013SaludAmpliada.test_bitacora_registra_el_origen_de_cada_envio)
+RNF-22: correlacionar solicitud y trabajo, incluida la dirección del cliente. ... FAIL
+test_errores_recientes_vencen_con_la_ventana (test_tc005_tc007_tc009_tc013_robustez_avance03.TC013SaludAmpliada.test_errores_recientes_vencen_con_la_ventana)
+Defecto 10 del vol. 2: 'recientes' significa dentro de una ventana, no desde el arranque. ... ERROR
+test_health_trae_configuracion_y_tiempo_activo (test_tc005_tc007_tc009_tc013_robustez_avance03.TC013SaludAmpliada.test_health_trae_configuracion_y_tiempo_activo) ... FAIL
+test_rechazos_por_validacion_se_registran (test_tc005_tc007_tc009_tc013_robustez_avance03.TC013SaludAmpliada.test_rechazos_por_validacion_se_registran)
+Defecto 3 del vol. 2 (RF-23): los rechazos por validación también quedan en la bitácora. ... FAIL
+test_cancelar_alcanza_a_los_nietos (test_tc005_tc017_tc021_cancelacion.TC005Cancelacion.test_cancelar_alcanza_a_los_nietos)
+Regresión F4: antes el nieto seguía vivo y el trabajo seguía RUNNING ocupando el cupo. ... ok
+test_cancelar_en_cola (test_tc005_tc017_tc021_cancelacion.TC005Cancelacion.test_cancelar_en_cola) ... ok
+test_cancelar_en_ejecucion (test_tc005_tc017_tc021_cancelacion.TC005Cancelacion.test_cancelar_en_ejecucion) ... ok
+test_cancelar_inmediatamente_despues_de_enviar (test_tc005_tc017_tc021_cancelacion.TC017CancelacionesConcurrentes.test_cancelar_inmediatamente_despues_de_enviar)
+Regresión F3: antes, 25 de 25 respondían ALREADY_FINISHED y el trabajo corría completo. ... ok
+test_caso_a_cancelacion_llega_primero (test_tc005_tc017_tc021_cancelacion.TC017CancelacionesConcurrentes.test_caso_a_cancelacion_llega_primero)
+El programa sale con 0 al recibir SIGTERM, pero se pidió cancelar: CANCELED. ... ok
+test_caso_b_termina_primero (test_tc005_tc017_tc021_cancelacion.TC017CancelacionesConcurrentes.test_caso_b_termina_primero) ... ok
+test_cinco_cancelaciones_simultaneas (test_tc005_tc017_tc021_cancelacion.TC017CancelacionesConcurrentes.test_cinco_cancelaciones_simultaneas) ... ok
+test_proceso_que_ignora_sigterm (test_tc005_tc017_tc021_cancelacion.TC021Escalamiento.test_proceso_que_ignora_sigterm) ... 
+    TC-021: escalamiento a SIGKILL en 2.07 s (grace=2 s)
+ok
+test_cli_output_descarga_todas_las_partes (test_tc006_salida_por_partes_avance03.TC006SalidaGrande.test_cli_output_descarga_todas_las_partes) ... FAIL
+test_compatibilidad_sin_offset_salida_chica (test_tc006_salida_por_partes_avance03.TC006SalidaGrande.test_compatibilidad_sin_offset_salida_chica)
+Un cliente que no conoce offset/limit sigue recibiendo la salida completa si es chica. ... ERROR
+test_limite_pequeno_y_parametros_invalidos (test_tc006_salida_por_partes_avance03.TC006SalidaGrande.test_limite_pequeno_y_parametros_invalidos) ... ERROR
+test_salida_de_3_mb_se_recupera_completa_por_protocolo (test_tc006_salida_por_partes_avance03.TC006SalidaGrande.test_salida_de_3_mb_se_recupera_completa_por_protocolo) ... FAIL
+test_kill9_con_trabajos_corriendo_y_en_cola (test_tc007_tc022_recuperacion.TC007Recuperacion.test_kill9_con_trabajos_corriendo_y_en_cola) ... ok
+test_nieto_huerfano_con_lider_muerto (test_tc007_tc022_recuperacion.TC007Recuperacion.test_nieto_huerfano_con_lider_muerto) ... ok
+test_pid_reutilizado_no_se_mata (test_tc007_tc022_recuperacion.TC007Recuperacion.test_pid_reutilizado_no_se_mata)
+La base dice RUNNING con un PID que ahora pertenece a otro programa: no se toca. ... ok
+test_bajar_max_queue_con_pendientes (test_tc007_tc022_recuperacion.TC022RecuperacionCapacidad.test_bajar_max_queue_con_pendientes)
+Regresión: antes el servicio no arrancaba (QueueFullError en recover_on_startup). ... ok
+test_base_integra_tras_kill9_durante_escrituras (test_tc007_tc022_recuperacion.TC022RecuperacionCapacidad.test_base_integra_tras_kill9_durante_escrituras)
+RNF-28: matar el servicio en plena actividad no deja la base inutilizable. ... FAIL
+test_un_trabajo_que_falla_no_afecta_a_otros (test_tc008_tc020_tc024_fallas_y_recursos.TC008Aislamiento.test_un_trabajo_que_falla_no_afecta_a_otros) ... ok
+test_falla_de_captura_no_deja_procesos_ni_descuadra_el_limite (test_tc008_tc020_tc024_fallas_y_recursos.TC020MuerteInesperada.test_falla_de_captura_no_deja_procesos_ni_descuadra_el_limite)
+Regresión F6: el proceso se termina y la reserva de cupo se libera una sola vez. ... ok
+test_senal_externa_queda_failed_con_diagnostico (test_tc008_tc020_tc024_fallas_y_recursos.TC020MuerteInesperada.test_senal_externa_queda_failed_con_diagnostico)
+Regresión F11: antes kill -9 externo quedaba CANCELED. ... ok
+test_cuatro_lotes_de_90_sin_fugas (test_tc008_tc020_tc024_fallas_y_recursos.TC024RecursosBajoCarga.test_cuatro_lotes_de_90_sin_fugas) ... 
+    TC-024: descriptores abiertos tras cada lote de 90: [7, 7, 7, 7]
+ok
+test_cierre_con_tiempo_limite (test_tc009_cierre_controlado.TC009CierreControlado.test_cierre_con_tiempo_limite) ... 
+    TC-009: cierre con límite en 4.23 s (timeout=2, grace=2)
+ok
+test_ctrl_c_hace_el_mismo_cierre_controlado (test_tc009_cierre_controlado.TC009CierreControlado.test_ctrl_c_hace_el_mismo_cierre_controlado)
+Regresión: antes Ctrl+C mataba a los trabajos (FAILED -2). ... ok
+test_durante_el_cierre_no_acepta_nuevos (test_tc009_cierre_controlado.TC009CierreControlado.test_durante_el_cierre_no_acepta_nuevos) ... ok
+test_puerto_ocupado (test_tc009_cierre_controlado.TC009CierreControlado.test_puerto_ocupado)
+Regresión F14: antes quedaba vivo, sin escuchar y lanzando los trabajos recuperados. ... ok
+test_sigterm_con_servicio_ocioso (test_tc009_cierre_controlado.TC009CierreControlado.test_sigterm_con_servicio_ocioso) ... ok
+test_sigterm_durante_el_arranque_hace_cierre_controlado (test_tc009_tc015_arranque_y_cliente_avance03.TC009SenalDuranteElArranque.test_sigterm_durante_el_arranque_hace_cierre_controlado)
+Regresión: antes un SIGTERM justo al arrancar terminaba el servicio con -15. ... FAIL
+test_el_cliente_espera_mas_que_el_servicio (test_tc009_tc015_arranque_y_cliente_avance03.TC015TiempoDeEsperaDelCliente.test_el_cliente_espera_mas_que_el_servicio)
+ADR-018: el cliente debe esperar al menos lo que suman dos esperas del servicio a la base. ... ERROR
+test_tiempo_agotado_avisa_que_pudo_haberse_aceptado (test_tc009_tc015_arranque_y_cliente_avance03.TC015TiempoDeEsperaDelCliente.test_tiempo_agotado_avisa_que_pudo_haberse_aceptado)
+Un servicio que acepta la conexión y no contesta: el CLI no debe dar a entender que falló. ... FAIL
+test_cli_con_host_y_puerto_explicitos (test_tc010_tc011_red_avance03.TC010FlujoRemoto.test_cli_con_host_y_puerto_explicitos)
+El cliente remoto se apunta a otro equipo con --host/--port (o JOBRUNNER_HOST/PORT). ... FAIL
+test_escucha_en_la_ip_de_la_red_local (test_tc010_tc011_red_avance03.TC010FlujoRemoto.test_escucha_en_la_ip_de_la_red_local)
+Como en el hotspot: el servicio escucha en la IP de la LAN y se conecta por ella. ... FAIL
+test_escucha_en_varias_direcciones (test_tc010_tc011_red_avance03.TC010FlujoRemoto.test_escucha_en_varias_direcciones)
+JOBRUNNER_HOST acepta una lista: p. ej. localhost + la IP del hotspot o de la VPN. ... FAIL
+test_flujo_completo_desde_otra_direccion_autorizada (test_tc010_tc011_red_avance03.TC010FlujoRemoto.test_flujo_completo_desde_otra_direccion_autorizada)
+RF-18: enviar, consultar, listar, recuperar salida, cancelar y salud desde 'otro equipo'. ... ok
+test_misma_semantica_local_y_remota (test_tc010_tc011_red_avance03.TC010FlujoRemoto.test_misma_semantica_local_y_remota)
+RF-19: la misma solicitud da la misma forma de respuesta desde local y desde remoto. ... ok
+test_configuracion_de_red_invalida_no_arranca (test_tc010_tc011_red_avance03.TC011RestriccionDeRed.test_configuracion_de_red_invalida_no_arranca)
+RNF-13 / RNF-21: listas mal escritas o redes públicas se rechazan al arrancar, con motivo. ... 
+  test_configuracion_de_red_invalida_no_arranca (test_tc010_tc011_red_avance03.TC011RestriccionDeRed.test_configuracion_de_red_invalida_no_arranca) (caso='prefijo imposible')
+RNF-13 / RNF-21: listas mal escritas o redes públicas se rechazan al arrancar, con motivo. ... FAIL
+  test_configuracion_de_red_invalida_no_arranca (test_tc010_tc011_red_avance03.TC011RestriccionDeRed.test_configuracion_de_red_invalida_no_arranca) (caso='texto que no es red')
+RNF-13 / RNF-21: listas mal escritas o redes públicas se rechazan al arrancar, con motivo. ... FAIL
+  test_configuracion_de_red_invalida_no_arranca (test_tc010_tc011_red_avance03.TC011RestriccionDeRed.test_configuracion_de_red_invalida_no_arranca) (caso='todo internet')
+RNF-13 / RNF-21: listas mal escritas o redes públicas se rechazan al arrancar, con motivo. ... FAIL
+  test_configuracion_de_red_invalida_no_arranca (test_tc010_tc011_red_avance03.TC011RestriccionDeRed.test_configuracion_de_red_invalida_no_arranca) (caso='red pública')
+RNF-13 / RNF-21: listas mal escritas o redes públicas se rechazan al arrancar, con motivo. ... FAIL
+  test_configuracion_de_red_invalida_no_arranca (test_tc010_tc011_red_avance03.TC011RestriccionDeRed.test_configuracion_de_red_invalida_no_arranca) (caso='lista vacía')
+RNF-13 / RNF-21: listas mal escritas o redes públicas se rechazan al arrancar, con motivo. ... FAIL
+  test_configuracion_de_red_invalida_no_arranca (test_tc010_tc011_red_avance03.TC011RestriccionDeRed.test_configuracion_de_red_invalida_no_arranca) (caso='escuchar en IP pública')
+RNF-13 / RNF-21: listas mal escritas o redes públicas se rechazan al arrancar, con motivo. ... FAIL
+  test_configuracion_de_red_invalida_no_arranca (test_tc010_tc011_red_avance03.TC011RestriccionDeRed.test_configuracion_de_red_invalida_no_arranca) (caso='host que no es IP')
+RNF-13 / RNF-21: listas mal escritas o redes públicas se rechazan al arrancar, con motivo. ... FAIL
+test_direccion_no_autorizada_se_rechaza_y_se_registra (test_tc010_tc011_red_avance03.TC011RestriccionDeRed.test_direccion_no_autorizada_se_rechaza_y_se_registra)
+RF-20 / RNF-13: un origen fuera de la lista recibe ACCESS_DENIED y no crea nada. ... FAIL
+test_escuchar_en_todas_las_interfaces_queda_advertido (test_tc010_tc011_red_avance03.TC011RestriccionDeRed.test_escuchar_en_todas_las_interfaces_queda_advertido)
+0.0.0.0 se permite (la lista de redes sigue protegiendo), pero se registra como advertencia. ... FAIL
+test_por_defecto_solo_localhost (test_tc010_tc011_red_avance03.TC011RestriccionDeRed.test_por_defecto_solo_localhost)
+RNF-12: sin configurar nada escucha solo en 127.0.0.1 y solo acepta localhost. ... FAIL
+test_rechazo_sin_enviar_nada (test_tc010_tc011_red_avance03.TC011RestriccionDeRed.test_rechazo_sin_enviar_nada)
+Un escaneo de puertos (conectar y no mandar nada) también se rechaza y se registra. ... ERROR
+test_redes_en_notacion_cidr (test_tc010_tc011_red_avance03.TC011RestriccionDeRed.test_redes_en_notacion_cidr) ... 
+  test_redes_en_notacion_cidr (test_tc010_tc011_red_avance03.TC011RestriccionDeRed.test_redes_en_notacion_cidr) (origen='127.0.0.5') ... FAIL
+  test_redes_en_notacion_cidr (test_tc010_tc011_red_avance03.TC011RestriccionDeRed.test_redes_en_notacion_cidr) (origen='127.0.0.200') ... FAIL
+test_redes_en_notacion_cidr (test_tc010_tc011_red_avance03.TC011RestriccionDeRed.test_redes_en_notacion_cidr) ... FAIL
+test_mensaje_byte_a_byte_y_varias_solicitudes_por_conexion (test_tc012_tc019_tc023_protocolo.TC012Protocolo.test_mensaje_byte_a_byte_y_varias_solicitudes_por_conexion) ... ok
+test_mensajes_invalidos_reciben_error_y_no_tumban_el_servicio (test_tc012_tc019_tc023_protocolo.TC012Protocolo.test_mensajes_invalidos_reciben_error_y_no_tumban_el_servicio)
+Regresión F15: antes se cortaba la conexión sin respuesta ni registro. ... ok
+test_desconexion_a_medio_mensaje_no_tiene_efecto (test_tc012_tc019_tc023_protocolo.TC019Desconexion.test_desconexion_a_medio_mensaje_no_tiene_efecto) ... ok
+test_desconexion_tras_mensaje_completo_la_operacion_queda_aceptada (test_tc012_tc019_tc023_protocolo.TC019Desconexion.test_desconexion_tras_mensaje_completo_la_operacion_queda_aceptada) ... ok
+test_reintento_con_folio_recupera_el_id (test_tc012_tc019_tc023_protocolo.TC019Desconexion.test_reintento_con_folio_recupera_el_id)
+D10: si el cliente perdió la respuesta, reenviar con el mismo folio devuelve el mismo trabajo. ... ok
+test_version_incompatible_se_rechaza_explicitamente (test_tc012_tc019_tc023_protocolo.TC023CompatibilidadProtocolo.test_version_incompatible_se_rechaza_explicitamente) ... ok
+test_health_cuenta_los_trabajos_en_transito (test_tc013_tc022_tc024_regresion_issues_avance03.TC013SaludEnTransito.test_health_cuenta_los_trabajos_en_transito)
+Regresión Issue TC-022: con un QUEUED en la base, health no puede decir 0 en ejecución y 0 en cola. ... FAIL
+test_bloqueo_de_7s_no_marca_failed_un_trabajo_valido (test_tc013_tc022_tc024_regresion_issues_avance03.TC024BaseOcupada.test_bloqueo_de_7s_no_marca_failed_un_trabajo_valido)
+Regresión Issue database is locked: un bloqueo de 7 s ya no alcanza los 5 s de antes (ADR-018). ... FAIL
+test_si_la_base_no_responde_el_cupo_se_libera (test_tc013_tc022_tc024_regresion_issues_avance03.TC024BaseOcupada.test_si_la_base_no_responde_el_cupo_se_libera)
+Regresión: antes el trabajo se quedaba 'en curso' para siempre y su lugar de ejecución se perdía. ... FAIL
+test_carrera_diez_envios_con_un_lugar (test_tc016_tc018_saturacion_y_duplicados.TC016Saturacion.test_carrera_diez_envios_con_un_lugar)
+Regresión F1: antes 9 INTERNAL_ERROR y 9 filas fantasma. ... ok
+test_rechazo_explicito_secuencial (test_tc016_tc018_saturacion_y_duplicados.TC016Saturacion.test_rechazo_explicito_secuencial) ... ok
+test_a_reintento_mismo_folio_mismo_comando (test_tc016_tc018_saturacion_y_duplicados.TC018Duplicados.test_a_reintento_mismo_folio_mismo_comando) ... ok
+test_b_sin_folio_cada_envio_es_nuevo (test_tc016_tc018_saturacion_y_duplicados.TC018Duplicados.test_b_sin_folio_cada_envio_es_nuevo) ... ok
+test_c_mismo_folio_otro_comando_es_conflicto (test_tc016_tc018_saturacion_y_duplicados.TC018Duplicados.test_c_mismo_folio_otro_comando_es_conflicto)
+Regresión F8: antes el trabajo original desaparecía (INSERT OR REPLACE). ... ok
+test_cli_request_id (test_tc016_tc018_saturacion_y_duplicados.TC018Duplicados.test_cli_request_id) ... ok
+test_d_seis_envios_simultaneos_mismo_folio (test_tc016_tc018_saturacion_y_duplicados.TC018Duplicados.test_d_seis_envios_simultaneos_mismo_folio) ... ok
+test_cliente_de_mas_recibe_too_many_clients (test_tc016_tc024_limites_de_clientes_avance03.TC016LimiteDeClientes.test_cliente_de_mas_recibe_too_many_clients)
+RNF-29: al llegar al máximo de conexiones, la siguiente se rechaza de forma explícita. ... FAIL
+test_health_reporta_clientes_conectados (test_tc016_tc024_limites_de_clientes_avance03.TC016LimiteDeClientes.test_health_reporta_clientes_conectados) ... FAIL
+test_muchos_clientes_simultaneos_dentro_del_limite (test_tc016_tc024_limites_de_clientes_avance03.TC016LimiteDeClientes.test_muchos_clientes_simultaneos_dentro_del_limite)
+Soporte para múltiples clientes: 20 a la vez, todos atendidos. ... ok
+test_cliente_ocioso_se_desconecta_y_libera_su_lugar (test_tc016_tc024_limites_de_clientes_avance03.TC024ClientesLentosYOciosos.test_cliente_ocioso_se_desconecta_y_libera_su_lugar) ... FAIL
+test_descriptores_vuelven_a_la_base_tras_muchas_conexiones (test_tc016_tc024_limites_de_clientes_avance03.TC024ClientesLentosYOciosos.test_descriptores_vuelven_a_la_base_tras_muchas_conexiones)
+RNF-33: 200 conexiones (válidas, rechazadas y cortadas) no dejan sockets abiertos. ... ERROR
+test_mensaje_a_medias_no_retiene_la_conexion (test_tc016_tc024_limites_de_clientes_avance03.TC024ClientesLentosYOciosos.test_mensaje_a_medias_no_retiene_la_conexion)
+Un cliente que manda el encabezado y nunca el cuerpo (slowloris) se corta con TIMEOUT. ... ERROR
+
+======================================================================
+ERROR: test_descendiente_con_setsid_tambien_se_termina (test_tc005_tc007_tc009_tc013_robustez_avance03.TC005CancelacionDescendientes.test_descendiente_con_setsid_tambien_se_termina)
+Límite del ADR-008: un nieto que se sale del grupo con setsid sobrevivía a la cancelación.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/jr-antes-g_0cxiko/verif/scripts/test_tc005_tc007_tc009_tc013_robustez_avance03.py", line 57, in test_descendiente_con_setsid_tambien_se_termina
+    self.assertEqual(s.esperar_estado(j)["status"], "CANCELED")
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+TypeError: 'NoneType' object is not subscriptable
+
+======================================================================
+ERROR: test_errores_recientes_vencen_con_la_ventana (test_tc005_tc007_tc009_tc013_robustez_avance03.TC013SaludAmpliada.test_errores_recientes_vencen_con_la_ventana)
+Defecto 10 del vol. 2: 'recientes' significa dentro de una ventana, no desde el arranque.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/jr-antes-g_0cxiko/verif/scripts/test_tc005_tc007_tc009_tc013_robustez_avance03.py", line 131, in test_errores_recientes_vencen_con_la_ventana
+    self.assertEqual(h["last_errors"][-1]["job_id"], j)
+                     ~^^^^^^^^^^^^^^^
+KeyError: 'last_errors'
+
+======================================================================
+ERROR: test_compatibilidad_sin_offset_salida_chica (test_tc006_salida_por_partes_avance03.TC006SalidaGrande.test_compatibilidad_sin_offset_salida_chica)
+Un cliente que no conoce offset/limit sigue recibiendo la salida completa si es chica.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/jr-antes-g_0cxiko/verif/scripts/test_tc006_salida_por_partes_avance03.py", line 74, in test_compatibilidad_sin_offset_salida_chica
+    self.assertEqual((r["content"], r["eof"]), ("hola\n", True), r)
+                                    ~^^^^^^^
+KeyError: 'eof'
+
+======================================================================
+ERROR: test_limite_pequeno_y_parametros_invalidos (test_tc006_salida_por_partes_avance03.TC006SalidaGrande.test_limite_pequeno_y_parametros_invalidos)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/jr-antes-g_0cxiko/verif/scripts/test_tc006_salida_por_partes_avance03.py", line 57, in test_limite_pequeno_y_parametros_invalidos
+    self.assertEqual((r["content"], r["next_offset"], r["eof"]), ("cde", 5, False), r)
+                                    ~^^^^^^^^^^^^^^^
+KeyError: 'next_offset'
+
+======================================================================
+ERROR: test_el_cliente_espera_mas_que_el_servicio (test_tc009_tc015_arranque_y_cliente_avance03.TC015TiempoDeEsperaDelCliente.test_el_cliente_espera_mas_que_el_servicio)
+ADR-018: el cliente debe esperar al menos lo que suman dos esperas del servicio a la base.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/jr-antes-g_0cxiko/verif/scripts/test_tc009_tc015_arranque_y_cliente_avance03.py", line 69, in test_el_cliente_espera_mas_que_el_servicio
+    espera_cliente = float(re.search(r'"JOBRUNNER_TIMEOUT",\s*"(\d+)"', texto).group(1))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'group'
+
+======================================================================
+ERROR: test_rechazo_sin_enviar_nada (test_tc010_tc011_red_avance03.TC011RestriccionDeRed.test_rechazo_sin_enviar_nada)
+Un escaneo de puertos (conectar y no mandar nada) también se rechaza y se registra.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/edson/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/asyncio/tasks.py", line 520, in wait_for
+    return await fut
+           ^^^^^^^^^
+  File "/tmp/jr-antes-g_0cxiko/verif/scripts/jr_helpers.py", line 45, in leer_mensaje
+    (n,) = struct.unpack("!I", await reader.readexactly(4))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/edson/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/asyncio/streams.py", line 752, in readexactly
+    await self._wait_for_data('readexactly')
+  File "/home/edson/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/asyncio/streams.py", line 545, in _wait_for_data
+    await self._waiter
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/tmp/jr-antes-g_0cxiko/verif/scripts/test_tc010_tc011_red_avance03.py", line 145, in test_rechazo_sin_enviar_nada
+    self.assertEqual(asyncio.run(_conectar()).get("code"), "ACCESS_DENIED")
+                     ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/edson/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/home/edson/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/edson/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/tmp/jr-antes-g_0cxiko/verif/scripts/test_tc010_tc011_red_avance03.py", line 142, in _conectar
+    return await asyncio.wait_for(leer_mensaje(r), 5)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/edson/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/asyncio/tasks.py", line 519, in wait_for
+    async with timeouts.timeout(timeout):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/edson/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/asyncio/timeouts.py", line 115, in __aexit__
+    raise TimeoutError from exc_val
+TimeoutError
+
+======================================================================
+ERROR: test_descriptores_vuelven_a_la_base_tras_muchas_conexiones (test_tc016_tc024_limites_de_clientes_avance03.TC024ClientesLentosYOciosos.test_descriptores_vuelven_a_la_base_tras_muchas_conexiones)
+RNF-33: 200 conexiones (válidas, rechazadas y cortadas) no dejan sockets abiertos.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/edson/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/asyncio/tasks.py", line 520, in wait_for
+    return await fut
+           ^^^^^^^^^
+  File "/tmp/jr-antes-g_0cxiko/verif/scripts/jr_helpers.py", line 45, in leer_mensaje
+    (n,) = struct.unpack("!I", await reader.readexactly(4))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/edson/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/asyncio/streams.py", line 752, in readexactly
+    await self._wait_for_data('readexactly')
+  File "/home/edson/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/asyncio/streams.py", line 545, in _wait_for_data
+    await self._waiter
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/tmp/jr-antes-g_0cxiko/verif/scripts/test_tc016_tc024_limites_de_clientes_avance03.py", line 126, in test_descriptores_vuelven_a_la_base_tras_muchas_conexiones
+    asyncio.run(_carga())
+  File "/home/edson/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/home/edson/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/edson/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/tmp/jr-antes-g_0cxiko/verif/scripts/test_tc016_tc024_limites_de_clientes_avance03.py", line 124, in _carga
+    await asyncio.gather(*([valida() for _ in range(15)] + [rechazada() for _ in range(15)]
+  File "/tmp/jr-antes-g_0cxiko/verif/scripts/test_tc016_tc024_limites_de_clientes_avance03.py", line 117, in rechazada
+    await asyncio.wait_for(leer_mensaje(r), 5)
+  File "/home/edson/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/asyncio/tasks.py", line 519, in wait_for
+    async with timeouts.timeout(timeout):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/edson/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/asyncio/timeouts.py", line 115, in __aexit__
+    raise TimeoutError from exc_val
+TimeoutError
+
+======================================================================
+ERROR: test_mensaje_a_medias_no_retiene_la_conexion (test_tc016_tc024_limites_de_clientes_avance03.TC024ClientesLentosYOciosos.test_mensaje_a_medias_no_retiene_la_conexion)
+Un cliente que manda el encabezado y nunca el cuerpo (slowloris) se corta con TIMEOUT.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/edson/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/asyncio/tasks.py", line 520, in wait_for
+    return await fut
+           ^^^^^^^^^
+  File "/tmp/jr-antes-g_0cxiko/verif/scripts/jr_helpers.py", line 45, in leer_mensaje
+    (n,) = struct.unpack("!I", await reader.readexactly(4))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/edson/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/asyncio/streams.py", line 752, in readexactly
+    await self._wait_for_data('readexactly')
+  File "/home/edson/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/asyncio/streams.py", line 545, in _wait_for_data
+    await self._waiter
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/tmp/jr-antes-g_0cxiko/verif/scripts/test_tc016_tc024_limites_de_clientes_avance03.py", line 98, in test_mensaje_a_medias_no_retiene_la_conexion
+    r = asyncio.run(_medio())
+        ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/edson/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/home/edson/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/edson/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/tmp/jr-antes-g_0cxiko/verif/scripts/test_tc016_tc024_limites_de_clientes_avance03.py", line 94, in _medio
+    return await asyncio.wait_for(leer_mensaje(r), 5)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/edson/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/asyncio/tasks.py", line 519, in wait_for
+    async with timeouts.timeout(timeout):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/edson/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/asyncio/timeouts.py", line 115, in __aexit__
+    raise TimeoutError from exc_val
+TimeoutError
+
+======================================================================
+FAIL: test_rnf06_500_registros_sin_perdida_tras_reinicio (test_tc004_tc013_consultas_y_salud.TC004Consultas.test_rnf06_500_registros_sin_perdida_tras_reinicio)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/jr-antes-g_0cxiko/verif/scripts/test_tc004_tc013_consultas_y_salud.py", line 70, in test_rnf06_500_registros_sin_perdida_tras_reinicio
+    self.assertTrue(all(f[0] == "SUCCEEDED" and all(v is not None for v in f[1:]) for f in filas),
+AssertionError: False is not true : Todos con estado y tiempos completos
+
+======================================================================
+FAIL: test_caida_durante_el_arranque_no_ejecuta_el_trabajo_dos_veces (test_tc005_tc007_tc009_tc013_robustez_avance03.TC007CaidaEnArranque.test_caida_durante_el_arranque_no_ejecuta_el_trabajo_dos_veces)
+Regresión INC-03: antes la base decía QUEUED, se relanzaba y quedaba un huérfano invisible.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/jr-antes-g_0cxiko/verif/scripts/test_tc005_tc007_tc009_tc013_robustez_avance03.py", line 84, in test_caida_durante_el_arranque_no_ejecuta_el_trabajo_dos_veces
+    self.assertEqual(marcas.read_text().count("x"), 1, "El trabajo NO debe ejecutarse dos veces")
+AssertionError: 2 != 1 : El trabajo NO debe ejecutarse dos veces
+
+======================================================================
+FAIL: test_cierre_no_espera_a_clientes_ociosos (test_tc005_tc007_tc009_tc013_robustez_avance03.TC009CierreConClientes.test_cierre_no_espera_a_clientes_ociosos)
+RNF-25: un cliente conectado sin hacer nada no retrasa el cierre, y su socket se cierra.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/jr-antes-g_0cxiko/verif/scripts/test_tc005_tc007_tc009_tc013_robustez_avance03.py", line 102, in test_cierre_no_espera_a_clientes_ociosos
+    self.assertTrue(termino, "El cierre no debe quedarse esperando al cliente")
+AssertionError: False is not true : El cierre no debe quedarse esperando al cliente
+
+======================================================================
+FAIL: test_bitacora_registra_el_origen_de_cada_envio (test_tc005_tc007_tc009_tc013_robustez_avance03.TC013SaludAmpliada.test_bitacora_registra_el_origen_de_cada_envio)
+RNF-22: correlacionar solicitud y trabajo, incluida la dirección del cliente.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/jr-antes-g_0cxiko/verif/scripts/test_tc005_tc007_tc009_tc013_robustez_avance03.py", line 150, in test_bitacora_registra_el_origen_de_cada_envio
+    self.assertIn("127.0.0.3", creados[0])
+AssertionError: '127.0.0.3' not found in '2026-11-24T02:55:42.981027+00:00 | job=003736e1-e6f0-4606-8ebb-747516b21224 | CREATED | Comando: true'
+
+======================================================================
+FAIL: test_health_trae_configuracion_y_tiempo_activo (test_tc005_tc007_tc009_tc013_robustez_avance03.TC013SaludAmpliada.test_health_trae_configuracion_y_tiempo_activo)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/jr-antes-g_0cxiko/verif/scripts/test_tc005_tc007_tc009_tc013_robustez_avance03.py", line 118, in test_health_trae_configuracion_y_tiempo_activo
+    self.assertIn(campo, h, h)
+AssertionError: 'uptime_s' not found in {'type': 'health_response', 'version': 1, 'active': True, 'running': 0, 'queued': 0, 'recent_errors': 0} : {'type': 'health_response', 'version': 1, 'active': True, 'running': 0, 'queued': 0, 'recent_errors': 0}
+
+======================================================================
+FAIL: test_rechazos_por_validacion_se_registran (test_tc005_tc007_tc009_tc013_robustez_avance03.TC013SaludAmpliada.test_rechazos_por_validacion_se_registran)
+Defecto 3 del vol. 2 (RF-23): los rechazos por validación también quedan en la bitácora.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/jr-antes-g_0cxiko/verif/scripts/test_tc005_tc007_tc009_tc013_robustez_avance03.py", line 141, in test_rechazos_por_validacion_se_registran
+    self.assertEqual(len(rechazos), 2, s.bitacora())
+AssertionError: 0 != 2 : ['2026-11-24T02:55:43.722047+00:00 | job=- | SERVICE_STARTED | 127.0.0.1:32999 concurrencia=3 cola=100 grace=5.0s cierre=30.0s']
+
+======================================================================
+FAIL: test_cli_output_descarga_todas_las_partes (test_tc006_salida_por_partes_avance03.TC006SalidaGrande.test_cli_output_descarga_todas_las_partes)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/jr-antes-g_0cxiko/verif/scripts/test_tc006_salida_por_partes_avance03.py", line 49, in test_cli_output_descarga_todas_las_partes
+    self.assertEqual(codigo, 0, texto[-300:])
+AssertionError: 1 != 0 : [-] Respuesta inválida del servicio: El mensaje anuncia 3600126 bytes, el máximo permitido es 1048576.
+
+======================================================================
+FAIL: test_salida_de_3_mb_se_recupera_completa_por_protocolo (test_tc006_salida_por_partes_avance03.TC006SalidaGrande.test_salida_de_3_mb_se_recupera_completa_por_protocolo)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/jr-antes-g_0cxiko/verif/scripts/test_tc006_salida_por_partes_avance03.py", line 32, in test_salida_de_3_mb_se_recupera_completa_por_protocolo
+    self.assertEqual(r.get("offset"), offset)
+AssertionError: None != 0
+
+======================================================================
+FAIL: test_base_integra_tras_kill9_durante_escrituras (test_tc007_tc022_recuperacion.TC022RecuperacionCapacidad.test_base_integra_tras_kill9_durante_escrituras)
+RNF-28: matar el servicio en plena actividad no deja la base inutilizable.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/jr-antes-g_0cxiko/verif/scripts/test_tc007_tc022_recuperacion.py", line 109, in test_base_integra_tras_kill9_durante_escrituras
+    self.assertTrue(estados <= {"SUCCEEDED", "FAILED"}, f"Sin estados imposibles: {estados}")
+AssertionError: False is not true : Sin estados imposibles: {'QUEUED', 'FAILED', 'SUCCEEDED'}
+
+======================================================================
+FAIL: test_sigterm_durante_el_arranque_hace_cierre_controlado (test_tc009_tc015_arranque_y_cliente_avance03.TC009SenalDuranteElArranque.test_sigterm_durante_el_arranque_hace_cierre_controlado)
+Regresión: antes un SIGTERM justo al arrancar terminaba el servicio con -15.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/jr-antes-g_0cxiko/verif/scripts/test_tc009_tc015_arranque_y_cliente_avance03.py", line 55, in test_sigterm_durante_el_arranque_hace_cierre_controlado
+    self.assertEqual(codigo, 0, f"Cierre controlado, no muerte por la señal:\n{s.salida()}")
+AssertionError: -15 != 0 : Cierre controlado, no muerte por la señal:
+[*] Servidor de entrada activo en ('127.0.0.1', 37583)
+
+
+======================================================================
+FAIL: test_tiempo_agotado_avisa_que_pudo_haberse_aceptado (test_tc009_tc015_arranque_y_cliente_avance03.TC015TiempoDeEsperaDelCliente.test_tiempo_agotado_avisa_que_pudo_haberse_aceptado)
+Un servicio que acepta la conexión y no contesta: el CLI no debe dar a entender que falló.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/jr-antes-g_0cxiko/verif/scripts/test_tc009_tc015_arranque_y_cliente_avance03.py", line 99, in test_tiempo_agotado_avisa_que_pudo_haberse_aceptado
+    self.assertIn("no respondió", salida)
+AssertionError: 'no respondió' not found in "[-] Error: comando desconocido '--timeout'. Usa --help para ver la lista."
+
+======================================================================
+FAIL: test_cli_con_host_y_puerto_explicitos (test_tc010_tc011_red_avance03.TC010FlujoRemoto.test_cli_con_host_y_puerto_explicitos)
+El cliente remoto se apunta a otro equipo con --host/--port (o JOBRUNNER_HOST/PORT).
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/jr-antes-g_0cxiko/verif/scripts/test_tc010_tc011_red_avance03.py", line 86, in test_cli_con_host_y_puerto_explicitos
+    self.assertEqual(r.returncode, 0, r.stdout + r.stderr)
+AssertionError: 1 != 0 : [-] Error: comando desconocido '--host'. Usa --help para ver la lista.
+
+
+======================================================================
+FAIL: test_escucha_en_la_ip_de_la_red_local (test_tc010_tc011_red_avance03.TC010FlujoRemoto.test_escucha_en_la_ip_de_la_red_local)
+Como en el hotspot: el servicio escucha en la IP de la LAN y se conecta por ella.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/jr-antes-g_0cxiko/verif/scripts/test_tc010_tc011_red_avance03.py", line 107, in test_escucha_en_la_ip_de_la_red_local
+    s = self.servicio(HOST=f"127.0.0.1,{ip}", ALLOWED_NETWORKS=f"127.0.0.1,{ip}/32")
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/jr-antes-g_0cxiko/verif/scripts/jr_helpers.py", line 372, in servicio
+    self.assertTrue(s.iniciar(), f"El servicio no arrancó. Salida:\n{s.salida()}")
+AssertionError: False is not true : El servicio no arrancó. Salida:
+[-] No se puede escuchar en 127.0.0.1,172.19.141.149:46765: Name or service not known (while attempting to bind on address ('127.0.0.1,172.19.141.149', 46765)). ¿Hay otro servicio usando ese puerto? Cambia JOBRUNNER_PORT o detén el otro proceso.
+
+
+======================================================================
+FAIL: test_escucha_en_varias_direcciones (test_tc010_tc011_red_avance03.TC010FlujoRemoto.test_escucha_en_varias_direcciones)
+JOBRUNNER_HOST acepta una lista: p. ej. localhost + la IP del hotspot o de la VPN.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/jr-antes-g_0cxiko/verif/scripts/test_tc010_tc011_red_avance03.py", line 91, in test_escucha_en_varias_direcciones
+    s = self.servicio(HOST="127.0.0.1,127.0.0.4", ALLOWED_NETWORKS="127.0.0.0/8")
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/jr-antes-g_0cxiko/verif/scripts/jr_helpers.py", line 372, in servicio
+    self.assertTrue(s.iniciar(), f"El servicio no arrancó. Salida:\n{s.salida()}")
+AssertionError: False is not true : El servicio no arrancó. Salida:
+[-] No se puede escuchar en 127.0.0.1,127.0.0.4:49875: Name or service not known (while attempting to bind on address ('127.0.0.1,127.0.0.4', 49875)). ¿Hay otro servicio usando ese puerto? Cambia JOBRUNNER_PORT o detén el otro proceso.
+
+
+======================================================================
+FAIL: test_configuracion_de_red_invalida_no_arranca (test_tc010_tc011_red_avance03.TC011RestriccionDeRed.test_configuracion_de_red_invalida_no_arranca) (caso='prefijo imposible')
+RNF-13 / RNF-21: listas mal escritas o redes públicas se rechazan al arrancar, con motivo.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/jr-antes-g_0cxiko/verif/scripts/test_tc010_tc011_red_avance03.py", line 184, in test_configuracion_de_red_invalida_no_arranca
+    self.assertTrue(termino, "Con configuración de red inválida no debe quedarse corriendo")
+AssertionError: False is not true : Con configuración de red inválida no debe quedarse corriendo
+
+======================================================================
+FAIL: test_configuracion_de_red_invalida_no_arranca (test_tc010_tc011_red_avance03.TC011RestriccionDeRed.test_configuracion_de_red_invalida_no_arranca) (caso='texto que no es red')
+RNF-13 / RNF-21: listas mal escritas o redes públicas se rechazan al arrancar, con motivo.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/jr-antes-g_0cxiko/verif/scripts/test_tc010_tc011_red_avance03.py", line 184, in test_configuracion_de_red_invalida_no_arranca
+    self.assertTrue(termino, "Con configuración de red inválida no debe quedarse corriendo")
+AssertionError: False is not true : Con configuración de red inválida no debe quedarse corriendo
+
+======================================================================
+FAIL: test_configuracion_de_red_invalida_no_arranca (test_tc010_tc011_red_avance03.TC011RestriccionDeRed.test_configuracion_de_red_invalida_no_arranca) (caso='todo internet')
+RNF-13 / RNF-21: listas mal escritas o redes públicas se rechazan al arrancar, con motivo.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/jr-antes-g_0cxiko/verif/scripts/test_tc010_tc011_red_avance03.py", line 184, in test_configuracion_de_red_invalida_no_arranca
+    self.assertTrue(termino, "Con configuración de red inválida no debe quedarse corriendo")
+AssertionError: False is not true : Con configuración de red inválida no debe quedarse corriendo
+
+======================================================================
+FAIL: test_configuracion_de_red_invalida_no_arranca (test_tc010_tc011_red_avance03.TC011RestriccionDeRed.test_configuracion_de_red_invalida_no_arranca) (caso='red pública')
+RNF-13 / RNF-21: listas mal escritas o redes públicas se rechazan al arrancar, con motivo.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/jr-antes-g_0cxiko/verif/scripts/test_tc010_tc011_red_avance03.py", line 184, in test_configuracion_de_red_invalida_no_arranca
+    self.assertTrue(termino, "Con configuración de red inválida no debe quedarse corriendo")
+AssertionError: False is not true : Con configuración de red inválida no debe quedarse corriendo
+
+======================================================================
+FAIL: test_configuracion_de_red_invalida_no_arranca (test_tc010_tc011_red_avance03.TC011RestriccionDeRed.test_configuracion_de_red_invalida_no_arranca) (caso='lista vacía')
+RNF-13 / RNF-21: listas mal escritas o redes públicas se rechazan al arrancar, con motivo.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/jr-antes-g_0cxiko/verif/scripts/test_tc010_tc011_red_avance03.py", line 184, in test_configuracion_de_red_invalida_no_arranca
+    self.assertTrue(termino, "Con configuración de red inválida no debe quedarse corriendo")
+AssertionError: False is not true : Con configuración de red inválida no debe quedarse corriendo
+
+======================================================================
+FAIL: test_configuracion_de_red_invalida_no_arranca (test_tc010_tc011_red_avance03.TC011RestriccionDeRed.test_configuracion_de_red_invalida_no_arranca) (caso='escuchar en IP pública')
+RNF-13 / RNF-21: listas mal escritas o redes públicas se rechazan al arrancar, con motivo.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/jr-antes-g_0cxiko/verif/scripts/test_tc010_tc011_red_avance03.py", line 186, in test_configuracion_de_red_invalida_no_arranca
+    self.assertIn("Configuración inválida", s.salida())
+AssertionError: 'Configuración inválida' not found in "[-] No se puede escuchar en 8.8.8.8:41069: Cannot assign requested address (while attempting to bind on address ('8.8.8.8', 41069)). ¿Hay otro servicio usando ese puerto? Cambia JOBRUNNER_PORT o detén el otro proceso.\n"
+
+======================================================================
+FAIL: test_configuracion_de_red_invalida_no_arranca (test_tc010_tc011_red_avance03.TC011RestriccionDeRed.test_configuracion_de_red_invalida_no_arranca) (caso='host que no es IP')
+RNF-13 / RNF-21: listas mal escritas o redes públicas se rechazan al arrancar, con motivo.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/jr-antes-g_0cxiko/verif/scripts/test_tc010_tc011_red_avance03.py", line 186, in test_configuracion_de_red_invalida_no_arranca
+    self.assertIn("Configuración inválida", s.salida())
+AssertionError: 'Configuración inválida' not found in "[-] No se puede escuchar en servidor-casa:53739: Name or service not known (while attempting to bind on address ('servidor-casa', 53739)). ¿Hay otro servicio usando ese puerto? Cambia JOBRUNNER_PORT o detén el otro proceso.\n"
+
+======================================================================
+FAIL: test_direccion_no_autorizada_se_rechaza_y_se_registra (test_tc010_tc011_red_avance03.TC011RestriccionDeRed.test_direccion_no_autorizada_se_rechaza_y_se_registra)
+RF-20 / RNF-13: un origen fuera de la lista recibe ACCESS_DENIED y no crea nada.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/jr-antes-g_0cxiko/verif/scripts/test_tc010_tc011_red_avance03.py", line 124, in test_direccion_no_autorizada_se_rechaza_y_se_registra
+    self.assertEqual((r.get("type"), r.get("code")), ("error", "ACCESS_DENIED"), r)
+AssertionError: Tuples differ: ('submit_response', None) != ('error', 'ACCESS_DENIED')
+
+First differing element 0:
+'submit_response'
+'error'
+
+- ('submit_response', None)
++ ('error', 'ACCESS_DENIED') : {'type': 'submit_response', 'version': 1, 'ok': True, 'job_id': '4ae308d9-06d7-41ee-ac23-0ca9934dd54b', 'status': 'QUEUED'}
+
+======================================================================
+FAIL: test_escuchar_en_todas_las_interfaces_queda_advertido (test_tc010_tc011_red_avance03.TC011RestriccionDeRed.test_escuchar_en_todas_las_interfaces_queda_advertido)
+0.0.0.0 se permite (la lista de redes sigue protegiendo), pero se registra como advertencia.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/jr-antes-g_0cxiko/verif/scripts/test_tc010_tc011_red_avance03.py", line 191, in test_escuchar_en_todas_las_interfaces_queda_advertido
+    self.assertTrue(s.eventos("BIND_ALL_INTERFACES"), s.bitacora())
+AssertionError: [] is not true : ['2026-11-24T02:57:49.490945+00:00 | job=- | SERVICE_STARTED | 0.0.0.0:45091 concurrencia=3 cola=100 grace=5.0s cierre=30.0s']
+
+======================================================================
+FAIL: test_por_defecto_solo_localhost (test_tc010_tc011_red_avance03.TC011RestriccionDeRed.test_por_defecto_solo_localhost)
+RNF-12: sin configurar nada escucha solo en 127.0.0.1 y solo acepta localhost.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/jr-antes-g_0cxiko/verif/scripts/test_tc010_tc011_red_avance03.py", line 165, in test_por_defecto_solo_localhost
+    self.assertEqual(s.pedir(M("health"), origen=INTRUSO).get("code"), "ACCESS_DENIED",
+AssertionError: None != 'ACCESS_DENIED' : Ni siquiera otra dirección de loopback entra si no está en la lista
+
+======================================================================
+FAIL: test_redes_en_notacion_cidr (test_tc010_tc011_red_avance03.TC011RestriccionDeRed.test_redes_en_notacion_cidr) (origen='127.0.0.5')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/jr-antes-g_0cxiko/verif/scripts/test_tc010_tc011_red_avance03.py", line 154, in test_redes_en_notacion_cidr
+    self.assertEqual(s.pedir(M("health"), origen=origen).get("type"), esperado)
+AssertionError: 'health_response' != 'error'
+- health_response
++ error
+
+
+======================================================================
+FAIL: test_redes_en_notacion_cidr (test_tc010_tc011_red_avance03.TC011RestriccionDeRed.test_redes_en_notacion_cidr) (origen='127.0.0.200')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/jr-antes-g_0cxiko/verif/scripts/test_tc010_tc011_red_avance03.py", line 154, in test_redes_en_notacion_cidr
+    self.assertEqual(s.pedir(M("health"), origen=origen).get("type"), esperado)
+AssertionError: 'health_response' != 'error'
+- health_response
++ error
+
+
+======================================================================
+FAIL: test_redes_en_notacion_cidr (test_tc010_tc011_red_avance03.TC011RestriccionDeRed.test_redes_en_notacion_cidr)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/jr-antes-g_0cxiko/verif/scripts/test_tc010_tc011_red_avance03.py", line 155, in test_redes_en_notacion_cidr
+    self.assertEqual(len(s.eventos("ACCESS_DENIED")), 2)
+AssertionError: 0 != 2
+
+======================================================================
+FAIL: test_health_cuenta_los_trabajos_en_transito (test_tc013_tc022_tc024_regresion_issues_avance03.TC013SaludEnTransito.test_health_cuenta_los_trabajos_en_transito)
+Regresión Issue TC-022: con un QUEUED en la base, health no puede decir 0 en ejecución y 0 en cola.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/jr-antes-g_0cxiko/verif/scripts/test_tc013_tc022_tc024_regresion_issues_avance03.py", line 97, in test_health_cuenta_los_trabajos_en_transito
+    self.assertEqual((foto["running"], foto["queued"]), (0, 1),
+AssertionError: Tuples differ: (0, 0) != (0, 1)
+
+First differing element 1:
+0
+1
+
+- (0, 0)
+?     ^
+
++ (0, 1)
+?     ^
+ : queued debe coincidir con lo que la base reporta como QUEUED: {'running': 0, 'queued': 0, 'starting': None, 'base': 'QUEUED'}
+
+======================================================================
+FAIL: test_bloqueo_de_7s_no_marca_failed_un_trabajo_valido (test_tc013_tc022_tc024_regresion_issues_avance03.TC024BaseOcupada.test_bloqueo_de_7s_no_marca_failed_un_trabajo_valido)
+Regresión Issue database is locked: un bloqueo de 7 s ya no alcanza los 5 s de antes (ADR-018).
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/jr-antes-g_0cxiko/verif/scripts/test_tc013_tc022_tc024_regresion_issues_avance03.py", line 112, in test_bloqueo_de_7s_no_marca_failed_un_trabajo_valido
+    self.assertEqual((fin["status"], fin["exit_code"]), ("SUCCEEDED", 0), fin)
+AssertionError: Tuples differ: ('FAILED', -1) != ('SUCCEEDED', 0)
+
+First differing element 0:
+'FAILED'
+'SUCCEEDED'
+
+- ('FAILED', -1)
++ ('SUCCEEDED', 0) : {'id': '8065b47b-364e-4ec8-bff6-033a78f8b8b7', 'command': 'sleep', 'args': ['1'], 'status': 'FAILED', 'client_request_id': None, 'pid': 2129, 'submitted_at': '2026-11-24T02:58:02.406320+00:00', 'started_at': '2026-11-24T02:58:02.541000+00:00', 'finished_at': '2026-11-24T02:58:08.551757+00:00', 'exit_code': -1}
+
+======================================================================
+FAIL: test_si_la_base_no_responde_el_cupo_se_libera (test_tc013_tc022_tc024_regresion_issues_avance03.TC024BaseOcupada.test_si_la_base_no_responde_el_cupo_se_libera)
+Regresión: antes el trabajo se quedaba 'en curso' para siempre y su lugar de ejecución se perdía.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/jr-antes-g_0cxiko/verif/scripts/test_tc013_tc022_tc024_regresion_issues_avance03.py", line 131, in test_si_la_base_no_responde_el_cupo_se_libera
+    self.assertEqual(fin_c.get("status"), "SUCCEEDED",
+AssertionError: 'QUEUED' != 'SUCCEEDED'
+- QUEUED
++ SUCCEEDED
+ : Con MAX_CONCURRENCY=1, otro trabajo debe poder correr: {'id': '35cdab75-dd13-4f5b-91b7-4756046df90f', 'command': 'echo', 'args': ['despues'], 'status': 'QUEUED', 'client_request_id': None, 'pid': None, 'submitted_at': '2026-11-24T02:58:13.264501+00:00', 'started_at': None, 'finished_at': None, 'exit_code': None} {'type': 'health_response', 'version': 1, 'active': True, 'running': 1, 'queued': 1, 'recent_errors': 0}
+
+======================================================================
+FAIL: test_cliente_de_mas_recibe_too_many_clients (test_tc016_tc024_limites_de_clientes_avance03.TC016LimiteDeClientes.test_cliente_de_mas_recibe_too_many_clients)
+RNF-29: al llegar al máximo de conexiones, la siguiente se rechaza de forma explícita.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/jr-antes-g_0cxiko/verif/scripts/test_tc016_tc024_limites_de_clientes_avance03.py", line 20, in test_cliente_de_mas_recibe_too_many_clients
+    self.assertTrue(s.esperar_sin_clientes())
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_health_reporta_clientes_conectados (test_tc016_tc024_limites_de_clientes_avance03.TC016LimiteDeClientes.test_health_reporta_clientes_conectados)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/jr-antes-g_0cxiko/verif/scripts/test_tc016_tc024_limites_de_clientes_avance03.py", line 40, in test_health_reporta_clientes_conectados
+    self.assertTrue(s.esperar_sin_clientes())
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_cliente_ocioso_se_desconecta_y_libera_su_lugar (test_tc016_tc024_limites_de_clientes_avance03.TC024ClientesLentosYOciosos.test_cliente_ocioso_se_desconecta_y_libera_su_lugar)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/jr-antes-g_0cxiko/verif/scripts/test_tc016_tc024_limites_de_clientes_avance03.py", line 73, in test_cliente_ocioso_se_desconecta_y_libera_su_lugar
+    self.assertTrue(s.esperar_sin_clientes())
+AssertionError: False is not true
+
+----------------------------------------------------------------------
+Ran 91 tests in 294.940s
+
+FAILED (failures=33, errors=8)

@@ -1,0 +1,2 @@
+python3 verif/scripts/run_verificacion.py --run-id repeticiones_avance03/con_carga/avance02-tc022-02 --filtro tc022
+(ejecutado en /tmp/jr-antes-g_0cxiko)

@@ -1,0 +1,650 @@
+{
+  "run_id": "antes_avance02",
+  "duracion_s": 294.9,
+  "totales": {
+    "PASS": 58,
+    "FAIL": 25,
+    "ERROR": 8,
+    "SKIP": 0
+  },
+  "resultado_global": "FAIL",
+  "pruebas": [
+    {
+      "id": "test_tc001_envio_y_validacion.TC001EnvioYValidacion.test_args_null_equivale_a_lista_vacia",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.48,
+      "caso": "TC-001"
+    },
+    {
+      "id": "test_tc001_envio_y_validacion.TC001EnvioYValidacion.test_comando_inexistente_termina_failed",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.45,
+      "caso": "TC-001"
+    },
+    {
+      "id": "test_tc001_envio_y_validacion.TC001EnvioYValidacion.test_entradas_invalidas_se_rechazan_con_invalid_request",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.22,
+      "caso": "TC-001"
+    },
+    {
+      "id": "test_tc001_envio_y_validacion.TC001EnvioYValidacion.test_envio_valido_devuelve_id_unico",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.47,
+      "caso": "TC-001"
+    },
+    {
+      "id": "test_tc001_envio_y_validacion.TC015AyudaYCodigosCLI.test_ayuda_y_codigos_de_salida",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.81,
+      "caso": "TC-015"
+    },
+    {
+      "id": "test_tc001_envio_y_validacion.TC015AyudaYCodigosCLI.test_servicio_apagado_da_codigo_1_y_sugerencia",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.09,
+      "caso": "TC-015"
+    },
+    {
+      "id": "test_tc002_cola_y_concurrencia.TC002ColaYConcurrencia.test_fifo",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 1.69,
+      "caso": "TC-002"
+    },
+    {
+      "id": "test_tc002_cola_y_concurrencia.TC002ColaYConcurrencia.test_ocho_trabajos_con_limite_tres",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 6.49,
+      "caso": "TC-002"
+    },
+    {
+      "id": "test_tc003_tc006_estados_tiempos_salidas.TC003EstadosYTiempos.test_ciclo_de_vida_y_tiempos",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.87,
+      "caso": "TC-003"
+    },
+    {
+      "id": "test_tc003_tc006_estados_tiempos_salidas.TC003EstadosYTiempos.test_codigo_distinto_de_cero_es_failed",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.36,
+      "caso": "TC-003"
+    },
+    {
+      "id": "test_tc003_tc006_estados_tiempos_salidas.TC006SalidasSeparadas.test_bytes_que_no_son_texto",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.89,
+      "caso": "TC-006"
+    },
+    {
+      "id": "test_tc003_tc006_estados_tiempos_salidas.TC006SalidasSeparadas.test_cli_output",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 1.22,
+      "caso": "TC-006"
+    },
+    {
+      "id": "test_tc003_tc006_estados_tiempos_salidas.TC006SalidasSeparadas.test_linea_de_200000_caracteres",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.36,
+      "caso": "TC-006"
+    },
+    {
+      "id": "test_tc003_tc006_estados_tiempos_salidas.TC006SalidasSeparadas.test_salida_visible_mientras_corre",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 3.31,
+      "caso": "TC-006"
+    },
+    {
+      "id": "test_tc003_tc006_estados_tiempos_salidas.TC006SalidasSeparadas.test_stdout_y_stderr_no_se_mezclan",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.37,
+      "caso": "TC-006"
+    },
+    {
+      "id": "test_tc003_tc006_estados_tiempos_salidas.TC006SalidasSeparadas.test_trabajo_que_lee_stdin_no_se_cuelga",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.45,
+      "caso": "TC-006"
+    },
+    {
+      "id": "test_tc004_tc013_consultas_y_salud.TC004Consultas.test_rnf05_consulta_en_menos_de_un_segundo_con_100_trabajos",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 8.22,
+      "caso": "TC-004"
+    },
+    {
+      "id": "test_tc004_tc013_consultas_y_salud.TC004Consultas.test_rnf06_500_registros_sin_perdida_tras_reinicio",
+      "resultado": "FAIL",
+      "detalle": "AssertionError: False is not true : Todos con estado y tiempos completos",
+      "segundos": 35.54,
+      "caso": "TC-004"
+    },
+    {
+      "id": "test_tc004_tc013_consultas_y_salud.TC004Consultas.test_status_list_y_filtro",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.58,
+      "caso": "TC-004"
+    },
+    {
+      "id": "test_tc004_tc013_consultas_y_salud.TC013ConfiguracionYSalud.test_configuracion_invalida_no_arranca",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.82,
+      "caso": "TC-013"
+    },
+    {
+      "id": "test_tc004_tc013_consultas_y_salud.TC013ConfiguracionYSalud.test_configuracion_se_registra_al_arrancar",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.21,
+      "caso": "TC-013"
+    },
+    {
+      "id": "test_tc004_tc013_consultas_y_salud.TC013ConfiguracionYSalud.test_health",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 1.02,
+      "caso": "TC-013"
+    },
+    {
+      "id": "test_tc005_tc007_tc009_tc013_robustez_avance03.TC005CancelacionDescendientes.test_descendiente_con_setsid_tambien_se_termina",
+      "resultado": "ERROR",
+      "detalle": "TypeError: 'NoneType' object is not subscriptable",
+      "segundos": 20.49,
+      "caso": "TC-005"
+    },
+    {
+      "id": "test_tc005_tc007_tc009_tc013_robustez_avance03.TC007CaidaEnArranque.test_caida_durante_el_arranque_no_ejecuta_el_trabajo_dos_veces",
+      "resultado": "FAIL",
+      "detalle": "AssertionError: 2 != 1 : El trabajo NO debe ejecutarse dos veces",
+      "segundos": 2.01,
+      "caso": "TC-007"
+    },
+    {
+      "id": "test_tc005_tc007_tc009_tc013_robustez_avance03.TC009CierreConClientes.test_cierre_no_espera_a_clientes_ociosos",
+      "resultado": "FAIL",
+      "detalle": "AssertionError: False is not true : El cierre no debe quedarse esperando al cliente",
+      "segundos": 8.51,
+      "caso": "TC-009"
+    },
+    {
+      "id": "test_tc005_tc007_tc009_tc013_robustez_avance03.TC013SaludAmpliada.test_bitacora_registra_el_origen_de_cada_envio",
+      "resultado": "FAIL",
+      "detalle": "AssertionError: '127.0.0.3' not found in '2026-11-24T02:55:42.981027+00:00 | job=003736e1-e6f0-4606-8ebb-747516b21224 | CREATED | Comando: true'",
+      "segundos": 0.24,
+      "caso": "TC-013"
+    },
+    {
+      "id": "test_tc005_tc007_tc009_tc013_robustez_avance03.TC013SaludAmpliada.test_errores_recientes_vencen_con_la_ventana",
+      "resultado": "ERROR",
+      "detalle": "KeyError: 'last_errors'",
+      "segundos": 0.35,
+      "caso": "TC-013"
+    },
+    {
+      "id": "test_tc005_tc007_tc009_tc013_robustez_avance03.TC013SaludAmpliada.test_health_trae_configuracion_y_tiempo_activo",
+      "resultado": "FAIL",
+      "detalle": "AssertionError: 'uptime_s' not found in {'type': 'health_response', 'version': 1, 'active': True, 'running': 0, 'queued': 0, 'recent_errors': 0} : {'type': 'health_response', 'version': 1, 'active': True, 'running': 0, 'queued': 0, 'recent_errors': 0}",
+      "segundos": 0.21,
+      "caso": "TC-013"
+    },
+    {
+      "id": "test_tc005_tc007_tc009_tc013_robustez_avance03.TC013SaludAmpliada.test_rechazos_por_validacion_se_registran",
+      "resultado": "FAIL",
+      "detalle": "AssertionError: 0 != 2 : ['2026-11-24T02:55:43.722047+00:00 | job=- | SERVICE_STARTED | 127.0.0.1:32999 concurrencia=3 cola=100 grace=5.0s cierre=30.0s']",
+      "segundos": 0.21,
+      "caso": "TC-013"
+    },
+    {
+      "id": "test_tc005_tc017_tc021_cancelacion.TC005Cancelacion.test_cancelar_alcanza_a_los_nietos",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.9,
+      "caso": "TC-005"
+    },
+    {
+      "id": "test_tc005_tc017_tc021_cancelacion.TC005Cancelacion.test_cancelar_en_cola",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.53,
+      "caso": "TC-005"
+    },
+    {
+      "id": "test_tc005_tc017_tc021_cancelacion.TC005Cancelacion.test_cancelar_en_ejecucion",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.48,
+      "caso": "TC-005"
+    },
+    {
+      "id": "test_tc005_tc017_tc021_cancelacion.TC017CancelacionesConcurrentes.test_cancelar_inmediatamente_despues_de_enviar",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 1.68,
+      "caso": "TC-017"
+    },
+    {
+      "id": "test_tc005_tc017_tc021_cancelacion.TC017CancelacionesConcurrentes.test_caso_a_cancelacion_llega_primero",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.77,
+      "caso": "TC-017"
+    },
+    {
+      "id": "test_tc005_tc017_tc021_cancelacion.TC017CancelacionesConcurrentes.test_caso_b_termina_primero",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.35,
+      "caso": "TC-017"
+    },
+    {
+      "id": "test_tc005_tc017_tc021_cancelacion.TC017CancelacionesConcurrentes.test_cinco_cancelaciones_simultaneas",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.46,
+      "caso": "TC-017"
+    },
+    {
+      "id": "test_tc005_tc017_tc021_cancelacion.TC021Escalamiento.test_proceso_que_ignora_sigterm",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 2.74,
+      "caso": "TC-021"
+    },
+    {
+      "id": "test_tc006_salida_por_partes_avance03.TC006SalidaGrande.test_cli_output_descarga_todas_las_partes",
+      "resultado": "FAIL",
+      "detalle": "AssertionError: 1 != 0 : [-] Respuesta inválida del servicio: El mensaje anuncia 3600126 bytes, el máximo permitido es 1048576.",
+      "segundos": 0.54,
+      "caso": "TC-006"
+    },
+    {
+      "id": "test_tc006_salida_por_partes_avance03.TC006SalidaGrande.test_compatibilidad_sin_offset_salida_chica",
+      "resultado": "ERROR",
+      "detalle": "KeyError: 'eof'",
+      "segundos": 0.36,
+      "caso": "TC-006"
+    },
+    {
+      "id": "test_tc006_salida_por_partes_avance03.TC006SalidaGrande.test_limite_pequeno_y_parametros_invalidos",
+      "resultado": "ERROR",
+      "detalle": "KeyError: 'next_offset'",
+      "segundos": 0.36,
+      "caso": "TC-006"
+    },
+    {
+      "id": "test_tc006_salida_por_partes_avance03.TC006SalidaGrande.test_salida_de_3_mb_se_recupera_completa_por_protocolo",
+      "resultado": "FAIL",
+      "detalle": "AssertionError: None != 0",
+      "segundos": 0.45,
+      "caso": "TC-006"
+    },
+    {
+      "id": "test_tc007_tc022_recuperacion.TC007Recuperacion.test_kill9_con_trabajos_corriendo_y_en_cola",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 2.73,
+      "caso": "TC-007"
+    },
+    {
+      "id": "test_tc007_tc022_recuperacion.TC007Recuperacion.test_nieto_huerfano_con_lider_muerto",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.86,
+      "caso": "TC-007"
+    },
+    {
+      "id": "test_tc007_tc022_recuperacion.TC007Recuperacion.test_pid_reutilizado_no_se_mata",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.98,
+      "caso": "TC-007"
+    },
+    {
+      "id": "test_tc007_tc022_recuperacion.TC022RecuperacionCapacidad.test_bajar_max_queue_con_pendientes",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 3.78,
+      "caso": "TC-022"
+    },
+    {
+      "id": "test_tc007_tc022_recuperacion.TC022RecuperacionCapacidad.test_base_integra_tras_kill9_durante_escrituras",
+      "resultado": "FAIL",
+      "detalle": "AssertionError: False is not true : Sin estados imposibles: {'QUEUED', 'FAILED', 'SUCCEEDED'}",
+      "segundos": 13.26,
+      "caso": "TC-022"
+    },
+    {
+      "id": "test_tc008_tc020_tc024_fallas_y_recursos.TC008Aislamiento.test_un_trabajo_que_falla_no_afecta_a_otros",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 2.36,
+      "caso": "TC-008"
+    },
+    {
+      "id": "test_tc008_tc020_tc024_fallas_y_recursos.TC020MuerteInesperada.test_falla_de_captura_no_deja_procesos_ni_descuadra_el_limite",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 2.04,
+      "caso": "TC-020"
+    },
+    {
+      "id": "test_tc008_tc020_tc024_fallas_y_recursos.TC020MuerteInesperada.test_senal_externa_queda_failed_con_diagnostico",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.95,
+      "caso": "TC-020"
+    },
+    {
+      "id": "test_tc008_tc020_tc024_fallas_y_recursos.TC024RecursosBajoCarga.test_cuatro_lotes_de_90_sin_fugas",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 25.18,
+      "caso": "TC-024"
+    },
+    {
+      "id": "test_tc009_cierre_controlado.TC009CierreControlado.test_cierre_con_tiempo_limite",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 4.92,
+      "caso": "TC-009"
+    },
+    {
+      "id": "test_tc009_cierre_controlado.TC009CierreControlado.test_ctrl_c_hace_el_mismo_cierre_controlado",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 2.46,
+      "caso": "TC-009"
+    },
+    {
+      "id": "test_tc009_cierre_controlado.TC009CierreControlado.test_durante_el_cierre_no_acepta_nuevos",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 3.6,
+      "caso": "TC-009"
+    },
+    {
+      "id": "test_tc009_cierre_controlado.TC009CierreControlado.test_puerto_ocupado",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.44,
+      "caso": "TC-009"
+    },
+    {
+      "id": "test_tc009_cierre_controlado.TC009CierreControlado.test_sigterm_con_servicio_ocioso",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.22,
+      "caso": "TC-009"
+    },
+    {
+      "id": "test_tc009_tc015_arranque_y_cliente_avance03.TC009SenalDuranteElArranque.test_sigterm_durante_el_arranque_hace_cierre_controlado",
+      "resultado": "FAIL",
+      "detalle": "AssertionError: -15 != 0 : Cierre controlado, no muerte por la señal:",
+      "segundos": 0.31,
+      "caso": "TC-009"
+    },
+    {
+      "id": "test_tc009_tc015_arranque_y_cliente_avance03.TC015TiempoDeEsperaDelCliente.test_el_cliente_espera_mas_que_el_servicio",
+      "resultado": "ERROR",
+      "detalle": "AttributeError: 'NoneType' object has no attribute 'group'",
+      "segundos": 0.0,
+      "caso": "TC-015"
+    },
+    {
+      "id": "test_tc009_tc015_arranque_y_cliente_avance03.TC015TiempoDeEsperaDelCliente.test_tiempo_agotado_avisa_que_pudo_haberse_aceptado",
+      "resultado": "FAIL",
+      "detalle": "AssertionError: 'no respondió' not found in \"[-] Error: comando desconocido '--timeout'. Usa --help para ver la lista.\"",
+      "segundos": 0.2,
+      "caso": "TC-015"
+    },
+    {
+      "id": "test_tc010_tc011_red_avance03.TC010FlujoRemoto.test_cli_con_host_y_puerto_explicitos",
+      "resultado": "FAIL",
+      "detalle": "AssertionError: 1 != 0 : [-] Error: comando desconocido '--host'. Usa --help para ver la lista.",
+      "segundos": 0.26,
+      "caso": "TC-010"
+    },
+    {
+      "id": "test_tc010_tc011_red_avance03.TC010FlujoRemoto.test_escucha_en_la_ip_de_la_red_local",
+      "resultado": "FAIL",
+      "detalle": "AssertionError: False is not true : El servicio no arrancó. Salida:",
+      "segundos": 0.1,
+      "caso": "TC-010"
+    },
+    {
+      "id": "test_tc010_tc011_red_avance03.TC010FlujoRemoto.test_escucha_en_varias_direcciones",
+      "resultado": "FAIL",
+      "detalle": "AssertionError: False is not true : El servicio no arrancó. Salida:",
+      "segundos": 0.1,
+      "caso": "TC-010"
+    },
+    {
+      "id": "test_tc010_tc011_red_avance03.TC010FlujoRemoto.test_flujo_completo_desde_otra_direccion_autorizada",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.59,
+      "caso": "TC-010"
+    },
+    {
+      "id": "test_tc010_tc011_red_avance03.TC010FlujoRemoto.test_misma_semantica_local_y_remota",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.27,
+      "caso": "TC-010"
+    },
+    {
+      "id": "test_tc010_tc011_red_avance03.TC011RestriccionDeRed.test_configuracion_de_red_invalida_no_arranca",
+      "resultado": "FAIL",
+      "detalle": "(caso='prefijo imposible'): AssertionError: False is not true : Con configuración de red inválida no debe quedarse corriendo | (caso='texto que no es red'): AssertionError: False is not true : Con configuración de red inválida no debe quedarse corriendo | (caso='todo internet'): AssertionError: False is not true : Con configuración de red inválida no debe quedarse corriendo | (caso='red pública'): AssertionError: False is not true : Con configuración de red inválida no debe quedarse corriendo | (caso='lista vacía'): AssertionError: False is not true : Con configuración de red inválida no debe quedarse corriendo | (caso='escuchar en IP pública'): AssertionError: 'Configuración inválida' not found in \"[-] No se puede escuchar en 8.8.8.8:41069: Cannot assign requested address (while attempting to bind on address ('8.8.8.8', 41069)). ¿Hay otro servicio usando ese puerto? Cambia JOBRUNNER_PORT o detén el otro proceso.\\n\" | (caso='host que no es IP'): AssertionError: 'Configuración inválida' not found in \"[-] No se puede escuchar en servidor-casa:53739: Name or service not known (while attempting to bind on address ('servidor-casa', 53739)). ¿Hay otro servicio usando ese puerto? Cambia JOBRUNNER_PORT o detén el otro proceso.\\n\"",
+      "segundos": 50.15,
+      "caso": "TC-011"
+    },
+    {
+      "id": "test_tc010_tc011_red_avance03.TC011RestriccionDeRed.test_direccion_no_autorizada_se_rechaza_y_se_registra",
+      "resultado": "FAIL",
+      "detalle": "AssertionError: Tuples differ: ('submit_response', None) != ('error', 'ACCESS_DENIED')",
+      "segundos": 0.24,
+      "caso": "TC-011"
+    },
+    {
+      "id": "test_tc010_tc011_red_avance03.TC011RestriccionDeRed.test_escuchar_en_todas_las_interfaces_queda_advertido",
+      "resultado": "FAIL",
+      "detalle": "AssertionError: [] is not true : ['2026-11-24T02:57:49.490945+00:00 | job=- | SERVICE_STARTED | 0.0.0.0:45091 concurrencia=3 cola=100 grace=5.0s cierre=30.0s']",
+      "segundos": 0.2,
+      "caso": "TC-011"
+    },
+    {
+      "id": "test_tc010_tc011_red_avance03.TC011RestriccionDeRed.test_por_defecto_solo_localhost",
+      "resultado": "FAIL",
+      "detalle": "AssertionError: None != 'ACCESS_DENIED' : Ni siquiera otra dirección de loopback entra si no está en la lista",
+      "segundos": 0.21,
+      "caso": "TC-011"
+    },
+    {
+      "id": "test_tc010_tc011_red_avance03.TC011RestriccionDeRed.test_rechazo_sin_enviar_nada",
+      "resultado": "ERROR",
+      "detalle": "asyncio.exceptions.CancelledError",
+      "segundos": 5.23,
+      "caso": "TC-011"
+    },
+    {
+      "id": "test_tc010_tc011_red_avance03.TC011RestriccionDeRed.test_redes_en_notacion_cidr",
+      "resultado": "FAIL",
+      "detalle": "(origen='127.0.0.5'): AssertionError: 'health_response' != 'error' | (origen='127.0.0.200'): AssertionError: 'health_response' != 'error' | AssertionError: 0 != 2",
+      "segundos": 0.21,
+      "caso": "TC-011"
+    },
+    {
+      "id": "test_tc012_tc019_tc023_protocolo.TC012Protocolo.test_mensaje_byte_a_byte_y_varias_solicitudes_por_conexion",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.29,
+      "caso": "TC-012"
+    },
+    {
+      "id": "test_tc012_tc019_tc023_protocolo.TC012Protocolo.test_mensajes_invalidos_reciben_error_y_no_tumban_el_servicio",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.31,
+      "caso": "TC-012"
+    },
+    {
+      "id": "test_tc012_tc019_tc023_protocolo.TC019Desconexion.test_desconexion_a_medio_mensaje_no_tiene_efecto",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.8,
+      "caso": "TC-019"
+    },
+    {
+      "id": "test_tc012_tc019_tc023_protocolo.TC019Desconexion.test_desconexion_tras_mensaje_completo_la_operacion_queda_aceptada",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.81,
+      "caso": "TC-019"
+    },
+    {
+      "id": "test_tc012_tc019_tc023_protocolo.TC019Desconexion.test_reintento_con_folio_recupera_el_id",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.71,
+      "caso": "TC-019"
+    },
+    {
+      "id": "test_tc012_tc019_tc023_protocolo.TC023CompatibilidadProtocolo.test_version_incompatible_se_rechaza_explicitamente",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.31,
+      "caso": "TC-023"
+    },
+    {
+      "id": "test_tc013_tc022_tc024_regresion_issues_avance03.TC013SaludEnTransito.test_health_cuenta_los_trabajos_en_transito",
+      "resultado": "FAIL",
+      "detalle": "AssertionError: Tuples differ: (0, 0) != (0, 1) : queued debe coincidir con lo que la base reporta como QUEUED: {'running': 0, 'queued': 0, 'starting': None, 'base': 'QUEUED'}",
+      "segundos": 3.77,
+      "caso": "TC-013"
+    },
+    {
+      "id": "test_tc013_tc022_tc024_regresion_issues_avance03.TC024BaseOcupada.test_bloqueo_de_7s_no_marca_failed_un_trabajo_valido",
+      "resultado": "FAIL",
+      "detalle": "AssertionError: Tuples differ: ('FAILED', -1) != ('SUCCEEDED', 0)",
+      "segundos": 7.58,
+      "caso": "TC-024"
+    },
+    {
+      "id": "test_tc013_tc022_tc024_regresion_issues_avance03.TC024BaseOcupada.test_si_la_base_no_responde_el_cupo_se_libera",
+      "resultado": "FAIL",
+      "detalle": "AssertionError: 'QUEUED' != 'SUCCEEDED' : Con MAX_CONCURRENCY=1, otro trabajo debe poder correr: {'id': '35cdab75-dd13-4f5b-91b7-4756046df90f', 'command': 'echo', 'args': ['despues'], 'status': 'QUEUED', 'client_request_id': None, 'pid': None, 'submitted_at': '2026-11-24T02:58:13.264501+00:00', 'sta",
+      "segundos": 18.58,
+      "caso": "TC-024"
+    },
+    {
+      "id": "test_tc016_tc018_saturacion_y_duplicados.TC016Saturacion.test_carrera_diez_envios_con_un_lugar",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.8,
+      "caso": "TC-016"
+    },
+    {
+      "id": "test_tc016_tc018_saturacion_y_duplicados.TC016Saturacion.test_rechazo_explicito_secuencial",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 1.13,
+      "caso": "TC-016"
+    },
+    {
+      "id": "test_tc016_tc018_saturacion_y_duplicados.TC018Duplicados.test_a_reintento_mismo_folio_mismo_comando",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.76,
+      "caso": "TC-018"
+    },
+    {
+      "id": "test_tc016_tc018_saturacion_y_duplicados.TC018Duplicados.test_b_sin_folio_cada_envio_es_nuevo",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.58,
+      "caso": "TC-018"
+    },
+    {
+      "id": "test_tc016_tc018_saturacion_y_duplicados.TC018Duplicados.test_c_mismo_folio_otro_comando_es_conflicto",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.5,
+      "caso": "TC-018"
+    },
+    {
+      "id": "test_tc016_tc018_saturacion_y_duplicados.TC018Duplicados.test_cli_request_id",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.56,
+      "caso": "TC-018"
+    },
+    {
+      "id": "test_tc016_tc018_saturacion_y_duplicados.TC018Duplicados.test_d_seis_envios_simultaneos_mismo_folio",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 0.54,
+      "caso": "TC-018"
+    },
+    {
+      "id": "test_tc016_tc024_limites_de_clientes_avance03.TC016LimiteDeClientes.test_cliente_de_mas_recibe_too_many_clients",
+      "resultado": "FAIL",
+      "detalle": "AssertionError: False is not true",
+      "segundos": 5.57,
+      "caso": "TC-016"
+    },
+    {
+      "id": "test_tc016_tc024_limites_de_clientes_avance03.TC016LimiteDeClientes.test_health_reporta_clientes_conectados",
+      "resultado": "FAIL",
+      "detalle": "AssertionError: False is not true",
+      "segundos": 5.58,
+      "caso": "TC-016"
+    },
+    {
+      "id": "test_tc016_tc024_limites_de_clientes_avance03.TC016LimiteDeClientes.test_muchos_clientes_simultaneos_dentro_del_limite",
+      "resultado": "PASS",
+      "detalle": "",
+      "segundos": 1.34,
+      "caso": "TC-016"
+    },
+    {
+      "id": "test_tc016_tc024_limites_de_clientes_avance03.TC024ClientesLentosYOciosos.test_cliente_ocioso_se_desconecta_y_libera_su_lugar",
+      "resultado": "FAIL",
+      "detalle": "AssertionError: False is not true",
+      "segundos": 5.58,
+      "caso": "TC-024"
+    },
+    {
+      "id": "test_tc016_tc024_limites_de_clientes_avance03.TC024ClientesLentosYOciosos.test_descriptores_vuelven_a_la_base_tras_muchas_conexiones",
+      "resultado": "ERROR",
+      "detalle": "asyncio.exceptions.CancelledError",
+      "segundos": 5.21,
+      "caso": "TC-024"
+    },
+    {
+      "id": "test_tc016_tc024_limites_de_clientes_avance03.TC024ClientesLentosYOciosos.test_mensaje_a_medias_no_retiene_la_conexion",
+      "resultado": "ERROR",
+      "detalle": "asyncio.exceptions.CancelledError",
+      "segundos": 5.21,
+      "caso": "TC-024"
+    }
+  ]
+}
